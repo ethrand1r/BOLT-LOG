@@ -13,7 +13,8 @@ export default defineConfig({
   site: 'https://bolt-log.com',
   // Clean URLs without trailing slashes, as in CLAUDE.md section 4 (/hizmetler/havayolu-tasimaciligi).
   trailingSlash: 'never',
-  build: { format: 'file' },
+  // Inline the (small) CSS so it does not block first paint.
+  build: { format: 'file', inlineStylesheets: 'always' },
   integrations: [
     icon(),
     sitemap({

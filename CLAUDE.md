@@ -201,7 +201,7 @@ Do not display an icon for any social account without a link.
 - [x] Google Maps embed
 - [x] Cookie consent banner (KVKK-compliant, with accept/reject)
 - [x] Logipedia knowledge pages
-- [ ] Blog (build the structure; content added later)
+- [x] Blog structure (Markdown in `src/content/blog/{tr,en}/`, see `ornek-taslak.md`; blog stays noindex and out of the sitemap until the first post)
 - [ ] Downloadable company presentation PDF `[TBD — if available]`
 - [ ] Shipment tracking — **not in the first release**
 
@@ -210,7 +210,7 @@ Do not display an icon for any social account without a link.
 ## 8. Technical Requirements
 
 - **Stack:** Static site built with **Astro** (decided 2026-09-26).
-- **Hosting:** `[TBD — e.g. Netlify, Vercel, Cloudflare Pages, or existing hosting]`
+- **Hosting:** `[TBD — e.g. Netlify, Vercel, Cloudflare Pages, or existing hosting]`. The build is fully static (`npm run build` → `dist/`), with clean URLs (`build.format: 'file'`, no trailing slash), so any static host works.
 - **Domain:** bolt-log.com (existing, keep it)
 - **Forms:** **Web3Forms** (decided 2026-09-26). Access key received 2026-09-26, stored in `src/data/site.ts` (`company.web3formsKey`; public by design). Spam protection: `botcheck` honeypot (hCaptcha is available for free if spam appears). Submissions pass through Web3Forms servers in the US, so the KVKK notice must mention this transfer. Free plan has no file attachments — the quote form's file upload is hidden/disabled until a paid plan or alternative is chosen.
 - **Responsive:** Mobile-first; every page must look flawless on phone, tablet and desktop.
