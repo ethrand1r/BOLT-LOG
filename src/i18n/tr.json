@@ -246,5 +246,20 @@
     "mapFrameTitle": "Bolt Logistics ofis konumu, Google Haritalar",
     "directions": "Yol tarifi al",
     "emailSubject": "Yeni iletişim mesajı"
+  },
+  "servicePage": {
+    "highlights": "Öne çıkanlar",
+    "scopeTitle": "Taşıdığımız yük türleri",
+    "faqTitle": "Sık sorulan sorular",
+    "faqText": "Aradığınız cevap burada yoksa bize doğrudan yazın.",
+    "otherTitle": "Diğer hizmetlerimiz",
+    "relatedLink": "Logipedia'da inceleyin",
+    "ctaText": "Bilgileri gönderin, size uygun rota ve fiyatla dönelim."
+  },
+  "servicesPage": {
+    "metaTitle": "Hizmetlerimiz | Bolt Logistics",
+    "metaDescription": "Bolt Logistics; havayolu, karayolu, denizyolu, demiryolu ve intermodal taşımacılık ile depolama hizmeti sunar. Yükünüze uygun çözümü birlikte belirleyelim.",
+    "title": "Hizmetlerimiz",
+    "lead": "Hava, kara, deniz ve demiryolunda, tek başına ya da birlikte: yükünüze uygun taşıma çözümünü planlıyoruz."
   }
 }

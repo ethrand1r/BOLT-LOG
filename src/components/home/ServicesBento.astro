@@ -14,9 +14,11 @@ import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Hide the "all services" link (e.g. on the services page itself). */
+  showLink?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, showLink = true } = Astro.props;
 const t = useTranslations(lang);
 
 const images: Record<string, ImageMetadata> = { air, road, sea, rail, intermodal, warehousing };
@@ -30,10 +32,14 @@ const cards = serviceLinks.map((s) => {
   <div class="container">
     <div class="services-head">
       <h2 id="services-title">{t('home.services.title')}</h2>
-      <a class="arrow-link" href={path('services', lang)}>
-        {t('nav.allServices')}
-        <Icon name="ph:arrow-right" aria-hidden="true" />
-      </a>
+      {
+        showLink && (
+          <a class="arrow-link" href={path('services', lang)}>
+            {t('nav.allServices')}
+            <Icon name="ph:arrow-right" aria-hidden="true" />
+          </a>
+        )
+      }
     </div>
 
     <ul role="list" class="bento">

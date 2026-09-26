@@ -246,5 +246,20 @@
     "mapFrameTitle": "Bolt Logistics office location on Google Maps",
     "directions": "Get directions",
     "emailSubject": "New contact message"
+  },
+  "servicePage": {
+    "highlights": "Highlights",
+    "scopeTitle": "Cargo we handle",
+    "faqTitle": "Frequently asked questions",
+    "faqText": "If your question is not here, message us directly.",
+    "otherTitle": "Other services",
+    "relatedLink": "See it in Logipedia",
+    "ctaText": "Send us the details and we will come back with a route and a price."
+  },
+  "servicesPage": {
+    "metaTitle": "Our Services | Bolt Logistics",
+    "metaDescription": "Bolt Logistics offers air, road, sea, rail and intermodal freight plus warehousing. Let us find the right solution for your cargo together.",
+    "title": "Our Services",
+    "lead": "Air, road, sea and rail, on their own or combined: we plan the transport solution that fits your cargo."
   }
 }

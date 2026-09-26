@@ -1,0 +1,280 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import PageHead from '../ui/PageHead.astro';
+import FaqSection from '../sections/FaqSection.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { services, type Service } from '../../content/services';
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  service: Service;
+}
+
+const { lang, service } = Astro.props;
+const t = useTranslations(lang);
+const c = service.copy[lang];
+const title = t(`services.${service.key}` as UiKey);
+const quoteHref = `${path('quote', lang)}?mode=${service.key}`;
+const others = services.filter((s) => s.key !== service.key);
+---
+
+<PageHead
+  lang={lang}
+  title={title}
+  lead={c.lead}
+  image={service.image}
+  imageAlt={c.imageAlt}
+  crumbs={[{ label: t('nav.services'), href: path('services', lang) }, { label: title }]}
+>
+  <div class="head-actions">
+    <Button href={quoteHref} icon="ph:arrow-right">{t('cta.quote')}</Button>
+    <Button href={company.whatsapp} variant="secondary-on-dark" icon="ph:whatsapp-logo" target="_blank" rel="noopener">
+      {t('cta.whatsapp')}
+    </Button>
+  </div>
+</PageHead>
+
+<section class="section service-body">
+  <div class="container body-grid">
+    <div class="article">
+      {c.body.map((p) => <p>{p}</p>)}
+      {
+        service.related && (
+          <a class="arrow-link" href={path(service.related, lang)}>
+            {t('servicePage.relatedLink')}
+            <Icon name="ph:arrow-right" aria-hidden="true" />
+          </a>
+        )
+      }
+    </div>
+
+    <aside class="highlights" aria-labelledby="highlights-title">
+      <h2 id="highlights-title">{t('servicePage.highlights')}</h2>
+      <ul role="list">
+        {
+          c.benefits.map((b, i) => (
+            <li data-reveal style={`--i: ${i}`}>
+              <Icon name="ph:check-circle" aria-hidden="true" />
+              <span>{b}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </div>
+</section>
+
+{
+  c.scope.length > 0 && (
+    <section class="section scope" aria-labelledby="scope-title">
+      <div class="container">
+        <h2 id="scope-title">{t('servicePage.scopeTitle')}</h2>
+        <ul role="list" class="scope-list">
+          {c.scope.map((s) => (
+            <li>{s}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<FaqSection lang={lang} id="service-faq" title={t('servicePage.faqTitle')} text={t('servicePage.faqText')} items={c.faqs} />
+
+<section class="section others" aria-labelledby="others-title">
+  <div class="container">
+    <h2 id="others-title">{t('servicePage.otherTitle')}</h2>
+    <ul role="list" class="other-list">
+      {
+        others.map((s, i) => (
+          <li data-reveal style={`--i: ${i}`}>
+            <a class="other" href={path(s.route, lang)}>
+              <span class="other-icon" aria-hidden="true">
+                <Icon name={s.icon} />
+              </span>
+              <span class="other-title">{t(`services.${s.key}` as UiKey)}</span>
+              <Icon name="ph:arrow-right" class="other-arrow" aria-hidden="true" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<CtaBand lang={lang} title={c.ctaTitle} text={t('servicePage.ctaText')} quoteHref={quoteHref} />
+
+<style>
+  .head-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .body-grid {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .article {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+    max-width: var(--measure);
+    font-size: var(--text-md);
+  }
+
+  .article p:first-child {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+  }
+
+  .article p:not(:first-child) {
+    color: var(--text-muted);
+  }
+
+  .highlights {
+    align-self: start;
+    padding: var(--space-8);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  .highlights h2 {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-xl);
+  }
+
+  .highlights ul {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .highlights li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    font-weight: var(--weight-medium);
+  }
+
+  .highlights :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    margin-top: 0.1em;
+  }
+
+  .scope-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+
+  .scope-list li {
+    padding: var(--space-2) var(--space-4);
+    border: var(--border-width) solid var(--line-strong);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .others h2 {
+    margin-bottom: var(--space-8);
+  }
+
+  .other-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .other {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: var(--mobile-link-height);
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-width) solid var(--line);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration-hover) ease;
+  }
+
+  .other-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--icon-chip);
+    height: var(--icon-chip);
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .other-icon :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+
+  .other-title {
+    flex: 1;
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+  }
+
+  .other :global(.other-arrow) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    transition: transform var(--duration-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .other:hover {
+      border-color: var(--text);
+    }
+
+    .other:hover :global(.other-arrow) {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .other-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .body-grid {
+      grid-template-columns: 7fr 5fr;
+      gap: var(--space-16);
+    }
+
+    .highlights {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+
+    .other-list {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .other {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 100%;
+      padding: var(--space-5);
+    }
+
+    .other-title {
+      flex: 1;
+    }
+  }
+</style>

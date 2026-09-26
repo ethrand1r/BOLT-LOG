@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicesIndex from '../../components/services/ServicesIndex.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'tr';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} routeKey="services" title={t('servicesPage.metaTitle')} description={t('servicesPage.metaDescription')}>
+  <ServicesIndex lang={lang} />
+</BaseLayout>

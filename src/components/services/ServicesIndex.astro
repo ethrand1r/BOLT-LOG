@@ -1,0 +1,19 @@
+---
+import PageHead from '../ui/PageHead.astro';
+import ServicesBento from '../home/ServicesBento.astro';
+import Process from '../home/Process.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<PageHead lang={lang} title={t('servicesPage.title')} lead={t('servicesPage.lead')} crumbs={[{ label: t('servicesPage.title') }]} />
+<ServicesBento lang={lang} showLink={false} />
+<Process lang={lang} />
+<CtaBand lang={lang} title={t('home.ctaBand.title')} text={t('home.ctaBand.text')} />

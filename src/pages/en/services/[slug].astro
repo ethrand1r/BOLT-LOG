@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ServicePage from '../../../components/services/ServicePage.astro';
+import { services, type Service } from '../../../content/services';
+import { routes } from '../../../i18n/routes';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: routes[service.route].en.split('/').pop() },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props as { service: Service };
+const lang = 'en';
+const copy = service.copy[lang];
+---
+
+<BaseLayout lang={lang} routeKey={service.route} title={copy.metaTitle} description={copy.metaDescription}>
+  <ServicePage lang={lang} service={service} />
+</BaseLayout>
