@@ -1,0 +1,282 @@
+/* Shared form styles: quote form, contact form. Labels above, errors below. */
+
+.bolt-form {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.bolt-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.bolt-form legend {
+  margin-bottom: var(--space-6);
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-heading);
+}
+
+.form-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6) var(--space-5);
+  }
+
+  .form-grid > .field--full {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Field ---------- */
+.field {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.field-req {
+  margin-inline-start: 0.15em;
+}
+
+.field-optional {
+  margin-inline-start: var(--space-1);
+  color: var(--text-muted);
+  font-weight: var(--weight-regular);
+}
+
+.field-hint {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.field-control {
+  width: 100%;
+  min-height: var(--field-height);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+  transition: border-color var(--duration-hover) ease;
+}
+
+textarea.field-control {
+  min-height: calc(var(--field-height) * 3);
+  resize: vertical;
+}
+
+.field-control::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.field-control:focus-visible {
+  border-color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-control:hover {
+    border-color: var(--text);
+  }
+}
+
+.field-control[aria-invalid='true'] {
+  border-color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.field-error svg {
+  flex-shrink: 0;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  margin-top: 0.15em;
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
+/* ---------- Choice cards (radio) ---------- */
+.choice-group legend {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  .choice-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.choice {
+  position: relative;
+}
+
+.choice input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.choice-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 100%;
+  min-height: var(--mobile-link-height);
+  padding: var(--space-3);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  transition:
+    border-color var(--duration-hover) ease,
+    background-color var(--duration-hover) ease;
+}
+
+.choice-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--icon-chip);
+  height: var(--icon-chip);
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-hover) ease;
+}
+
+.choice-icon svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .choice input:hover + .choice-card {
+    border-color: var(--text);
+  }
+}
+
+.choice input:checked + .choice-card {
+  border-color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--text);
+}
+
+.choice input:checked + .choice-card .choice-icon {
+  background: var(--accent);
+}
+
+.choice input:focus-visible + .choice-card {
+  outline: var(--focus-ring-width) solid var(--text);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.choice-group[aria-invalid='true'] .choice-card {
+  border-color: var(--danger);
+}
+
+/* ---------- Consent checkbox ---------- */
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  font-size: var(--text-sm);
+}
+
+.consent input {
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin: 0.1em 0 0;
+  cursor: pointer;
+}
+
+.consent label {
+  cursor: pointer;
+}
+
+.consent .field-error {
+  grid-column: 2;
+}
+
+/* ---------- Honeypot ---------- */
+.hp-field {
+  display: none !important;
+}
+
+/* ---------- Alerts and states ---------- */
+.form-alert {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-width) solid var(--danger);
+  border-radius: var(--radius-sm);
+  background: var(--danger-surface);
+  font-size: var(--text-sm);
+}
+
+.form-alert[hidden] {
+  display: none;
+}
+
+.form-alert strong {
+  color: var(--danger);
+}
+
+.form-alert a {
+  font-weight: var(--weight-semibold);
+}
+
+.form-submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+}
+
+.form-submit .btn[aria-busy='true'] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.form-note {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}

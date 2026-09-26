@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuotePage from '../../components/quote/QuotePage.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} routeKey="quote" title={t('quote.metaTitle')} description={t('quote.metaDescription')}>
+  <QuotePage lang={lang} />
+</BaseLayout>

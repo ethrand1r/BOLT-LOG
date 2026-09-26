@@ -31,6 +31,11 @@
   --scrim-medium: rgb(15 15 16 / 0.55);
   --scrim-clear: rgb(15 15 16 / 0);
 
+  /* Feedback (forms only; outside the brand palette by necessity) */
+  --danger: #b42318; /* 6.5:1 on white */
+  --danger-surface: rgb(180 35 24 / 0.07);
+  --success-surface: var(--surface-alt);
+
   /* Accent */
   --accent: var(--color-yellow);
   --accent-hover: var(--color-yellow-dark);
@@ -92,6 +97,8 @@
   --menu-width-wide: 34rem;
   --floating-button-size: 3.5rem;
   --field-height: 3rem;
+  --checkbox-size: 1.25rem;
+  --aside-width: 22rem;
   --hero-min-height: min(calc(100dvh - var(--header-height)), 50rem);
   --quote-overlap: 4rem;
   --card-min-height: 16rem;

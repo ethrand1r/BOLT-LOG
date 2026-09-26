@@ -1,0 +1,447 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import FormField from '../forms/FormField.astro';
+import { serviceLinks } from '../../data/navigation';
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const modes = serviceLinks.map((s) => ({
+  value: s.label.split('.')[1],
+  label: t(s.label),
+  icon: s.icon!,
+}));
+
+const messages = {
+  required: t('form.errors.required'),
+  choose: t('form.errors.choose'),
+  email: t('form.errors.email'),
+  phone: t('form.errors.phone'),
+  consent: t('form.errors.consent'),
+  summary: t('form.errors.summary'),
+  sending: t('form.sending'),
+};
+
+const site = Astro.site ?? new URL(company.url);
+const redirectUrl = new URL(`${path('quote', lang)}?sent=1`, site).href;
+const today = new Date().toISOString().slice(0, 10);
+---
+
+<section class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol role="list">
+        <li><a href={path('home', lang)}>Bolt Logistics</a></li>
+        <li aria-current="page">{t('quote.title')}</li>
+      </ol>
+    </nav>
+    <h1>{t('quote.title')}</h1>
+    <p>{t('quote.text')}</p>
+  </div>
+</section>
+
+<section class="section quote-body">
+  <div class="container quote-grid">
+    <div class="quote-main">
+      <form
+        id="quote-form"
+        class="bolt-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        novalidate
+        data-form
+        data-messages={JSON.stringify(messages)}
+        data-subject={t('quote.emailSubject')}
+      >
+        <input type="hidden" name="access_key" value={company.web3formsKey} />
+        <input type="hidden" name="subject" value={t('quote.emailSubject')} />
+        <input type="hidden" name="from_name" value="Bolt Logistics Web" />
+        <input type="hidden" name="redirect" value={redirectUrl} />
+        <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <p class="form-alert" role="alert" tabindex="-1" data-form-summary hidden></p>
+
+        <fieldset>
+          <legend>{t('quote.contactLegend')}</legend>
+          <div class="form-grid">
+            <FormField lang={lang} name="name" label={t('quote.name')} required autocomplete="name" />
+            <FormField lang={lang} name="company" label={t('quote.company')} autocomplete="organization" />
+            <FormField lang={lang} name="email" label={t('quote.email')} type="email" required autocomplete="email" inputmode="email" />
+            <FormField
+              lang={lang}
+              name="phone"
+              label={t('quote.phone')}
+              type="tel"
+              required
+              autocomplete="tel"
+              inputmode="tel"
+              validate="phone"
+              hint={t('quote.phoneHint')}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>{t('quote.cargoLegend')}</legend>
+          <div class="form-grid">
+            <fieldset
+              class="choice-group field--full"
+              data-choice-group="mode"
+              data-required
+              data-label={t('quote.mode')}
+              aria-describedby="mode-error"
+            >
+              <legend>
+                {t('quote.mode')}<span class="field-req" aria-hidden="true">*</span>
+              </legend>
+              <div class="choice-grid">
+                {
+                  modes.map((m) => (
+                    <label class="choice">
+                      <input type="radio" name="mode" value={m.value} data-display={m.label} required />
+                      <span class="choice-card">
+                        <span class="choice-icon" aria-hidden="true">
+                          <Icon name={m.icon} />
+                        </span>
+                        {m.label}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="field-error" id="mode-error" hidden>
+                <Icon name="ph:warning-circle" aria-hidden="true" />
+                <span></span>
+              </p>
+            </fieldset>
+
+            <FormField lang={lang} name="origin" label={t('quote.origin')} required hint={t('quote.originHint')} />
+            <FormField lang={lang} name="destination" label={t('quote.destination')} required />
+            <FormField lang={lang} name="cargo_type" label={t('quote.cargoType')} placeholder={t('quote.cargoTypePlaceholder')} full />
+            <FormField lang={lang} name="weight" label={t('quote.weight')} type="number" inputmode="decimal" min="0" />
+            <FormField lang={lang} name="volume" label={t('quote.volume')} placeholder={t('quote.volumePlaceholder')} />
+            <FormField lang={lang} name="loading_date" label={t('quote.date')} type="date" min={today} />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>{t('quote.detailsLegend')}</legend>
+          <div class="form-grid">
+            <FormField
+              lang={lang}
+              name="message"
+              label={t('quote.message')}
+              type="textarea"
+              placeholder={t('quote.messagePlaceholder')}
+              full
+            />
+          </div>
+          <!-- File upload is hidden until a Web3Forms plan with attachments is chosen (CLAUDE.md section 8). -->
+        </fieldset>
+
+        <div class="consent">
+          <input
+            id="f-consent"
+            type="checkbox"
+            name="consent"
+            required
+            aria-describedby="f-consent-error"
+            data-label="KVKK"
+          />
+          <label for="f-consent">
+            {t('quote.consentBefore')}<a href={path('kvkk', lang)} target="_blank" rel="noopener">{t('quote.consentLink')}</a>{t('quote.consentAfter')}
+            <span class="field-req" aria-hidden="true">*</span>
+          </label>
+          <p class="field-error" id="f-consent-error" hidden>
+            <Icon name="ph:warning-circle" aria-hidden="true" />
+            <span></span>
+          </p>
+        </div>
+
+        <div class="form-alert" role="alert" tabindex="-1" data-form-failure hidden>
+          <strong>{t('form.failureTitle')}</strong>
+          <p>{t('form.failureText')}</p>
+          <p>
+            <a href={company.phones[0].href} class="tabular">{company.phones[0].display}</a>
+            {' · '}
+            <a href={company.whatsapp} target="_blank" rel="noopener">{t('cta.whatsapp')}</a>
+          </p>
+        </div>
+
+        <div class="form-submit">
+          <Button type="submit" icon="ph:paper-plane-tilt">{t('quote.submit')}</Button>
+          <p class="form-note">{t('form.requiredNote')}</p>
+        </div>
+      </form>
+
+      <div class="form-success" data-form-success="quote-form" tabindex="-1" hidden>
+        <span class="success-icon" aria-hidden="true"><Icon name="ph:check-circle" /></span>
+        <h2>{t('quote.successTitle')}</h2>
+        <p>{t('quote.successText')}</p>
+        <div class="success-actions">
+          <Button href={path('home', lang)} variant="secondary">{t('quote.successHome')}</Button>
+          <a class="arrow-link tabular" href={company.phones[0].href}>
+            <Icon name="ph:phone" aria-hidden="true" />
+            {company.phones[0].display}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="quote-aside on-dark" aria-labelledby="aside-title">
+      <h2 id="aside-title">{t('quote.asideTitle')}</h2>
+      <ol role="list" class="next-steps">
+        {
+          [t('quote.next1'), t('quote.next2'), t('quote.next3')].map((step, i) => (
+            <li>
+              <span class="next-num tabular" aria-hidden="true">{i + 1}</span>
+              <span>{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="aside-contact">
+        <h3>{t('quote.contactTitle')}</h3>
+        <p>{t('quote.contactText')}</p>
+        <ul role="list" class="aside-links">
+          {
+            company.phones.map((p) => (
+              <li>
+                <a href={p.href} class="tabular">
+                  <Icon name="ph:phone" aria-hidden="true" />
+                  {p.display}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={`mailto:${company.email}`}>
+              <Icon name="ph:envelope-simple" aria-hidden="true" />
+              {company.email}
+            </a>
+          </li>
+          <li class="aside-hours tabular">
+            <Icon name="ph:clock" aria-hidden="true" />
+            {t('contact.hours')}
+          </li>
+        </ul>
+        <Button href={company.whatsapp} variant="secondary-on-dark" icon="ph:whatsapp-logo" target="_blank" rel="noopener">
+          {t('cta.whatsapp')}
+        </Button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  import { initForm } from '../../scripts/form';
+
+  initForm('#quote-form', {
+    prefill: ['mode', 'origin', 'destination'],
+    subject: (form) => {
+      const get = (name: string) => (form.elements.namedItem(name) as HTMLInputElement | null)?.value.trim() ?? '';
+      const mode = form.querySelector<HTMLInputElement>('input[name="mode"]:checked')?.dataset.display ?? '';
+      const route = [get('origin'), get('destination')].filter(Boolean).join(' → ');
+      return [form.dataset.subject, [mode, route].filter(Boolean).join(', ')].filter(Boolean).join(': ');
+    },
+  });
+</script>
+
+<style>
+  .page-head {
+    padding-block: var(--space-12) var(--space-16);
+    background: var(--surface-alt);
+  }
+
+  .page-head .container {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .page-head h1 {
+    font-size: var(--text-display);
+    font-weight: var(--weight-black);
+  }
+
+  .page-head p {
+    max-width: 52ch;
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .breadcrumb li + li::before {
+    content: '/';
+    margin-inline-end: var(--space-2);
+  }
+
+  .breadcrumb a {
+    color: var(--text);
+  }
+
+  .quote-body {
+    padding-top: var(--space-12);
+  }
+
+  .quote-grid {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .quote-main {
+    min-width: 0;
+  }
+
+  .form-success {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    padding: var(--space-10);
+    background: var(--success-surface);
+    border-radius: var(--radius-md);
+  }
+
+  .form-success[hidden] {
+    display: none;
+  }
+
+  .success-icon {
+    display: grid;
+    place-items: center;
+    width: var(--floating-button-size);
+    height: var(--floating-button-size);
+    background: var(--accent);
+    border-radius: var(--radius-full);
+  }
+
+  .success-icon :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  .form-success p {
+    max-width: 52ch;
+    color: var(--text-muted);
+  }
+
+  .success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-6);
+    margin-top: var(--space-2);
+  }
+
+  .quote-aside {
+    display: grid;
+    gap: var(--space-8);
+    align-self: start;
+    padding: var(--space-8);
+    border-radius: var(--radius-md);
+  }
+
+  .quote-aside h2 {
+    font-size: var(--text-xl);
+  }
+
+  .next-steps {
+    display: grid;
+    gap: var(--space-4);
+    color: var(--text-on-dark-muted);
+  }
+
+  .next-steps li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .next-num {
+    display: grid;
+    place-items: center;
+    width: var(--space-8);
+    height: var(--space-8);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    border-radius: var(--radius-full);
+  }
+
+  .aside-contact {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    padding-top: var(--space-8);
+    border-top: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .aside-contact h3 {
+    font-size: var(--text-lg);
+  }
+
+  .aside-contact > p {
+    color: var(--text-on-dark-muted);
+  }
+
+  .aside-links {
+    display: grid;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+
+  .aside-links a,
+  .aside-hours {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target-sm);
+    text-decoration: none;
+  }
+
+  .aside-hours {
+    color: var(--text-on-dark-muted);
+  }
+
+  .aside-links :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    color: var(--accent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .aside-links a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .quote-grid {
+      grid-template-columns: minmax(0, 1fr) var(--aside-width);
+      gap: var(--space-16);
+    }
+
+    .quote-aside {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+  }
+</style>

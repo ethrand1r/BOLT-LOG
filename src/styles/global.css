@@ -1,6 +1,7 @@
 @import '@fontsource-variable/archivo/index.css';
 @import '@fontsource-variable/inter/index.css';
 @import './tokens.css';
+@import './forms.css';
 
 /* ---------- Reset ---------- */
 *,
@@ -11,6 +12,11 @@
 
 * {
   margin: 0;
+}
+
+/* Author display rules (grid, flex) must never override the hidden attribute. */
+[hidden] {
+  display: none !important;
 }
 
 html {

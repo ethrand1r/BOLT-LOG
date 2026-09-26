@@ -212,7 +212,7 @@ Do not display an icon for any social account without a link.
 - **Stack:** Static site built with **Astro** (decided 2026-09-26).
 - **Hosting:** `[TBD — e.g. Netlify, Vercel, Cloudflare Pages, or existing hosting]`
 - **Domain:** bolt-log.com (existing, keep it)
-- **Forms:** **Web3Forms** (decided 2026-09-26). Access key `[TBD]`. Free plan has no file attachments — the quote form's file upload is hidden/disabled until a paid plan or alternative is chosen.
+- **Forms:** **Web3Forms** (decided 2026-09-26). Access key received 2026-09-26, stored in `src/data/site.ts` (`company.web3formsKey`; public by design). Spam protection: `botcheck` honeypot (hCaptcha is available for free if spam appears). Submissions pass through Web3Forms servers in the US, so the KVKK notice must mention this transfer. Free plan has no file attachments — the quote form's file upload is hidden/disabled until a paid plan or alternative is chosen.
 - **Responsive:** Mobile-first; every page must look flawless on phone, tablet and desktop.
 - **Performance:** Images in WebP/AVIF, compressed, lazy-loaded. Target Lighthouse scores of 90+ in all categories.
 - **Accessibility:** Alt text on all images, keyboard navigation, visible focus states, sufficient color contrast.

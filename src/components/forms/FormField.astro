@@ -1,0 +1,66 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea';
+  required?: boolean;
+  hint?: string;
+  placeholder?: string;
+  autocomplete?: string;
+  inputmode?: 'text' | 'email' | 'tel' | 'numeric' | 'decimal';
+  /** Extra check run by the form script, e.g. "phone". */
+  validate?: 'phone';
+  full?: boolean;
+  min?: string;
+  rows?: number;
+}
+
+const {
+  lang,
+  name,
+  label,
+  type = 'text',
+  required = false,
+  hint,
+  placeholder,
+  autocomplete,
+  inputmode,
+  validate,
+  full = false,
+  min,
+  rows = 5,
+} = Astro.props;
+
+const t = useTranslations(lang);
+const id = `f-${name}`;
+const describedBy = [hint && `${id}-hint`, `${id}-error`].filter(Boolean).join(' ');
+const common = {
+  id,
+  name,
+  class: 'field-control',
+  required,
+  placeholder,
+  autocomplete,
+  inputmode,
+  'aria-describedby': describedBy,
+  'data-label': label,
+  'data-validate': validate,
+};
+---
+
+<div class:list={['field', { 'field--full': full }]}>
+  <label class="field-label" for={id}>
+    {label}
+    {required ? <span class="field-req" aria-hidden="true">*</span> : <span class="field-optional">({t('form.optional')})</span>}
+  </label>
+  {type === 'textarea' ? <textarea rows={rows} {...common} /> : <input type={type} min={min} {...common} />}
+  {hint && <p class="field-hint" id={`${id}-hint`}>{hint}</p>}
+  <p class="field-error" id={`${id}-error`} hidden>
+    <Icon name="ph:warning-circle" aria-hidden="true" />
+    <span></span>
+  </p>
+</div>

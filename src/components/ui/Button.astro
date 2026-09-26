@@ -2,7 +2,9 @@
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  href: string;
+  /** Renders a link when set, otherwise a <button>. */
+  href?: string;
+  type?: 'button' | 'submit';
   variant?: 'primary' | 'secondary' | 'secondary-on-dark' | 'dark';
   size?: 'md' | 'sm';
   icon?: string;
@@ -10,13 +12,15 @@ interface Props {
   [attr: string]: unknown;
 }
 
-const { href, variant = 'primary', size = 'md', icon, class: className, ...rest } = Astro.props;
+const { href, type = 'button', variant = 'primary', size = 'md', icon, class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const tagAttrs = href ? { href } : { type };
 ---
 
-<a href={href} class:list={['btn', `btn--${variant}`, `btn--${size}`, className]} {...rest}>
-  <span><slot /></span>
+<Tag class:list={['btn', `btn--${variant}`, `btn--${size}`, className]} {...tagAttrs} {...rest}>
+  <span class="btn__label"><slot /></span>
   {icon && <Icon name={icon} class="btn__icon" aria-hidden="true" />}
-</a>
+</Tag>
 
 <style>
   .btn {
