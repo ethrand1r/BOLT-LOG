@@ -9,8 +9,11 @@ export const company = {
     { display: '+90 533 081 85 00', href: 'tel:+905330818500' },
   ],
   whatsapp: 'https://wa.me/905330818500',
-  /** Web3Forms access key. Public by design (it can only send mail to cargo@bolt-log.com). */
-  web3formsKey: '3bc846bf-3a5b-4fdf-82f3-1f4bbdf51272',
+  /**
+   * Web3Forms access key. Public by design: it can only send mail to the inbox it was created for.
+   * The recipient is tied to the key, not set here. The key must be created for cargo@bolt-log.com.
+   */
+  web3formsKey: '9c051b6c-48c3-44f9-bd34-3c150b883cb5',
   address: {
     street: 'Çobançeşme, Nish İstanbul, Sanayi Caddesi',
     district: 'Bahçelievler',
