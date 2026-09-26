@@ -1,0 +1,203 @@
+---
+import { Picture } from 'astro:assets';
+import Button from '../ui/Button.astro';
+import heroImage from '../../assets/images/hero-container-ship.jpg';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// The headline is two sentences; each gets its own line for the reveal.
+const [lead, ...rest] = t('home.hero.title').split(/(?<=\.)\s+/);
+const kicker = rest.join(' ');
+---
+
+<section class="hero on-dark">
+  <Picture
+    src={heroImage}
+    alt={t('home.hero.imageAlt')}
+    formats={['avif', 'webp']}
+    widths={[768, 1280, 1920, 2560]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    class="hero-media"
+  />
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <h1 class="hero-title">
+      <span class="line"><span>{lead}</span></span>
+      {kicker && <span class="line line--accent"><span>{kicker}</span></span>}
+    </h1>
+    <span class="hero-bolt" aria-hidden="true"></span>
+    <p class="hero-text">{t('home.hero.text')}</p>
+    <div class="hero-actions">
+      <Button href={path('quote', lang)} icon="ph:arrow-right">{t('cta.quote')}</Button>
+      <Button href={path('services', lang)} variant="secondary-on-dark">{t('cta.services')}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: var(--hero-min-height);
+    padding-block: var(--space-16) calc(var(--quote-overlap) + var(--space-16));
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero :global(.hero-media) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 65% 50%;
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, var(--scrim-strong) 0%, var(--scrim-medium) 55%, var(--scrim-clear) 100%),
+      linear-gradient(0deg, var(--scrim-medium) 0%, var(--scrim-clear) 40%);
+  }
+
+  .hero-content {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-6);
+  }
+
+  .hero-title {
+    display: grid;
+    max-width: 16ch;
+    font-size: var(--text-hero);
+    font-weight: var(--weight-black);
+  }
+
+  .line {
+    display: block;
+    overflow: hidden;
+    /* room for descenders (ç, ş, y) inside the clipping box */
+    padding-bottom: 0.08em;
+  }
+
+  .line > span {
+    display: block;
+  }
+
+  .line--accent {
+    color: var(--accent);
+  }
+
+  .hero-bolt {
+    display: block;
+    width: var(--space-16);
+    height: var(--space-1);
+    background: var(--accent);
+    transform-origin: left;
+  }
+
+  .hero-text {
+    max-width: 34rem;
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-lg);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  /* The page's one authored moment: a fast, bolt-like entrance. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero :global(.hero-media) {
+      animation: hero-media var(--duration-hero-media) var(--ease-out) both;
+    }
+
+    .line > span {
+      animation: hero-line var(--duration-hero) var(--ease-out) both;
+    }
+
+    .line:nth-child(2) > span {
+      animation-delay: 90ms;
+    }
+
+    .hero-bolt {
+      animation: hero-bolt 600ms var(--ease-out) 350ms both;
+    }
+
+    .hero-text,
+    .hero-actions {
+      animation: hero-fade 700ms var(--ease-out) both;
+    }
+
+    .hero-text {
+      animation-delay: 300ms;
+    }
+
+    .hero-actions {
+      animation-delay: 420ms;
+    }
+  }
+
+  @keyframes hero-media {
+    from {
+      transform: scale(1.06);
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes hero-line {
+    from {
+      transform: translateY(105%);
+    }
+  }
+
+  @keyframes hero-bolt {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+      transform: translateY(var(--reveal-distance));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero-title {
+      max-width: none;
+    }
+
+    .line {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .hero :global(.hero-media) {
+      object-position: 72% 50%;
+    }
+
+    .hero-scrim {
+      background: linear-gradient(0deg, var(--scrim-strong) 10%, var(--scrim-medium) 60%, var(--scrim-medium) 100%);
+    }
+  }
+</style>

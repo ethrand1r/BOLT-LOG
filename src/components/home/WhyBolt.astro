@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import portImage from '../../assets/images/port-terminal.jpg';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const points: { key: string; icon: string }[] = [
+  { key: 'network', icon: 'ph:globe-hemisphere-west' },
+  { key: 'team', icon: 'ph:users-three' },
+  { key: 'customer', icon: 'ph:handshake' },
+  { key: 'transparency', icon: 'ph:eye' },
+  { key: 'flexible', icon: 'ph:sliders-horizontal' },
+  { key: 'technology', icon: 'ph:devices' },
+];
+---
+
+<section class="section why on-dark" aria-labelledby="why-title">
+  <div class="container why-grid">
+    <div class="why-intro">
+      <h2 id="why-title">{t('home.why.title')}</h2>
+      <p>{t('home.why.text')}</p>
+      <Image
+        src={portImage}
+        alt={t('home.why.imageAlt')}
+        widths={[480, 800, 1100]}
+        sizes="(min-width: 64rem) 40vw, 100vw"
+        class="why-media"
+      />
+    </div>
+
+    <ul role="list" class="points">
+      {
+        points.map((p, i) => (
+          <li class="point" data-reveal style={`--i: ${i % 2}`}>
+            <span class="point-icon" aria-hidden="true">
+              <Icon name={p.icon} />
+            </span>
+            <h3>{t(`home.why.${p.key}` as UiKey)}</h3>
+            <p>{t(`home.why.${p.key}Text` as UiKey)}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why-grid {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .why-intro {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+  }
+
+  .why-intro p {
+    max-width: 44ch;
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-lg);
+  }
+
+  .why-intro :global(.why-media) {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    margin-top: var(--space-4);
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .points {
+    display: grid;
+    gap: var(--space-10) var(--space-8);
+  }
+
+  .point {
+    display: grid;
+    gap: var(--space-2);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .point-icon {
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .point-icon :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  .point h3 {
+    font-size: var(--text-lg);
+  }
+
+  .point p {
+    color: var(--text-on-dark-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .points {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .why-grid {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-16);
+    }
+
+    .why-intro {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+
+    .why-intro :global(.why-media) {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

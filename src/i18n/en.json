@@ -43,7 +43,8 @@
   "cta": {
     "quote": "Get a Quote",
     "contact": "Contact Us",
-    "whatsapp": "Message on WhatsApp"
+    "whatsapp": "Message on WhatsApp",
+    "services": "Our Services"
   },
   "contact": {
     "address": "Çobançeşme, Nish İstanbul, Sanayi Caddesi, Bahçelievler / Istanbul, Türkiye",
@@ -64,7 +65,105 @@
   "home": {
     "metaTitle": "Bolt Logistics | Air, Road, Sea and Rail Freight from Istanbul",
     "metaDescription": "Bolt Logistics is an Istanbul-based logistics company handling air, road, sea, rail and intermodal freight plus warehousing. Request a quote for your shipment.",
-    "placeholderTitle": "Your cargo, ready to move.",
-    "placeholderText": "Home page sections arrive in the next step. For now this page tests the typefaces and Turkish characters: ğ Ğ ş Ş ı İ ç Ç ö Ö ü Ü."
+    "hero": {
+      "title": "Your cargo is ready to move. So are we.",
+      "text": "We plan and move your air, road, sea and rail freight, and keep you informed at every step.",
+      "imageAlt": "Aerial view of a container ship loaded with containers on the open sea"
+    },
+    "quickQuote": {
+      "title": "Quick quote",
+      "text": "Start with three details and add the rest on the next step.",
+      "mode": "Transport mode",
+      "modePlaceholder": "Select",
+      "origin": "Origin",
+      "originPlaceholder": "e.g. Istanbul",
+      "destination": "Destination",
+      "destinationPlaceholder": "e.g. Hamburg"
+    },
+    "intro": {
+      "statement": "Bolt Logistics was founded in Istanbul in 2021. We run air, road, sea and rail freight under one roof and plan every shipment around what it actually needs.",
+      "link": "Who We Are",
+      "factYear": "Founded",
+      "factCity": "Istanbul",
+      "factCityLabel": "Head office, Bahçelievler",
+      "factServicesLabel": "Transport and warehousing services"
+    },
+    "services": {
+      "title": "The right mode for every shipment",
+      "air": "Air freight for time-critical shipments.",
+      "road": "Road freight planned around your schedule.",
+      "sea": "Cost-efficient ocean freight for containerised cargo.",
+      "rail": "Rail freight for long distances at a steady cost.",
+      "intermodal": "Several transport modes combined in one plan.",
+      "warehousing": "Secure storage for your goods before and after transit."
+    },
+    "why": {
+      "title": "Why Bolt Logistics?",
+      "text": "Speed matters in logistics, but it is not enough on its own. Knowing where your cargo is, seeing the cost upfront and working with a team you can actually reach matter just as much.",
+      "imageAlt": "A port with stacked containers and gantry cranes",
+      "network": "Global agent network",
+      "networkText": "Our worldwide agent network follows your cargo all the way to its destination.",
+      "team": "Experienced team",
+      "teamText": "Operations are run by people who know the transport modes and procedures well.",
+      "customer": "Customer focus",
+      "customerText": "We give clear answers and treat your shipment as if it were our own.",
+      "transparency": "Transparency",
+      "transparencyText": "We share the price and the process upfront and flag any change in good time.",
+      "flexible": "Flexible solutions",
+      "flexibleText": "One-off or recurring, we build the plan around your cargo.",
+      "technology": "Technology",
+      "technologyText": "Digital tools for route and rate planning help us get your quote to you quickly."
+    },
+    "process": {
+      "title": "From quote request to delivery in four steps",
+      "request": "Request",
+      "requestText": "Fill in the form or message us. Tell us about your cargo and route.",
+      "planning": "Planning",
+      "planningText": "We choose the right mode, route and price and send you our offer.",
+      "transport": "Transport",
+      "transportText": "Your cargo moves and you stay updated along the way.",
+      "delivery": "Delivery",
+      "deliveryText": "Your cargo arrives and we confirm the delivery with you."
+    },
+    "industries": {
+      "title": "Logistics that fits your industry",
+      "text": "Every industry has its own cargo, schedule and sensitivities. We plan around them.",
+      "automotive": "Automotive and parts",
+      "textile": "Textiles and apparel",
+      "machinery": "Machinery and industrial equipment",
+      "retail": "Retail and e-commerce",
+      "furniture": "Furniture and building materials",
+      "electronics": "Electronics"
+    },
+    "logipedia": {
+      "title": "Logipedia: logistics basics, explained",
+      "text": "From delivery terms to container sizes, the reference you need in one place.",
+      "incotermsText": "Where cost and risk pass from seller to buyer.",
+      "containersText": "Dimensions of standard, high cube, open top and other containers.",
+      "trucksText": "Inside dimensions and load capacity of trucks and trailers.",
+      "glossaryText": "From bill of lading to delivery order, common logistics terms.",
+      "allTopics": "All topics",
+      "incotermsGlyph": "EXW → DDP",
+      "containersGlyph": "20′ 40′ HC",
+      "trucksGlyph": "13.6 m",
+      "glossaryGlyph": "A-Z"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "text": "If your question is not here, message us directly.",
+      "q1": "What information do you need for a quote?",
+      "a1": "Origin and destination, the type of goods, weight, volume or number of packages, and an estimated loading date. You can send the form even if some details are missing and we will fill the gaps together.",
+      "q2": "Which transport modes do you offer?",
+      "a2": "Air, road, sea, rail and intermodal freight, plus warehousing. We will help you decide which one suits your cargo.",
+      "q3": "What are Incoterms and why do they matter?",
+      "a3": "Incoterms are international delivery terms that define where transport costs and risk pass from seller to buyer. Choosing the right one prevents unexpected charges.",
+      "a3Link": "Read the Incoterms guide in Logipedia",
+      "q4": "How can I reach you?",
+      "a4": "On weekdays from 09:00 to 17:00 by phone, WhatsApp or email. Our contact details are at the bottom of every page."
+    },
+    "ctaBand": {
+      "title": "Let’s talk about your cargo.",
+      "text": "Send us the details and we will come back with a route and a price."
+    }
   }
 }

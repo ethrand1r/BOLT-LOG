@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HomePlaceholder from '../../components/home/HomePlaceholder.astro';
+import Home from '../../components/home/Home.astro';
 import { useTranslations } from '../../i18n/ui';
 
 const lang = 'en';
@@ -8,5 +8,5 @@ const t = useTranslations(lang);
 ---
 
 <BaseLayout lang={lang} routeKey="home" title={t('home.metaTitle')} description={t('home.metaDescription')}>
-  <HomePlaceholder lang={lang} />
+  <Home lang={lang} />
 </BaseLayout>

@@ -43,7 +43,8 @@
   "cta": {
     "quote": "Teklif Al",
     "contact": "İletişime Geç",
-    "whatsapp": "WhatsApp'tan Yaz"
+    "whatsapp": "WhatsApp'tan Yaz",
+    "services": "Hizmetlerimiz"
   },
   "contact": {
     "address": "Çobançeşme, Nish İstanbul, Sanayi Caddesi, Bahçelievler / İstanbul, Türkiye",
@@ -64,7 +65,105 @@
   "home": {
     "metaTitle": "Bolt Logistics | Hava, Kara, Deniz ve Demiryolu Taşımacılığı",
     "metaDescription": "İstanbul merkezli Bolt Logistics; hava, kara, deniz, demiryolu ve intermodal taşımacılık ile depolama hizmeti sunar. Yükünüz için hemen teklif alın.",
-    "placeholderTitle": "Yükünüz yola çıkmaya hazır.",
-    "placeholderText": "Ana sayfa bölümleri bir sonraki adımda eklenecek. Bu sayfa şimdilik yazı tiplerini ve Türkçe karakterleri test ediyor: ğ Ğ ş Ş ı İ ç Ç ö Ö ü Ü."
+    "hero": {
+      "title": "Yükünüz yola çıkmaya hazır. Biz de öyle.",
+      "text": "Hava, kara, deniz ve demiryolunda yükünüzü planlıyor, taşıyor ve her adımda sizi bilgilendiriyoruz.",
+      "imageAlt": "Açık denizde konteyner yüklü bir geminin havadan görünümü"
+    },
+    "quickQuote": {
+      "title": "Hızlı teklif",
+      "text": "Üç bilgiyle başlayın, detayları sonraki adımda ekleyin.",
+      "mode": "Taşıma türü",
+      "modePlaceholder": "Seçin",
+      "origin": "Çıkış noktası",
+      "originPlaceholder": "Örn. İstanbul",
+      "destination": "Varış noktası",
+      "destinationPlaceholder": "Örn. Hamburg"
+    },
+    "intro": {
+      "statement": "Bolt Logistics 2021'de İstanbul'da kuruldu. Hava, kara, deniz ve demiryolu taşımacılığını tek elden yönetiyor, her yükü kendi ihtiyacına göre planlıyoruz.",
+      "link": "Biz Kimiz",
+      "factYear": "Kuruluş yılı",
+      "factCity": "İstanbul",
+      "factCityLabel": "Merkez ofis, Bahçelievler",
+      "factServicesLabel": "Taşıma ve depolama hizmeti"
+    },
+    "services": {
+      "title": "Her yük için doğru taşıma türü",
+      "air": "Zamana duyarlı yükleriniz için havayolu taşımacılığı.",
+      "road": "Takviminize göre planlanan karayolu taşımacılığı.",
+      "sea": "Konteyner yükleriniz için ekonomik denizyolu çözümleri.",
+      "rail": "Uzun mesafede dengeli maliyetli demiryolu taşımacılığı.",
+      "intermodal": "Birden fazla taşıma türünü tek planda birleştiriyoruz.",
+      "warehousing": "Yükünüz yola çıkmadan önce ve sonra güvenli depolama."
+    },
+    "why": {
+      "title": "Neden Bolt Logistics?",
+      "text": "Lojistikte hız önemli, ama tek başına yetmez. Yükünüzün nerede olduğunu bilmek, maliyeti baştan görmek ve ulaşabildiğiniz bir ekiple çalışmak da en az hız kadar önemli.",
+      "imageAlt": "Konteynerlerin istiflendiği, vinçlerle dolu bir liman",
+      "network": "Global acente ağı",
+      "networkText": "Dünya genelindeki acente ağımızla yükünüzü varış noktasına kadar takip ediyoruz.",
+      "team": "Deneyimli ekip",
+      "teamText": "Operasyonu, taşıma türlerini ve süreçleri yakından tanıyan bir ekip yönetiyor.",
+      "customer": "Müşteri odaklılık",
+      "customerText": "Sorularınıza net yanıt veriyor, gönderinizi kendi işimiz gibi sahipleniyoruz.",
+      "transparency": "Şeffaflık",
+      "transparencyText": "Fiyatı ve süreci baştan açıkça paylaşıyor, değişiklikleri zamanında bildiriyoruz.",
+      "flexible": "Esnek çözümler",
+      "flexibleText": "Tek seferlik ya da düzenli gönderileriniz için planı yükünüze göre kuruyoruz.",
+      "technology": "Teknoloji",
+      "technologyText": "Rota ve fiyat planlamasında dijital araçlardan yararlanarak teklifinizi hızla hazırlıyoruz."
+    },
+    "process": {
+      "title": "Teklif isteğinden teslimata dört adım",
+      "request": "Talep",
+      "requestText": "Formu doldurun ya da bize yazın. Yükünüzü ve rotayı öğrenelim.",
+      "planning": "Planlama",
+      "planningText": "Uygun taşıma türünü, rotayı ve fiyatı belirleyip teklifimizi iletiyoruz.",
+      "transport": "Taşıma",
+      "transportText": "Yükünüz yola çıkar, süreç boyunca durumdan haberdar olursunuz.",
+      "delivery": "Teslimat",
+      "deliveryText": "Yükünüz varış noktasına ulaşır, teslim bilgisini sizinle paylaşırız."
+    },
+    "industries": {
+      "title": "Sektörünüze uygun lojistik",
+      "text": "Her sektörün yükü, takvimi ve hassasiyeti farklı. Planı buna göre kuruyoruz.",
+      "automotive": "Otomotiv ve yan sanayi",
+      "textile": "Tekstil ve hazır giyim",
+      "machinery": "Makine ve sanayi ekipmanı",
+      "retail": "Perakende ve e-ticaret",
+      "furniture": "Mobilya ve yapı malzemeleri",
+      "electronics": "Elektronik"
+    },
+    "logipedia": {
+      "title": "Logipedia: lojistiğin temel bilgileri",
+      "text": "Teslim şekillerinden konteyner ölçülerine, ihtiyaç duyduğunuz bilgiler tek yerde.",
+      "incotermsText": "Alıcı ile satıcı arasında maliyet ve riskin nerede el değiştirdiği.",
+      "containersText": "Standart, high cube, open top ve diğer konteyner tiplerinin ölçüleri.",
+      "trucksText": "Tır, dorse ve kamyonların iç ölçüleri ile yükleme kapasiteleri.",
+      "glossaryText": "Konşimentodan ordinoya, sık kullanılan lojistik terimleri.",
+      "allTopics": "Tüm konular",
+      "incotermsGlyph": "EXW → DDP",
+      "containersGlyph": "20′ 40′ HC",
+      "trucksGlyph": "13,6 m",
+      "glossaryGlyph": "A-Z"
+    },
+    "faq": {
+      "title": "Sık sorulan sorular",
+      "text": "Aradığınız cevap burada yoksa bize doğrudan yazın.",
+      "q1": "Teklif almak için hangi bilgiler gerekiyor?",
+      "a1": "Çıkış ve varış noktası, yükün cinsi, ağırlığı, hacmi ya da koli sayısı ve tahmini yükleme tarihi yeterli. Bilgilerin bir kısmı eksik olsa da formu gönderebilirsiniz, gerisini birlikte netleştiririz.",
+      "q2": "Hangi taşıma türlerinde hizmet veriyorsunuz?",
+      "a2": "Havayolu, karayolu, denizyolu, demiryolu ve intermodal taşımacılığın yanı sıra depolama hizmeti sunuyoruz. Yükünüze hangisinin uygun olduğunu birlikte belirleriz.",
+      "q3": "Incoterms nedir, neden önemli?",
+      "a3": "Incoterms, alıcı ile satıcı arasında taşıma maliyetinin ve riskin nerede el değiştirdiğini belirleyen uluslararası teslim şekilleridir. Doğru terimi seçmek beklenmedik masrafların önüne geçer.",
+      "a3Link": "Logipedia'da Incoterms rehberini okuyun",
+      "q4": "Size nasıl ulaşabilirim?",
+      "a4": "Hafta içi 09:00-17:00 arasında telefonla, WhatsApp üzerinden ya da e-posta ile bize ulaşabilirsiniz. İletişim bilgilerimiz her sayfanın altında."
+    },
+    "ctaBand": {
+      "title": "Yükünüzü konuşalım.",
+      "text": "Bilgileri gönderin, size uygun rota ve fiyatla dönelim."
+    }
   }
 }

@@ -1,0 +1,33 @@
+---
+import Hero from './Hero.astro';
+import QuickQuote from './QuickQuote.astro';
+import Intro from './Intro.astro';
+import ServicesBento from './ServicesBento.astro';
+import WhyBolt from './WhyBolt.astro';
+import Process from './Process.astro';
+import Industries from './Industries.astro';
+import LogipediaTeaser from './LogipediaTeaser.astro';
+import Faq from './Faq.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Hidden until real data exists (CLAUDE.md 5.1): stat counters, testimonials, memberships.
+---
+
+<Hero lang={lang} />
+<QuickQuote lang={lang} />
+<Intro lang={lang} />
+<ServicesBento lang={lang} />
+<WhyBolt lang={lang} />
+<Process lang={lang} />
+<Industries lang={lang} />
+<LogipediaTeaser lang={lang} />
+<Faq lang={lang} />
+<CtaBand lang={lang} title={t('home.ctaBand.title')} text={t('home.ctaBand.text')} />

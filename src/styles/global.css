@@ -203,3 +203,64 @@ main:focus {
   outline: none;
   box-shadow: none;
 }
+
+/* ---------- Scroll reveal ----------
+   Content is visible by default. The .js class (set in <head>) opts into the
+   hidden start state, and only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+    transition:
+      opacity var(--duration-reveal) var(--ease-out),
+      transform var(--duration-reveal) var(--ease-out);
+    transition-delay: calc(var(--i, 0) * var(--stagger-step));
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Shared section heading ---------- */
+.section-head {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 40rem;
+  margin-bottom: var(--space-12);
+}
+
+.section-head p {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+}
+
+.on-dark .section-head p {
+  color: var(--text-on-dark-muted);
+}
+
+/* Arrow text link used for "all services", "who we are" etc. */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: var(--border-width-strong);
+  text-underline-offset: 0.35em;
+}
+
+.arrow-link svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  transition: transform var(--duration-hover) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .arrow-link:hover svg {
+    transform: translateX(3px);
+  }
+}

@@ -1,0 +1,100 @@
+---
+import { Icon } from 'astro-icon/components';
+import { serviceLinks } from '../../data/navigation';
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Real, verifiable facts only (CLAUDE.md). Replace with counters once figures exist.
+const facts = [
+  { value: String(company.foundingYear), label: t('home.intro.factYear') },
+  { value: t('home.intro.factCity'), label: t('home.intro.factCityLabel') },
+  { value: String(serviceLinks.length), label: t('home.intro.factServicesLabel') },
+];
+---
+
+<section class="section intro">
+  <div class="container">
+    <p class="statement" data-reveal>{t('home.intro.statement')}</p>
+    <a class="arrow-link" href={path('aboutUs', lang)} data-reveal>
+      {t('home.intro.link')}
+      <Icon name="ph:arrow-right" aria-hidden="true" />
+    </a>
+
+    <dl class="facts">
+      {
+        facts.map((f, i) => (
+          <div class="fact" data-reveal style={`--i: ${i}`}>
+            <dt class="tabular">{f.value}</dt>
+            <dd>{f.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .intro .container {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .statement {
+    max-width: 30ch;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+  }
+
+  .arrow-link {
+    justify-self: start;
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+  }
+
+  .fact {
+    display: grid;
+    gap: var(--space-1);
+    padding-top: var(--space-5);
+    border-top: var(--border-width-strong) solid var(--text);
+  }
+
+  dt {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-black);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .statement {
+      max-width: 34ch;
+    }
+
+    .facts {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+  }
+</style>

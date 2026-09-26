@@ -26,6 +26,11 @@
   --text-on-dark-muted: rgb(255 255 255 / 0.72); /* about 10:1 on black */
   --line-on-dark: rgb(255 255 255 / 0.14);
 
+  /* Scrims over photography (tinted from brand black) */
+  --scrim-strong: rgb(15 15 16 / 0.9);
+  --scrim-medium: rgb(15 15 16 / 0.55);
+  --scrim-clear: rgb(15 15 16 / 0);
+
   /* Accent */
   --accent: var(--color-yellow);
   --accent-hover: var(--color-yellow-dark);
@@ -44,6 +49,7 @@
   --text-2xl: clamp(1.75rem, 1.45rem + 1.4vw, 2.5rem);
   --text-3xl: clamp(2.125rem, 1.6rem + 2.4vw, 3.5rem);
   --text-display: clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem);
+  --text-hero: clamp(2.375rem, 1.6rem + 2.9vw, 4rem);
 
   --leading-tight: 1.08;
   --leading-snug: 1.25;
@@ -85,6 +91,13 @@
   --menu-width: 15rem;
   --menu-width-wide: 34rem;
   --floating-button-size: 3.5rem;
+  --field-height: 3rem;
+  --hero-min-height: min(calc(100dvh - var(--header-height)), 50rem);
+  --quote-overlap: 4rem;
+  --card-min-height: 16rem;
+  --bento-row: 17rem;
+  --sector-min-height: 9rem;
+  --step-dot: 3rem;
 
   /* Icons (Phosphor, regular weight site-wide) */
   --icon-sm: 1rem;
@@ -113,6 +126,12 @@
   --duration-exit: 140ms;
   --duration-reveal: 480ms;
   --press-scale: 0.97;
+  --reveal-distance: 16px;
+  --stagger-step: 60ms;
+  --duration-hero: 900ms;
+  --duration-media: 600ms;
+  --duration-draw: 900ms;
+  --duration-hero-media: 1600ms;
   --menu-offset: -4px;
   --menu-scale: 0.98;
   --sheet-offset: -12px;

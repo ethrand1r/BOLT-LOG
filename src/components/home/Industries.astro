@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Sector list needs company confirmation (see CLAUDE.md materials checklist).
+const sectors: { key: string; icon: string }[] = [
+  { key: 'automotive', icon: 'ph:car' },
+  { key: 'textile', icon: 'ph:t-shirt' },
+  { key: 'machinery', icon: 'ph:gear' },
+  { key: 'retail', icon: 'ph:shopping-bag' },
+  { key: 'furniture', icon: 'ph:armchair' },
+  { key: 'electronics', icon: 'ph:cpu' },
+];
+---
+
+<section class="section section--alt industries" aria-labelledby="industries-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="industries-title">{t('home.industries.title')}</h2>
+      <p>{t('home.industries.text')}</p>
+    </div>
+
+    <ul role="list" class="sectors">
+      {
+        sectors.map((s, i) => (
+          <li class="sector" data-reveal style={`--i: ${i}`}>
+            <Icon name={s.icon} aria-hidden="true" />
+            <span>{t(`home.industries.${s.key}` as UiKey)}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sectors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .sector {
+    display: grid;
+    align-content: space-between;
+    gap: var(--space-8);
+    min-height: var(--sector-min-height);
+    padding: var(--space-5);
+    background: var(--surface);
+    border: var(--border-width) solid var(--line);
+    border-radius: var(--radius-md);
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+  }
+
+  .sector :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  @media (min-width: 48rem) {
+    .sectors {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .sectors {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+</style>

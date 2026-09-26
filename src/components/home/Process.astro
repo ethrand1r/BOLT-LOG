@@ -1,0 +1,160 @@
+---
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Numbers are meaningful here: the order of the steps is the information.
+const steps = ['request', 'planning', 'transport', 'delivery'];
+---
+
+<section class="section process" aria-labelledby="process-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="process-title">{t('home.process.title')}</h2>
+    </div>
+
+    <ol role="list" class="steps" data-reveal>
+      {
+        steps.map((s, i) => (
+          <li class="step">
+            <span class="step-num tabular" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3>{t(`home.process.${s}` as UiKey)}</h3>
+            <p>{t(`home.process.${s}Text` as UiKey)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    position: relative;
+    display: grid;
+    gap: var(--space-10);
+    counter-reset: step;
+  }
+
+  /* Track line: vertical on mobile, horizontal on desktop. Draws in when revealed. */
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--step-dot) / 2 - 1px);
+    width: var(--border-width-strong);
+    background: var(--accent);
+    transform-origin: top;
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding-left: calc(var(--step-dot) + var(--space-5));
+  }
+
+  .step-num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: var(--step-dot);
+    height: var(--step-dot);
+    background: var(--surface-dark);
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    border-radius: var(--radius-full);
+  }
+
+  .step h3 {
+    font-size: var(--text-xl);
+    padding-top: var(--space-2);
+  }
+
+  .step p {
+    max-width: 32ch;
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 64rem) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+    }
+
+    .steps::before {
+      top: calc(var(--step-dot) / 2 - 1px);
+      bottom: auto;
+      left: 0;
+      right: 0;
+      width: auto;
+      height: var(--border-width-strong);
+      transform-origin: left;
+    }
+
+    .step {
+      padding-left: 0;
+      padding-top: calc(var(--step-dot) + var(--space-5));
+    }
+  }
+
+  /* Override the generic reveal: keep steps in place and draw the line instead. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .steps[data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+
+    :global(.js) .steps[data-reveal]::before {
+      transform: scaleY(0);
+      transition: transform var(--duration-draw) var(--ease-in-out);
+    }
+
+    :global(.js) .steps[data-reveal] .step {
+      opacity: 0;
+      transform: translateY(var(--reveal-distance));
+      transition:
+        opacity var(--duration-reveal) var(--ease-out),
+        transform var(--duration-reveal) var(--ease-out);
+    }
+
+    :global(.js) .steps[data-reveal] .step:nth-child(2) {
+      transition-delay: 150ms;
+    }
+
+    :global(.js) .steps[data-reveal] .step:nth-child(3) {
+      transition-delay: 300ms;
+    }
+
+    :global(.js) .steps[data-reveal] .step:nth-child(4) {
+      transition-delay: 450ms;
+    }
+
+    :global(.js) .steps[data-reveal].is-visible::before {
+      transform: none;
+    }
+
+    :global(.js) .steps[data-reveal].is-visible .step {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (min-width: 64rem) {
+      :global(.js) .steps[data-reveal]::before {
+        transform: scaleX(0);
+      }
+    }
+  }
+</style>

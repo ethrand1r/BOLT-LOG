@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components';
 
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary' | 'secondary-on-dark';
+  variant?: 'primary' | 'secondary' | 'secondary-on-dark' | 'dark';
   size?: 'md' | 'sm';
   icon?: string;
   class?: string;
@@ -62,6 +62,11 @@ const { href, variant = 'primary', size = 'md', icon, class: className, ...rest 
     color: var(--on-accent);
   }
 
+  .btn--dark {
+    background: var(--surface-dark);
+    color: var(--text-on-dark);
+  }
+
   .btn--secondary {
     border-color: var(--text);
     color: var(--text);
@@ -75,6 +80,10 @@ const { href, variant = 'primary', size = 'md', icon, class: className, ...rest 
   @media (hover: hover) and (pointer: fine) {
     .btn--primary:hover {
       background: var(--accent-hover);
+    }
+
+    .btn--dark:hover {
+      background: var(--surface-dark-alt);
     }
 
     .btn--secondary:hover {

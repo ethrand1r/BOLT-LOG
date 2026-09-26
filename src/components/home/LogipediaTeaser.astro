@@ -1,0 +1,148 @@
+---
+import { Icon } from 'astro-icon/components';
+import { logipediaLinks } from '../../data/navigation';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const topics = logipediaLinks.map((l) => {
+  const key = l.label.split('.')[1];
+  return {
+    ...l,
+    glyph: `home.logipedia.${key}Glyph` as UiKey,
+    text: `home.logipedia.${key}Text` as UiKey,
+  };
+});
+---
+
+<section class="section logipedia" aria-labelledby="logipedia-title">
+  <div class="container">
+    <div class="logipedia-head">
+      <div class="section-head">
+        <h2 id="logipedia-title">{t('home.logipedia.title')}</h2>
+        <p>{t('home.logipedia.text')}</p>
+      </div>
+      <a class="arrow-link" href={path('logipedia', lang)}>
+        {t('home.logipedia.allTopics')}
+        <Icon name="ph:arrow-right" aria-hidden="true" />
+      </a>
+    </div>
+
+    <ul role="list" class="topics">
+      {
+        topics.map((topic, i) => (
+          <li data-reveal style={`--i: ${i}`}>
+            <a class="topic" href={path(topic.route, lang)}>
+              <span class="topic-glyph tabular" aria-hidden="true">
+                {t(topic.glyph)}
+              </span>
+              <span class="topic-title">{t(topic.label)}</span>
+              <span class="topic-text">{t(topic.text)}</span>
+              <Icon name="ph:arrow-right" class="topic-arrow" aria-hidden="true" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .logipedia-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .logipedia-head .section-head {
+    margin-bottom: 0;
+  }
+
+  /* Horizontal scroll-snap on small screens, four columns on desktop */
+  .topics {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(16rem, 80%);
+    gap: var(--space-4);
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    padding-bottom: var(--space-2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: thin;
+  }
+
+  .topics > li {
+    scroll-snap-align: start;
+  }
+
+  .topic {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration-hover) ease;
+  }
+
+  .topic-glyph {
+    margin-bottom: var(--space-6);
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-black);
+    letter-spacing: var(--tracking-heading);
+    white-space: nowrap;
+  }
+
+  .topic-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+  }
+
+  .topic-text {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+  }
+
+  .topic :global(.topic-arrow) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    margin-top: var(--space-2);
+    transition: transform var(--duration-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .topic:hover {
+      border-color: var(--text);
+    }
+
+    .topic:hover :global(.topic-arrow) {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .topics {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, 1fr);
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow: visible;
+    }
+  }
+</style>
