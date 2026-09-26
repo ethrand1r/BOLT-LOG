@@ -1,0 +1,70 @@
+{
+  "site": {
+    "name": "Bolt Logistics",
+    "tagline": "İstanbul merkezli lojistik şirketi",
+    "intro": "2021'den beri İstanbul'dan hava, kara, deniz ve demiryolu yüklerinizi planlıyor ve taşıyoruz."
+  },
+  "a11y": {
+    "skipToContent": "İçeriğe geç",
+    "mainNav": "Ana menü",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat",
+    "homeLink": "Bolt Logistics ana sayfa",
+    "switchLanguage": "Switch to English",
+    "footerNav": "Alt menü",
+    "opensInNewTab": "yeni sekmede açılır"
+  },
+  "nav": {
+    "about": "Hakkımızda",
+    "aboutUs": "Biz Kimiz",
+    "visionMission": "Vizyon ve Misyon",
+    "services": "Hizmetler",
+    "allServices": "Tüm Hizmetler",
+    "logipedia": "Logipedia",
+    "allTopics": "Tüm Konular",
+    "blog": "Blog",
+    "contact": "İletişim",
+    "languageShort": "EN"
+  },
+  "services": {
+    "air": "Havayolu Taşımacılığı",
+    "road": "Karayolu Taşımacılığı",
+    "sea": "Denizyolu Taşımacılığı",
+    "rail": "Demiryolu Taşımacılığı",
+    "intermodal": "İntermodal Taşımacılık",
+    "warehousing": "Depolama"
+  },
+  "logipedia": {
+    "incoterms": "Incoterms",
+    "containers": "Konteyner Tipleri",
+    "trucks": "Tır ve Dorse Ölçüleri",
+    "glossary": "Lojistik Sözlüğü"
+  },
+  "cta": {
+    "quote": "Teklif Al",
+    "contact": "İletişime Geç",
+    "whatsapp": "WhatsApp'tan Yaz"
+  },
+  "contact": {
+    "address": "Çobançeşme, Nish İstanbul, Sanayi Caddesi, Bahçelievler / İstanbul, Türkiye",
+    "addressLabel": "Adres",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-posta",
+    "hoursLabel": "Çalışma saatleri",
+    "hours": "Hafta içi 09:00-17:00"
+  },
+  "footer": {
+    "company": "Kurumsal",
+    "services": "Hizmetler",
+    "contact": "İletişim",
+    "kvkk": "KVKK Aydınlatma Metni",
+    "cookies": "Çerez Politikası",
+    "rights": "Tüm hakları saklıdır."
+  },
+  "home": {
+    "metaTitle": "Bolt Logistics | Hava, Kara, Deniz ve Demiryolu Taşımacılığı",
+    "metaDescription": "İstanbul merkezli Bolt Logistics; hava, kara, deniz, demiryolu ve intermodal taşımacılık ile depolama hizmeti sunar. Yükünüz için hemen teklif alın.",
+    "placeholderTitle": "Yükünüz yola çıkmaya hazır.",
+    "placeholderText": "Ana sayfa bölümleri bir sonraki adımda eklenecek. Bu sayfa şimdilik yazı tiplerini ve Türkçe karakterleri test ediyor: ğ Ğ ş Ş ı İ ç Ç ö Ö ü Ü."
+  }
+}

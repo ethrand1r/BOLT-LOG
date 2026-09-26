@@ -1,0 +1,23 @@
+{
+  "name": "bolt-logistics-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@iconify-json/ph": "^1.2.2",
+    "astro": "^7.3.5",
+    "astro-icon": "^1.2.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

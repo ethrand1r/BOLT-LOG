@@ -1,0 +1,680 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import logoUrl from '../../../assets/logo/logo-horizontal-dark.svg?url';
+import { mainNav, isGroup, type NavGroup } from '../../data/navigation';
+import { company } from '../../data/site';
+import { path, type RouteKey } from '../../i18n/routes';
+import { useTranslations, otherLang, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  routeKey: RouteKey;
+}
+
+const { lang, routeKey } = Astro.props;
+const t = useTranslations(lang);
+const alt = otherLang(lang);
+const altHref = path(routeKey, alt);
+
+const groupIsActive = (group: NavGroup) =>
+  group.links.some((l) => l.route === routeKey) || group.overview?.route === routeKey;
+const current = (key: RouteKey) => (key === routeKey ? 'page' : undefined);
+---
+
+<header class="site-header on-dark">
+  <div class="container header-inner">
+    <a class="brand" href={path('home', lang)} aria-label={t('a11y.homeLink')}>
+      <img src={logoUrl} width="218" height="72" alt="" />
+    </a>
+
+    <nav class="desktop-nav" aria-label={t('a11y.mainNav')}>
+      <ul role="list" class="nav-list">
+        {
+          mainNav.map((item) =>
+            isGroup(item) ? (
+              <li class="nav-item" data-menu>
+                <button
+                  class:list={['nav-link', { 'is-active': groupIsActive(item) }]}
+                  aria-expanded="false"
+                  aria-controls={`menu-${item.id}`}
+                  data-menu-trigger
+                >
+                  {t(item.label)}
+                  <Icon name="ph:caret-down" class="nav-caret" aria-hidden="true" />
+                </button>
+                <div class:list={['menu-panel', { 'menu-panel--wide': item.wide }]} id={`menu-${item.id}`}>
+                  <div class:list={['menu-box', { 'menu-box--wide': item.wide }]}>
+                    <ul role="list" class="menu-list">
+                      {item.links.map((link) => (
+                        <li>
+                          <a class="menu-link" href={path(link.route, lang)} aria-current={current(link.route)}>
+                            {link.icon && (
+                              <span class="menu-icon" aria-hidden="true">
+                                <Icon name={link.icon} />
+                              </span>
+                            )}
+                            <span>{t(link.label)}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    {item.overview && (
+                      <a
+                        class="menu-overview"
+                        href={path(item.overview.route, lang)}
+                        aria-current={current(item.overview.route)}
+                      >
+                        {t(item.overview.label)}
+                        <Icon name="ph:arrow-right" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <a
+                  class:list={['nav-link', { 'is-active': item.route === routeKey }]}
+                  href={path(item.route, lang)}
+                  aria-current={current(item.route)}
+                >
+                  {t(item.label)}
+                </a>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="lang-switch" href={altHref} hreflang={alt} lang={alt} aria-label={t('a11y.switchLanguage')}>
+        <Icon name="ph:globe-simple" aria-hidden="true" />
+        {t('nav.languageShort')}
+      </a>
+      <Button href={path('quote', lang)} size="sm" class="header-cta">{t('cta.quote')}</Button>
+      <button
+        class="menu-toggle"
+        aria-label={t('a11y.openMenu')}
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-mobile-open
+      >
+        <Icon name="ph:list" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <dialog id="mobile-menu" class="mobile-menu on-dark" aria-label={t('a11y.mainNav')}>
+    <div class="mobile-top container">
+      <a class="brand" href={path('home', lang)} aria-label={t('a11y.homeLink')}>
+        <img src={logoUrl} width="218" height="72" alt="" />
+      </a>
+      <button class="menu-toggle menu-toggle--visible" aria-label={t('a11y.closeMenu')} data-mobile-close autofocus>
+        <Icon name="ph:x" aria-hidden="true" />
+      </button>
+    </div>
+
+    <nav class="mobile-nav container" aria-label={t('a11y.mainNav')}>
+      <ul role="list">
+        {
+          mainNav.map((item) =>
+            isGroup(item) ? (
+              <li>
+                <details name="mobile-nav" open={groupIsActive(item)}>
+                  <summary class="mobile-link">
+                    {t(item.label)}
+                    <Icon name="ph:caret-down" class="nav-caret" aria-hidden="true" />
+                  </summary>
+                  <ul role="list" class="mobile-sub">
+                    {item.links.map((link) => (
+                      <li>
+                        <a class="mobile-sublink" href={path(link.route, lang)} aria-current={current(link.route)}>
+                          {t(link.label)}
+                        </a>
+                      </li>
+                    ))}
+                    {item.overview && (
+                      <li>
+                        <a
+                          class="mobile-sublink mobile-sublink--overview"
+                          href={path(item.overview.route, lang)}
+                          aria-current={current(item.overview.route)}
+                        >
+                          {t(item.overview.label)}
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </details>
+              </li>
+            ) : (
+              <li>
+                <a class="mobile-link" href={path(item.route, lang)} aria-current={current(item.route)}>
+                  {t(item.label)}
+                </a>
+              </li>
+            ),
+          )
+        }
+        <li>
+          <a class="mobile-link" href={altHref} hreflang={alt} lang={alt}>
+            {alt === 'en' ? 'English' : 'Türkçe'}
+            <Icon name="ph:globe-simple" class="nav-caret" aria-hidden="true" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="mobile-actions container">
+      <Button href={path('quote', lang)}>{t('cta.quote')}</Button>
+      <Button href={company.whatsapp} variant="secondary-on-dark" target="_blank" rel="noopener" icon="ph:whatsapp-logo">
+        {t('cta.whatsapp')}
+      </Button>
+      <a class="mobile-phone tabular" href={company.phones[0].href}>
+        <Icon name="ph:phone" aria-hidden="true" />
+        {company.phones[0].display}
+      </a>
+    </div>
+  </dialog>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    border-bottom: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    height: var(--header-height);
+  }
+
+  .brand {
+    display: inline-flex;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+  }
+
+  .brand img {
+    width: auto;
+    height: var(--logo-header-height);
+  }
+
+  /* ---------- Desktop navigation ---------- */
+  .desktop-nav {
+    display: none;
+    margin-inline-start: auto;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: color var(--duration-hover) ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-1);
+    height: var(--border-width-strong);
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-menu) var(--ease-out);
+  }
+
+  .nav-link.is-active,
+  .nav-link[aria-expanded='true'] {
+    color: var(--text-on-dark);
+  }
+
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover {
+      color: var(--text-on-dark);
+    }
+  }
+
+  :global(.nav-caret) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    transition: transform var(--duration-menu) var(--ease-out);
+  }
+
+  [aria-expanded='true'] > :global(.nav-caret) {
+    transform: rotate(180deg);
+  }
+
+  /* Panel: padding-top bridges the gap so the pointer can travel into it */
+  .menu-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: var(--z-dropdown);
+    padding-top: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(var(--menu-x, 0)) translateY(var(--menu-offset)) scale(var(--menu-scale));
+    transform-origin: top left;
+    transition:
+      opacity var(--duration-exit) var(--ease-out),
+      transform var(--duration-exit) var(--ease-out),
+      visibility 0s linear var(--duration-exit);
+  }
+
+  .menu-panel--wide {
+    left: 50%;
+    --menu-x: -50%;
+    transform-origin: top center;
+  }
+
+  [aria-expanded='true'] + .menu-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(var(--menu-x, 0));
+    transition-duration: var(--duration-menu), var(--duration-menu), 0s;
+    transition-delay: 0s;
+  }
+
+  .menu-box {
+    min-width: var(--menu-width);
+    padding: var(--space-2);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .menu-box--wide {
+    width: var(--menu-width-wide);
+  }
+
+  .menu-box--wide .menu-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration-hover) ease;
+  }
+
+  .menu-link[aria-current='page'] {
+    background: var(--surface-alt);
+  }
+
+  .menu-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--icon-chip);
+    height: var(--icon-chip);
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .menu-icon :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+
+  .menu-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    padding: var(--space-3);
+    border-top: var(--border-width) solid var(--line);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+
+  .menu-overview :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    transition: transform var(--duration-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .menu-link:hover {
+      background: var(--surface-alt);
+    }
+
+    .menu-overview:hover :global(svg) {
+      transform: translateX(3px);
+    }
+  }
+
+  /* ---------- Actions ---------- */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  .lang-switch {
+    display: none;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: color var(--duration-hover) ease;
+  }
+
+  .lang-switch :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lang-switch:hover {
+      color: var(--text-on-dark);
+    }
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    color: var(--text-on-dark);
+    border-radius: var(--radius-sm);
+    transition: transform var(--duration-press) var(--ease-out);
+  }
+
+  .menu-toggle:active {
+    transform: scale(var(--press-scale));
+  }
+
+  .menu-toggle :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  @media (min-width: 40rem) {
+    .lang-switch {
+      display: inline-flex;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .desktop-nav {
+      display: block;
+    }
+
+    .header-actions {
+      margin-inline-start: var(--space-2);
+    }
+
+    .menu-toggle:not(.menu-toggle--visible) {
+      display: none;
+    }
+  }
+
+  /* ---------- Mobile menu ---------- */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0 0 var(--space-8);
+    border: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    transform: translateY(var(--sheet-offset));
+    transition:
+      opacity var(--duration-exit) var(--ease-out),
+      transform var(--duration-exit) var(--ease-out),
+      overlay var(--duration-exit) allow-discrete,
+      display var(--duration-exit) allow-discrete;
+  }
+
+  .mobile-menu[open] {
+    opacity: 1;
+    transform: none;
+    transition-duration: var(--duration-menu);
+  }
+
+  @starting-style {
+    .mobile-menu[open] {
+      opacity: 0;
+      transform: translateY(var(--sheet-offset));
+    }
+  }
+
+  .mobile-menu::backdrop {
+    background: var(--surface-dark);
+  }
+
+  :global(html:has(.mobile-menu[open])) {
+    overflow: hidden;
+  }
+
+  .mobile-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    border-bottom: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .mobile-nav {
+    padding-block: var(--space-4);
+  }
+
+  .mobile-nav > ul > li {
+    border-bottom: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--mobile-link-height);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mobile-link::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-link[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: var(--border-width-strong);
+  }
+
+  details[open] > summary :global(.nav-caret) {
+    transform: rotate(180deg);
+  }
+
+  .mobile-sub {
+    padding-bottom: var(--space-3);
+  }
+
+  .mobile-sublink {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding-inline-start: var(--space-4);
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-md);
+    text-decoration: none;
+    border-left: var(--border-width-strong) solid var(--line-on-dark);
+  }
+
+  .mobile-sublink[aria-current='page'] {
+    color: var(--text-on-dark);
+    border-left-color: var(--accent);
+  }
+
+  .mobile-sublink--overview {
+    color: var(--text-on-dark);
+    font-weight: var(--weight-semibold);
+  }
+
+  .mobile-actions {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .mobile-phone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    color: var(--text-on-dark-muted);
+    text-decoration: none;
+  }
+
+  .mobile-phone :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-panel,
+    [aria-expanded='true'] + .menu-panel {
+      transform: translateX(var(--menu-x, 0));
+    }
+
+    .mobile-menu,
+    .mobile-menu[open] {
+      transform: none;
+    }
+
+    @starting-style {
+      .mobile-menu[open] {
+        transform: none;
+      }
+    }
+  }
+</style>
+
+<script>
+  const HOVER_CLOSE_DELAY = 150;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-menu]'));
+  const triggerOf = (item: HTMLElement) => item.querySelector<HTMLButtonElement>('[data-menu-trigger]')!;
+
+  function setOpen(item: HTMLElement, open: boolean) {
+    triggerOf(item).setAttribute('aria-expanded', String(open));
+  }
+
+  function closeAll(except?: HTMLElement) {
+    items.forEach((item) => item !== except && setOpen(item, false));
+  }
+
+  items.forEach((item) => {
+    const trigger = triggerOf(item);
+    let closeTimer: number | undefined;
+
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      closeAll(item);
+      setOpen(item, !open);
+    });
+
+    item.addEventListener('pointerenter', (e) => {
+      if (e.pointerType !== 'mouse' || !finePointer.matches) return;
+      window.clearTimeout(closeTimer);
+      closeAll(item);
+      setOpen(item, true);
+    });
+
+    item.addEventListener('pointerleave', (e) => {
+      if (e.pointerType !== 'mouse' || !finePointer.matches) return;
+      closeTimer = window.setTimeout(() => setOpen(item, false), HOVER_CLOSE_DELAY);
+    });
+
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node | null)) setOpen(item, false);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('[data-menu]')) closeAll();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openItem = items.find((item) => triggerOf(item).getAttribute('aria-expanded') === 'true');
+    if (openItem) {
+      closeAll();
+      triggerOf(openItem).focus();
+    }
+  });
+
+  // Mobile menu (native <dialog>: focus trap and Escape come for free)
+  const dialog = document.querySelector<HTMLDialogElement>('#mobile-menu');
+  const openButton = document.querySelector<HTMLButtonElement>('[data-mobile-open]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-mobile-close]');
+
+  openButton?.addEventListener('click', () => {
+    dialog?.showModal();
+    openButton.setAttribute('aria-expanded', 'true');
+  });
+  closeButton?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('close', () => openButton?.setAttribute('aria-expanded', 'false'));
+  window.matchMedia('(min-width: 64rem)').addEventListener('change', (e) => e.matches && dialog?.close());
+</script>

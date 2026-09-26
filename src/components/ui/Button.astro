@@ -1,0 +1,94 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'secondary-on-dark';
+  size?: 'md' | 'sm';
+  icon?: string;
+  class?: string;
+  [attr: string]: unknown;
+}
+
+const { href, variant = 'primary', size = 'md', icon, class: className, ...rest } = Astro.props;
+---
+
+<a href={href} class:list={['btn', `btn--${variant}`, `btn--${size}`, className]} {...rest}>
+  <span><slot /></span>
+  {icon && <Icon name={icon} class="btn__icon" aria-hidden="true" />}
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    padding: var(--space-3) var(--space-6);
+    border: var(--border-width-strong) solid transparent;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background-color var(--duration-hover) ease,
+      border-color var(--duration-hover) ease,
+      color var(--duration-hover) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+
+  .btn:active {
+    transform: scale(var(--press-scale));
+  }
+
+  .btn--sm {
+    min-height: var(--tap-target-sm);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .btn :global(.btn__icon) {
+    width: 1.125em;
+    height: 1.125em;
+    transition: transform var(--duration-hover) var(--ease-out);
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .btn--secondary {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .btn--secondary-on-dark {
+    border-color: var(--text-on-dark);
+    color: var(--text-on-dark);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn--primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn--secondary:hover {
+      background: var(--text);
+      color: var(--surface);
+    }
+
+    .btn--secondary-on-dark:hover {
+      background: var(--text-on-dark);
+      color: var(--surface-dark);
+    }
+
+    .btn:hover :global(.btn__icon) {
+      transform: translateX(2px);
+    }
+  }
+</style>

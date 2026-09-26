@@ -1,0 +1,238 @@
+---
+import { Icon } from 'astro-icon/components';
+import logoUrl from '../../../assets/logo/logo-stacked-dark.svg?url';
+import { serviceLinks } from '../../data/navigation';
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const companyLinks = [
+  { href: path('aboutUs', lang), label: t('nav.aboutUs') },
+  { href: path('visionMission', lang), label: t('nav.visionMission') },
+  { href: path('logipedia', lang), label: t('nav.logipedia') },
+  { href: path('quote', lang), label: t('cta.quote') },
+  { href: path('contact', lang), label: t('nav.contact') },
+];
+---
+
+<footer class="site-footer on-dark">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href={path('home', lang)} aria-label={t('a11y.homeLink')} class="footer-logo">
+        <img src={logoUrl} width="170" height="190" alt="" loading="lazy" />
+      </a>
+      <p class="footer-intro">{t('site.intro')}</p>
+      {
+        company.social.length > 0 && (
+          <ul role="list" class="footer-social">
+            {company.social.map((s) => (
+              <li>
+                <a href={s.url} target="_blank" rel="noopener" aria-label={s.name}>
+                  <Icon name={s.icon} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-company">
+      <h2 id="footer-company" class="footer-heading">{t('footer.company')}</h2>
+      <ul role="list">
+        {companyLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-services">
+      <h2 id="footer-services" class="footer-heading">{t('footer.services')}</h2>
+      <ul role="list">
+        {serviceLinks.map((l) => <li><a href={path(l.route, lang)}>{t(l.label)}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="footer-col footer-col--contact">
+      <h2 class="footer-heading">{t('footer.contact')}</h2>
+      <address>
+        <ul role="list" class="footer-contact">
+          <li>
+            <Icon name="ph:map-pin" aria-hidden="true" />
+            <span><span class="visually-hidden">{t('contact.addressLabel')}: </span>{t('contact.address')}</span>
+          </li>
+          <li>
+            <Icon name="ph:phone" aria-hidden="true" />
+            <span class="tabular">
+              <span class="visually-hidden">{t('contact.phoneLabel')}: </span>
+              {company.phones.map((p, i) => (
+                <>
+                  {i > 0 && <br />}
+                  <a href={p.href}>{p.display}</a>
+                </>
+              ))}
+            </span>
+          </li>
+          <li>
+            <Icon name="ph:envelope-simple" aria-hidden="true" />
+            <span><span class="visually-hidden">{t('contact.emailLabel')}: </span><a href={`mailto:${company.email}`}>{company.email}</a></span>
+          </li>
+          <li>
+            <Icon name="ph:clock" aria-hidden="true" />
+            <span class="tabular"><span class="visually-hidden">{t('contact.hoursLabel')}: </span>{t('contact.hours')}</span>
+          </li>
+        </ul>
+      </address>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-bottom">
+    <p class="tabular">© {year} {company.name}. {t('footer.rights')}</p>
+    <ul role="list" class="footer-legal">
+      <li><a href={path('kvkk', lang)}>{t('footer.kvkk')}</a></li>
+      <li><a href={path('cookies', lang)}>{t('footer.cookies')}</a></li>
+    </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-16) var(--space-8);
+    font-size: var(--text-sm);
+    color: var(--text-on-dark-muted);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10) var(--space-6);
+  }
+
+  .footer-brand,
+  .footer-col--contact {
+    grid-column: 1 / -1;
+  }
+
+  .footer-logo {
+    display: inline-block;
+    border-radius: var(--radius-sm);
+  }
+
+  .footer-logo img {
+    width: auto;
+    height: var(--footer-logo-height);
+  }
+
+  .footer-intro {
+    max-width: 34ch;
+    margin-top: var(--space-5);
+    font-size: var(--text-base);
+  }
+
+  .footer-heading {
+    margin-bottom: var(--space-4);
+    color: var(--text-on-dark);
+    font-size: var(--text-base);
+    letter-spacing: 0;
+  }
+
+  .footer-col ul {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .footer-col a,
+  .footer-legal a {
+    display: inline-block;
+    padding-block: var(--space-1);
+    text-decoration: none;
+    transition: color var(--duration-hover) ease;
+  }
+
+  .footer-contact li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .footer-contact :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    margin-top: 0.2em;
+    color: var(--accent);
+  }
+
+  .footer-contact a {
+    padding-block: 0;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+
+  .footer-social a {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    border: var(--border-width) solid var(--line-on-dark);
+    border-radius: var(--radius-sm);
+  }
+
+  .footer-social :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--line-on-dark);
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer-col a:hover,
+    .footer-legal a:hover,
+    .footer-social a:hover {
+      color: var(--text-on-dark);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+      gap: var(--space-8);
+    }
+
+    .footer-brand,
+    .footer-col--contact {
+      grid-column: auto;
+    }
+  }
+</style>

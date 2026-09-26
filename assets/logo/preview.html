@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bolt Logo Önizleme</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #F6F5F1; color: #0F0F10; }
+  h1 { font-size: 18px; margin: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 0 24px 24px; }
+  figure { margin: 0; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+  .tile { height: 220px; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .tile img { max-width: 100%; max-height: 100%; }
+  .light { background: #fff; } .dark { background: #0F0F10; } .yellow { background: #FEC303; }
+  figcaption { font-size: 12px; padding: 8px 12px; background: #fff; border-top: 1px solid #ddd; }
+  .sizes { display: flex; gap: 16px; align-items: end; padding: 0 24px 32px; }
+  .sizes img { display: block; }
+</style>
+</head>
+<body>
+<h1>Bolt Logistics — Yeni logo varyantları</h1>
+<div class="grid">
+  <figure><div class="tile light"><img src="logo-stacked-light.svg" alt=""></div><figcaption>logo-stacked-light.svg</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-stacked-dark.svg" alt=""></div><figcaption>logo-stacked-dark.svg</figcaption></figure>
+  <figure><div class="tile light"><img src="logo-horizontal-light.svg" alt=""></div><figcaption>logo-horizontal-light.svg</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-horizontal-dark.svg" alt=""></div><figcaption>logo-horizontal-dark.svg</figcaption></figure>
+  <figure><div class="tile light"><img src="logo-stacked-black.svg" alt=""></div><figcaption>logo-stacked-black.svg</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-stacked-white.svg" alt=""></div><figcaption>logo-stacked-white.svg</figcaption></figure>
+  <figure><div class="tile yellow"><img src="logo-horizontal-black.svg" alt=""></div><figcaption>logo-horizontal-black.svg (sarı zemin)</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-horizontal-white.svg" alt=""></div><figcaption>logo-horizontal-white.svg</figcaption></figure>
+  <figure><div class="tile light"><img src="logo-icon-black.svg" alt=""></div><figcaption>logo-icon-black.svg</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-icon-white.svg" alt=""></div><figcaption>logo-icon-white.svg</figcaption></figure>
+  <figure><div class="tile light"><img src="favicon.svg" alt=""></div><figcaption>favicon.svg</figcaption></figure>
+  <figure><div class="tile dark"><img src="logo-icon-dark.svg" alt=""></div><figcaption>logo-icon-dark.svg</figcaption></figure>
+</div>
+<h1>Küçük boyut testi (favicon 16 / 32 / 48 px, header logosu 40 px yükseklik)</h1>
+<div class="sizes">
+  <img src="favicon.svg" width="16" height="16" alt="">
+  <img src="favicon.svg" width="32" height="32" alt="">
+  <img src="favicon.svg" width="48" height="48" alt="">
+  <img src="logo-horizontal-light.svg" height="40" alt="">
+  <span style="background:#0F0F10;padding:8px"><img src="logo-horizontal-dark.svg" height="40" alt=""></span>
+</div>
+</body>
+</html>

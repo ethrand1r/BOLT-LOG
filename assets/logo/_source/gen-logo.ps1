@@ -1,0 +1,76 @@
+param([string]$OutDir)
+New-Item -ItemType Directory -Force $OutDir | Out-Null
+
+$BLACK = '#0F0F10'; $WHITE = '#FFFFFF'; $YELLOW = '#FEC303'
+
+$boltD = 'M6 -35 L-12 4 L0 4 L-6 35 L12 -6 L0 -6 Z'
+$boltT = 'translate(80 36) rotate(30) scale(1.2)'
+$bD = 'M36 28 H66 C76.5 28 83 34 83 43 C83 49 80.5 54 76.5 56.6 C82.5 59 86.5 64.5 86.5 72.5 C86.5 84.5 78.5 92 66.5 92 H36 Z M50 40 H63 C67 40 69 42.3 69 45.5 C69 48.7 67 51 63 51 H50 Z M50 62 H65 C69.5 62 72 64.8 72 70 C72 75.2 69.5 78 65 78 H50 Z'
+$markT = 'translate(60 60) scale(0.84) translate(-71.5 -47.5)'
+
+# "B" + bolt, with a gap cut into the B around the bolt
+function Glyph($main, $bolt) {
+  @"
+<mask id="gap" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"/><path d="$boltD" transform="$boltT" fill="#000" stroke="#000" stroke-width="5" stroke-linejoin="round"/></mask>
+<path mask="url(#gap)" fill-rule="evenodd" fill="$main" d="$bD"/>
+<path d="$boltD" transform="$boltT" fill="$bolt"/>
+"@
+}
+
+# Mark (the favicon): thick rounded-square outline, transparent inside, B + bolt.
+function Mark($main, $bolt) {
+  "<rect x=`"5`" y=`"5`" width=`"110`" height=`"110`" rx=`"24`" fill=`"none`" stroke=`"$main`" stroke-width=`"10`"/>`n<g transform=`"$markT`">" + (Glyph $main $bolt) + "</g>`n"
+}
+
+function Wordmark($main) {
+  @"
+<g fill="none" stroke="$main" stroke-width="7">
+<path d="M3.5 0 V30 M0 3.5 H13 A5.75 5.75 0 0 1 13 15 H0 M0 15 H14 A5.75 5.75 0 0 1 14 26.5 H0"/>
+<circle cx="50.5" cy="15" r="11.5"/>
+<path d="M81 0 V30 M81 26.5 H96"/>
+<path d="M108 3.5 H130 M119 3.5 V30"/>
+</g>
+<g fill="none" stroke="$main" stroke-width="2" transform="translate(0 40)">
+<path d="M1 0 V12 M1 11 H8"/>
+<circle cx="20.125" cy="6" r="5"/>
+<path d="M41.79 2.46 A5 5 0 1 0 43.25 6 H39.5"/>
+<path d="M51.375 0 V12"/>
+<path transform="translate(58.5 0)" d="M10 2.6 C8.9 1.5 7.5 1 6 1 C3.4 1 1.6 2.1 1.6 3.6 C1.6 5.4 3.8 5.8 6 6.2 C8.4 6.6 10.4 7.2 10.4 8.6 C10.4 10.1 8.6 11 6 11 C4.3 11 2.4 10.5 1.2 9.3"/>
+<path d="M76.625 1 H86.625 M81.625 1 V12"/>
+<path d="M93.75 0 V12"/>
+<path d="M110.7 2.79 A5 5 0 1 0 110.7 9.21"/>
+<path transform="translate(118 0)" d="M10 2.6 C8.9 1.5 7.5 1 6 1 C3.4 1 1.6 2.1 1.6 3.6 C1.6 5.4 3.8 5.8 6 6.2 C8.4 6.6 10.4 7.2 10.4 8.6 C10.4 10.1 8.6 11 6 11 C4.3 11 2.4 10.5 1.2 9.3"/>
+</g>
+"@
+}
+
+function Svg($vb, $body) {
+  "<svg xmlns=`"http://www.w3.org/2000/svg`" viewBox=`"$vb`" role=`"img`" aria-label=`"Bolt Logistics`">`n$body</svg>`n"
+}
+
+function Stacked($main, $bolt) {
+  Svg '0 0 170 190' ("<g transform=`"translate(25 0)`">" + (Mark $main $bolt) + "</g>`n<g transform=`"translate(20 138)`">" + (Wordmark $main) + "</g>`n")
+}
+function Horizontal($main, $bolt) {
+  Svg '0 0 218 72' ("<g transform=`"scale(0.6)`">" + (Mark $main $bolt) + "</g>`n<g transform=`"translate(88 10)`">" + (Wordmark $main) + "</g>`n")
+}
+function IconOnly($main, $bolt) { Svg '0 0 120 120' (Mark $main $bolt) }
+
+$files = [ordered]@{
+  'favicon.svg'               = IconOnly $BLACK $YELLOW
+  'logo-icon-dark.svg'        = IconOnly $WHITE $YELLOW
+  'logo-stacked-light.svg'    = Stacked $BLACK $YELLOW
+  'logo-stacked-dark.svg'     = Stacked $WHITE $YELLOW
+  'logo-horizontal-light.svg' = Horizontal $BLACK $YELLOW
+  'logo-horizontal-dark.svg'  = Horizontal $WHITE $YELLOW
+  'logo-stacked-black.svg'    = Stacked $BLACK $BLACK
+  'logo-stacked-white.svg'    = Stacked $WHITE $WHITE
+  'logo-horizontal-black.svg' = Horizontal $BLACK $BLACK
+  'logo-horizontal-white.svg' = Horizontal $WHITE $WHITE
+  'logo-icon-black.svg'       = IconOnly $BLACK $BLACK
+  'logo-icon-white.svg'       = IconOnly $WHITE $WHITE
+}
+
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+foreach ($k in $files.Keys) { [IO.File]::WriteAllText((Join-Path $OutDir $k), $files[$k], $utf8) }
+$files.Keys

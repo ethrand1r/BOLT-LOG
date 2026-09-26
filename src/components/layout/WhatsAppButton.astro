@@ -1,0 +1,58 @@
+---
+import { Icon } from 'astro-icon/components';
+import { company } from '../../data/site';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = useTranslations(Astro.props.lang);
+const label = `${t('cta.whatsapp')} (${t('a11y.opensInNewTab')})`;
+---
+
+<a class="whatsapp" href={company.whatsapp} target="_blank" rel="noopener" aria-label={label} title={t('cta.whatsapp')}>
+  <Icon name="ph:whatsapp-logo" aria-hidden="true" />
+</a>
+
+<style>
+  .whatsapp {
+    position: fixed;
+    right: max(var(--space-4), env(safe-area-inset-right));
+    bottom: max(var(--space-4), env(safe-area-inset-bottom));
+    z-index: var(--z-floating);
+    display: grid;
+    place-items: center;
+    width: var(--floating-button-size);
+    height: var(--floating-button-size);
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+    transition:
+      background-color var(--duration-hover) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+
+  .whatsapp:active {
+    transform: scale(var(--press-scale));
+  }
+
+  .whatsapp :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .whatsapp:hover {
+      background: var(--accent-hover);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .whatsapp {
+      right: var(--space-8);
+      bottom: var(--space-8);
+    }
+  }
+</style>

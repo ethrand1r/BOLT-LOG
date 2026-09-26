@@ -1,0 +1,70 @@
+{
+  "site": {
+    "name": "Bolt Logistics",
+    "tagline": "Istanbul-based logistics company",
+    "intro": "Since 2021 we have planned and moved air, road, sea and rail cargo from our base in Istanbul."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "homeLink": "Bolt Logistics home",
+    "switchLanguage": "Türkçeye geç",
+    "footerNav": "Footer menu",
+    "opensInNewTab": "opens in a new tab"
+  },
+  "nav": {
+    "about": "About",
+    "aboutUs": "Who We Are",
+    "visionMission": "Vision & Mission",
+    "services": "Services",
+    "allServices": "All Services",
+    "logipedia": "Logipedia",
+    "allTopics": "All Topics",
+    "blog": "Blog",
+    "contact": "Contact",
+    "languageShort": "TR"
+  },
+  "services": {
+    "air": "Air Freight",
+    "road": "Road Freight",
+    "sea": "Sea Freight",
+    "rail": "Rail Freight",
+    "intermodal": "Intermodal Transport",
+    "warehousing": "Warehousing"
+  },
+  "logipedia": {
+    "incoterms": "Incoterms",
+    "containers": "Container Types",
+    "trucks": "Truck & Trailer Dimensions",
+    "glossary": "Logistics Glossary"
+  },
+  "cta": {
+    "quote": "Get a Quote",
+    "contact": "Contact Us",
+    "whatsapp": "Message on WhatsApp"
+  },
+  "contact": {
+    "address": "Çobançeşme, Nish İstanbul, Sanayi Caddesi, Bahçelievler / Istanbul, Türkiye",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Business hours",
+    "hours": "Weekdays 09:00-17:00"
+  },
+  "footer": {
+    "company": "Company",
+    "services": "Services",
+    "contact": "Contact",
+    "kvkk": "Privacy Notice (KVKK)",
+    "cookies": "Cookie Policy",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "metaTitle": "Bolt Logistics | Air, Road, Sea and Rail Freight from Istanbul",
+    "metaDescription": "Bolt Logistics is an Istanbul-based logistics company handling air, road, sea, rail and intermodal freight plus warehousing. Request a quote for your shipment.",
+    "placeholderTitle": "Your cargo, ready to move.",
+    "placeholderText": "Home page sections arrive in the next step. For now this page tests the typefaces and Turkish characters: ğ Ğ ş Ş ı İ ç Ç ö Ö ü Ü."
+  }
+}

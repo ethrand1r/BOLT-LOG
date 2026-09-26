@@ -1,0 +1,131 @@
+/* Design tokens: the single source for color, type, spacing, shape, depth, motion and layers.
+   Components must reference these variables, never raw values. */
+
+:root {
+  /* Brand palette (CLAUDE.md 2.2) */
+  --color-yellow: #fec303;
+  --color-yellow-dark: #d9a300;
+  --color-black: #0f0f10;
+  --color-graphite: #1e1f22;
+  --color-gray: #5e6166;
+  --color-light: #f6f5f1;
+  --color-white: #ffffff;
+
+  /* Semantic roles: light surfaces */
+  --surface: var(--color-white);
+  --surface-alt: var(--color-light);
+  --text: var(--color-black);
+  --text-muted: var(--color-gray); /* 6.2:1 on white, 5.7:1 on light */
+  --line: rgb(15 15 16 / 0.12);
+  --line-strong: rgb(15 15 16 / 0.28);
+
+  /* Semantic roles: dark surfaces (header, footer, one dark band per page) */
+  --surface-dark: var(--color-black);
+  --surface-dark-alt: var(--color-graphite);
+  --text-on-dark: var(--color-white);
+  --text-on-dark-muted: rgb(255 255 255 / 0.72); /* about 10:1 on black */
+  --line-on-dark: rgb(255 255 255 / 0.14);
+
+  /* Accent */
+  --accent: var(--color-yellow);
+  --accent-hover: var(--color-yellow-dark);
+  --on-accent: var(--color-black);
+
+  /* Type */
+  --font-heading: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --text-xl: clamp(1.375rem, 1.22rem + 0.7vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.45rem + 1.4vw, 2.5rem);
+  --text-3xl: clamp(2.125rem, 1.6rem + 2.4vw, 3.5rem);
+  --text-display: clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-body: 1.6;
+  --tracking-display: -0.03em;
+  --tracking-heading: -0.015em;
+  --tracking-caps: 0.08em;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+  --measure: 68ch;
+
+  /* Spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-section: clamp(4rem, 2.5rem + 6vw, 8rem);
+
+  /* Layout */
+  --container: 76rem;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --header-height: 4.5rem;
+  --tap-target: 3rem;
+  --tap-target-sm: 2.75rem;
+  --mobile-link-height: 3.5rem;
+  --logo-header-height: 2.5rem;
+  --footer-logo-height: 7rem;
+  --menu-width: 15rem;
+  --menu-width-wide: 34rem;
+  --floating-button-size: 3.5rem;
+
+  /* Icons (Phosphor, regular weight site-wide) */
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.75rem;
+  --icon-chip: 2.25rem;
+
+  /* Shape lock: sm = buttons and inputs, md = cards, images, panels, full = pills */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-full: 999px;
+  --border-width: 1px;
+  --border-width-strong: 2px;
+
+  /* Depth: offset + soft blur, tinted to the surface */
+  --shadow-sm: 0 1px 2px rgb(15 15 16 / 0.06), 0 2px 6px rgb(15 15 16 / 0.06);
+  --shadow-md: 0 4px 12px rgb(15 15 16 / 0.08), 0 12px 32px rgb(15 15 16 / 0.1);
+  --shadow-lg: 0 12px 24px rgb(15 15 16 / 0.18), 0 24px 64px rgb(15 15 16 / 0.22);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-press: 140ms;
+  --duration-hover: 180ms;
+  --duration-menu: 220ms;
+  --duration-exit: 140ms;
+  --duration-reveal: 480ms;
+  --press-scale: 0.97;
+  --menu-offset: -4px;
+  --menu-scale: 0.98;
+  --sheet-offset: -12px;
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* Layers */
+  --z-base: 1;
+  --z-dropdown: 40;
+  --z-header: 50;
+  --z-floating: 60;
+  --z-cookie: 70;
+  --z-modal: 80;
+}
