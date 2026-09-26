@@ -261,5 +261,39 @@
     "metaDescription": "Bolt Logistics offers air, road, sea, rail and intermodal freight plus warehousing. Let us find the right solution for your cargo together.",
     "title": "Our Services",
     "lead": "Air, road, sea and rail, on their own or combined: we plan the transport solution that fits your cargo."
+  },
+  "aboutPage": {
+    "metaTitle": "About Us | Bolt Logistics",
+    "metaDescription": "Founded in Istanbul in 2021, Bolt Logistics runs air, road, sea and rail freight under one roof, backed by a global agent network and an experienced team.",
+    "title": "About Us",
+    "lead": "Since 2021 we have planned and moved air, road, sea and rail cargo from our base in Istanbul.",
+    "storyTitle": "Since 2021",
+    "story1": "Bolt Logistics was founded in Istanbul in 2021. From day one we built strong partnerships with reliable agents around the world, with the aim of delivering logistics to international standards.",
+    "story2": "Today we offer air, road, sea and rail freight, intermodal solutions and warehousing under one roof. That lets us treat transport modes not as rivals but as options that work together for your cargo.",
+    "story3": "With a fresh approach and an experienced team, our goal is simple: make our customers’ logistics easier, keep their costs under control and help them stay a step ahead of the competition.",
+    "imageAlt": "A port with stacked containers and gantry cranes",
+    "visionLink": "Our vision and mission"
+  },
+  "values": {
+    "title": "Our values",
+    "text": "Four principles we hold to on every shipment.",
+    "reliability": "Reliability",
+    "reliabilityText": "We stand behind what we promise. If a plan changes, you hear it from us first.",
+    "transparency": "Transparency",
+    "transparencyText": "We talk openly about price, process and possible risks from the start.",
+    "speed": "Speed",
+    "speedText": "There is a reason for the lightning bolt in our name. We move fast on quotes, planning and communication.",
+    "partnership": "Partnership",
+    "partnershipText": "We see every shipment as part of a long-term relationship, not a one-off job."
+  },
+  "visionPage": {
+    "metaTitle": "Vision & Mission | Bolt Logistics",
+    "metaDescription": "The vision, mission and values of Bolt Logistics: reliable, transparent and fast logistics that strengthens our customers’ competitiveness.",
+    "title": "Vision & Mission",
+    "lead": "Where we want to go, and how we plan to get there.",
+    "visionTitle": "Our vision",
+    "vision": "To be one of the first logistics partners that comes to mind for trade from Türkiye to the world, known for reliability and speed.",
+    "missionTitle": "Our mission",
+    "mission": "To simplify our customers’ logistics and strengthen their competitiveness by planning every shipment with the right mode, a clear price and timely information."
   }
 }

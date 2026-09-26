@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  alt?: boolean;
+}
+
+const { lang, alt = false } = Astro.props;
+const t = useTranslations(lang);
+
+const values: { key: string; icon: string }[] = [
+  { key: 'reliability', icon: 'ph:handshake' },
+  { key: 'transparency', icon: 'ph:eye' },
+  { key: 'speed', icon: 'ph:lightning' },
+  { key: 'partnership', icon: 'ph:users-three' },
+];
+---
+
+<section class:list={['section values', { 'section--alt': alt }]} aria-labelledby="values-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="values-title">{t('values.title')}</h2>
+      <p>{t('values.text')}</p>
+    </div>
+    <ul role="list" class="value-grid">
+      {
+        values.map((v, i) => (
+          <li class="value" data-reveal style={`--i: ${i}`}>
+            <Icon name={v.icon} class="value-icon" aria-hidden="true" />
+            <h3>{t(`values.${v.key}` as UiKey)}</h3>
+            <p>{t(`values.${v.key}Text` as UiKey)}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .value-grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .value {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    padding: var(--space-8) var(--space-6);
+    background: var(--surface);
+    border: var(--border-width) solid var(--line);
+    border-radius: var(--radius-md);
+  }
+
+  .values:not(.section--alt) .value {
+    background: var(--surface-alt);
+    border-color: transparent;
+  }
+
+  .value :global(.value-icon) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .value h3 {
+    font-size: var(--text-xl);
+  }
+
+  .value p {
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .value-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .value-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VisionPage from '../../components/about/VisionPage.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'tr';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} routeKey="visionMission" title={t('visionPage.metaTitle')} description={t('visionPage.metaDescription')}>
+  <VisionPage lang={lang} />
+</BaseLayout>

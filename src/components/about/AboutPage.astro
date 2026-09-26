@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import PageHead from '../ui/PageHead.astro';
+import WhyBolt from '../home/WhyBolt.astro';
+import ValuesSection from '../sections/ValuesSection.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import portImage from '../../assets/images/port-terminal.jpg';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const story = ['story1', 'story2', 'story3'].map((k) => t(`aboutPage.${k}` as UiKey));
+---
+
+<PageHead lang={lang} title={t('aboutPage.title')} lead={t('aboutPage.lead')} crumbs={[{ label: t('aboutPage.title') }]} />
+
+<section class="section story" aria-labelledby="story-title">
+  <div class="container story-grid">
+    <div class="story-text">
+      <h2 id="story-title">{t('aboutPage.storyTitle')}</h2>
+      {story.map((p) => <p>{p}</p>)}
+    </div>
+    <Image
+      src={portImage}
+      alt={t('aboutPage.imageAlt')}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 64rem) 45vw, 100vw"
+      class="story-media"
+    />
+  </div>
+</section>
+
+<ValuesSection lang={lang} alt>
+  <a class="arrow-link values-link" href={path('visionMission', lang)}>
+    {t('aboutPage.visionLink')}
+    <Icon name="ph:arrow-right" aria-hidden="true" />
+  </a>
+</ValuesSection>
+
+<WhyBolt lang={lang} showImage={false} />
+
+<CtaBand lang={lang} title={t('home.ctaBand.title')} text={t('home.ctaBand.text')} />
+
+<style>
+  .story-grid {
+    display: grid;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .story-text {
+    display: grid;
+    gap: var(--space-5);
+    max-width: var(--measure);
+  }
+
+  .story-text p:first-of-type {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+  }
+
+  .story-text p:not(:first-of-type) {
+    color: var(--text-muted);
+  }
+
+  .story :global(.story-media) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .values-link {
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 64rem) {
+    .story-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+    }
+  }
+</style>

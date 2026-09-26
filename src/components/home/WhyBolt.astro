@@ -6,9 +6,10 @@ import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
+  showImage?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, showImage = true } = Astro.props;
 const t = useTranslations(lang);
 
 const points: { key: string; icon: string }[] = [
@@ -26,13 +27,17 @@ const points: { key: string; icon: string }[] = [
     <div class="why-intro">
       <h2 id="why-title">{t('home.why.title')}</h2>
       <p>{t('home.why.text')}</p>
-      <Image
-        src={portImage}
-        alt={t('home.why.imageAlt')}
-        widths={[480, 800, 1100]}
-        sizes="(min-width: 64rem) 40vw, 100vw"
-        class="why-media"
-      />
+      {
+        showImage && (
+          <Image
+            src={portImage}
+            alt={t('home.why.imageAlt')}
+            widths={[480, 800, 1100]}
+            sizes="(min-width: 64rem) 40vw, 100vw"
+            class="why-media"
+          />
+        )
+      }
     </div>
 
     <ul role="list" class="points">

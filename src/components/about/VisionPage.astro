@@ -1,0 +1,83 @@
+---
+import PageHead from '../ui/PageHead.astro';
+import ValuesSection from '../sections/ValuesSection.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Draft statements pending company confirmation (CLAUDE.md materials checklist).
+const statements = [
+  { id: 'vision', title: t('visionPage.visionTitle'), text: t('visionPage.vision') },
+  { id: 'mission', title: t('visionPage.missionTitle'), text: t('visionPage.mission') },
+];
+---
+
+<PageHead
+  lang={lang}
+  title={t('visionPage.title')}
+  lead={t('visionPage.lead')}
+  crumbs={[{ label: t('nav.about'), href: path('aboutUs', lang) }, { label: t('visionPage.title') }]}
+/>
+
+<section class="section statements">
+  <div class="container">
+    {
+      statements.map((s) => (
+        <article class="statement" aria-labelledby={`${s.id}-title`} data-reveal>
+          <h2 id={`${s.id}-title`}>{s.title}</h2>
+          <p>{s.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<ValuesSection lang={lang} alt />
+
+<CtaBand lang={lang} title={t('home.ctaBand.title')} text={t('home.ctaBand.text')} />
+
+<style>
+  .statements .container {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .statement {
+    display: grid;
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+    border-top: var(--border-width-strong) solid var(--text);
+  }
+
+  .statement h2 {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0;
+    color: var(--text-muted);
+  }
+
+  .statement p {
+    max-width: 36ch;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+  }
+
+  @media (min-width: 64rem) {
+    .statement {
+      grid-template-columns: 1fr 3fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

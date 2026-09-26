@@ -261,5 +261,39 @@
     "metaDescription": "Bolt Logistics; havayolu, karayolu, denizyolu, demiryolu ve intermodal taşımacılık ile depolama hizmeti sunar. Yükünüze uygun çözümü birlikte belirleyelim.",
     "title": "Hizmetlerimiz",
     "lead": "Hava, kara, deniz ve demiryolunda, tek başına ya da birlikte: yükünüze uygun taşıma çözümünü planlıyoruz."
+  },
+  "aboutPage": {
+    "metaTitle": "Hakkımızda | Bolt Logistics",
+    "metaDescription": "2021'de İstanbul'da kurulan Bolt Logistics; global acente ağı ve deneyimli ekibiyle hava, kara, deniz ve demiryolu taşımacılığını tek elden yönetir.",
+    "title": "Hakkımızda",
+    "lead": "2021'den beri İstanbul'dan, hava, kara, deniz ve demiryolu yüklerini planlıyor ve taşıyoruz.",
+    "storyTitle": "2021'den bugüne",
+    "story1": "Bolt Logistics, 2021 yılında İstanbul'da kuruldu. İlk günden itibaren dünya genelindeki güvenilir acentelerle güçlü iş birlikleri kurduk ve uluslararası standartlarda lojistik hizmet sunmayı hedefledik.",
+    "story2": "Bugün hava, kara, deniz ve demiryolu taşımacılığını, intermodal çözümleri ve depolamayı tek çatı altında sunuyoruz. Bu sayede taşıma türlerini birbirine rakip olarak değil, yükünüz için birlikte çalışan seçenekler olarak değerlendirebiliyoruz.",
+    "story3": "Yenilikçi yaklaşımımız ve deneyimli ekibimizle amacımız açık: müşterilerimizin lojistik süreçlerini sadeleştirmek, maliyetlerini kontrol altında tutmak ve rekabette bir adım öne geçmelerine yardımcı olmak.",
+    "imageAlt": "Konteynerlerin istiflendiği, vinçlerle dolu bir liman",
+    "visionLink": "Vizyonumuz ve misyonumuz"
+  },
+  "values": {
+    "title": "Değerlerimiz",
+    "text": "Her gönderide aynı dört ilkeye bağlı kalıyoruz.",
+    "reliability": "Güvenilirlik",
+    "reliabilityText": "Verdiğimiz sözün arkasında dururuz. Plan değişirse bunu size ilk biz bildiririz.",
+    "transparency": "Şeffaflık",
+    "transparencyText": "Fiyatı, süreci ve olası riskleri baştan açıkça konuşuruz.",
+    "speed": "Hız",
+    "speedText": "Adımızdaki şimşek boşuna değil. Teklifte, planlamada ve iletişimde çabuk hareket ederiz.",
+    "partnership": "İş ortaklığı",
+    "partnershipText": "Her gönderiyi tek seferlik bir iş değil, uzun soluklu bir ilişkinin parçası olarak görürüz."
+  },
+  "visionPage": {
+    "metaTitle": "Vizyon ve Misyon | Bolt Logistics",
+    "metaDescription": "Bolt Logistics'in vizyonu, misyonu ve değerleri: güvenilir, şeffaf ve hızlı lojistik ile müşterilerimizin rekabet gücüne katkı sağlamak.",
+    "title": "Vizyon ve Misyon",
+    "lead": "Nereye gitmek istediğimizi ve oraya nasıl ulaşacağımızı açıkça söylüyoruz.",
+    "visionTitle": "Vizyonumuz",
+    "vision": "Türkiye'den dünyaya uzanan ticarette, güvenilirliği ve hızıyla ilk akla gelen lojistik iş ortaklarından biri olmak.",
+    "missionTitle": "Misyonumuz",
+    "mission": "Her gönderiyi doğru taşıma türü, açık fiyat ve zamanında bilgiyle planlayarak müşterilerimizin lojistik süreçlerini sadeleştirmek ve rekabet güçlerine katkı sağlamak."
   }
 }

@@ -252,6 +252,7 @@ Do not display an icon for any social account without a link.
 - [ ] Membership / certificate documents and logos
 - [ ] Social media links
 - [ ] KVKK text
+- [ ] Confirm the draft vision and mission statements (`src/i18n/*.json`, `visionPage`) and the four values (`values`)
 - [ ] Final list of services (is customs clearance included?)
 - [x] Sector list on the home page Industries section confirmed 2026-09-26 (`src/components/home/Industries.astro`: automotive, textiles, machinery, retail/e-commerce, furniture/building materials, electronics)
 - [x] "Why Bolt" point wording confirmed 2026-09-26 (`src/i18n/*.json`, `home.why`)
