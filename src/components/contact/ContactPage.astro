@@ -1,0 +1,377 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import PageHead from '../ui/PageHead.astro';
+import FormField from '../forms/FormField.astro';
+import ConsentField from '../forms/ConsentField.astro';
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const messages = {
+  required: t('form.errors.required'),
+  choose: t('form.errors.choose'),
+  email: t('form.errors.email'),
+  phone: t('form.errors.phone'),
+  consent: t('form.errors.consent'),
+  summary: t('form.errors.summary'),
+  sending: t('form.sending'),
+};
+
+const site = Astro.site ?? new URL(company.url);
+const redirectUrl = new URL(`${path('contact', lang)}?sent=1`, site).href;
+const mapQuery = encodeURIComponent('Nish İstanbul, Çobançeşme, Sanayi Caddesi, Bahçelievler, İstanbul');
+const mapEmbed = `https://www.google.com/maps?q=${mapQuery}&output=embed&hl=${lang}`;
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
+---
+
+<PageHead lang={lang} title={t('contactPage.title')} lead={t('contactPage.lead')} crumbs={[{ label: t('contactPage.title') }]} />
+
+<section class="section contact-body">
+  <div class="container contact-grid">
+    <div class="channels">
+      <h2>{t('contactPage.channelsTitle')}</h2>
+      <ul role="list" class="channel-list">
+        <li class="channel">
+          <span class="channel-icon" aria-hidden="true"><Icon name="ph:phone" /></span>
+          <div>
+            <p class="channel-label">{t('contact.phoneLabel')}</p>
+            {
+              company.phones.map((p) => (
+                <a class="channel-value tabular" href={p.href}>
+                  {p.display}
+                </a>
+              ))
+            }
+          </div>
+        </li>
+        <li class="channel">
+          <span class="channel-icon" aria-hidden="true"><Icon name="ph:whatsapp-logo" /></span>
+          <div>
+            <p class="channel-label">WhatsApp</p>
+            <p class="channel-note">{t('contactPage.whatsappText')}</p>
+            <Button href={company.whatsapp} variant="secondary" size="sm" target="_blank" rel="noopener">
+              {t('cta.whatsapp')}
+            </Button>
+          </div>
+        </li>
+        <li class="channel">
+          <span class="channel-icon" aria-hidden="true"><Icon name="ph:envelope-simple" /></span>
+          <div>
+            <p class="channel-label">{t('contact.emailLabel')}</p>
+            <a class="channel-value" href={`mailto:${company.email}`}>{company.email}</a>
+          </div>
+        </li>
+        <li class="channel">
+          <span class="channel-icon" aria-hidden="true"><Icon name="ph:map-pin" /></span>
+          <div>
+            <p class="channel-label">{t('contact.addressLabel')}</p>
+            <address class="channel-text">{t('contact.address')}</address>
+          </div>
+        </li>
+        <li class="channel">
+          <span class="channel-icon" aria-hidden="true"><Icon name="ph:clock" /></span>
+          <div>
+            <p class="channel-label">{t('contact.hoursLabel')}</p>
+            <p class="channel-text tabular">{t('contact.hours')}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-card">
+      <h2>{t('contactPage.formTitle')}</h2>
+      <p class="form-intro">
+        {t('contactPage.formTextBefore')}<a href={path('quote', lang)}>{t('contactPage.formTextLink')}</a>{t('contactPage.formTextAfter')}
+      </p>
+
+      <form
+        id="contact-form"
+        class="bolt-form contact-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        novalidate
+        data-form
+        data-messages={JSON.stringify(messages)}
+        data-subject={t('contactPage.emailSubject')}
+      >
+        <input type="hidden" name="access_key" value={company.web3formsKey} />
+        <input type="hidden" name="subject" value={t('contactPage.emailSubject')} />
+        <input type="hidden" name="from_name" value="Bolt Logistics Web" />
+        <input type="hidden" name="redirect" value={redirectUrl} />
+        <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <p class="form-alert" role="alert" tabindex="-1" data-form-summary hidden></p>
+
+        <div class="form-grid">
+          <FormField lang={lang} name="name" label={t('quote.name')} required autocomplete="name" full />
+          <FormField lang={lang} name="email" label={t('quote.email')} type="email" required autocomplete="email" inputmode="email" />
+          <FormField lang={lang} name="phone" label={t('quote.phone')} type="tel" autocomplete="tel" inputmode="tel" validate="phone" />
+          <FormField lang={lang} name="message" label={t('quote.message')} type="textarea" required full rows={6} />
+        </div>
+
+        <ConsentField lang={lang} after={t('contactPage.consentAfter')} />
+
+        <div class="form-alert" role="alert" tabindex="-1" data-form-failure hidden>
+          <strong>{t('form.failureTitle')}</strong>
+          <p>{t('form.failureText')}</p>
+        </div>
+
+        <div class="form-submit">
+          <Button type="submit" icon="ph:paper-plane-tilt">{t('contactPage.submit')}</Button>
+          <p class="form-note">{t('form.requiredNote')}</p>
+        </div>
+      </form>
+
+      <div class="form-success" data-form-success="contact-form" tabindex="-1" hidden>
+        <span class="success-icon" aria-hidden="true"><Icon name="ph:check-circle" /></span>
+        <h2>{t('contactPage.successTitle')}</h2>
+        <p>{t('contactPage.successText')}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt map-section" aria-labelledby="map-title">
+  <div class="container">
+    <div class="map-head">
+      <h2 id="map-title">{t('contactPage.mapTitle')}</h2>
+      <a class="arrow-link" href={directions} target="_blank" rel="noopener">
+        {t('contactPage.directions')}
+        <Icon name="ph:arrow-up-right" aria-hidden="true" />
+      </a>
+    </div>
+    <div class="map-frame" data-map data-src={mapEmbed} data-title={t('contactPage.mapFrameTitle')}>
+      <div class="map-placeholder on-dark">
+        <Icon name="ph:map-pin" class="map-pin" aria-hidden="true" />
+        <address>{t('contact.address')}</address>
+        <Button type="button" variant="primary" data-map-load>{t('contactPage.mapButton')}</Button>
+        <p class="map-note">{t('contactPage.mapNote')}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initForm } from '../../scripts/form';
+
+  initForm('#contact-form', {
+    subject: (form) => {
+      const name = (form.elements.namedItem('name') as HTMLInputElement | null)?.value.trim();
+      return [form.dataset.subject, name].filter(Boolean).join(': ');
+    },
+  });
+
+  // Click-to-load map: Google Maps sets cookies, so it only loads on request.
+  const frame = document.querySelector<HTMLElement>('[data-map]');
+  frame?.querySelector('[data-map-load]')?.addEventListener('click', () => {
+    const iframe = document.createElement('iframe');
+    iframe.src = frame.dataset.src!;
+    iframe.title = frame.dataset.title!;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.allowFullscreen = true;
+    frame.replaceChildren(iframe);
+    iframe.focus();
+  });
+</script>
+
+<style>
+  .contact-body {
+    padding-top: var(--space-12);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .channels h2,
+  .form-card h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .channel-list {
+    display: grid;
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-5);
+    border-top: var(--border-width) solid var(--line);
+  }
+
+  .channel-icon {
+    display: grid;
+    place-items: center;
+    width: var(--icon-chip);
+    height: var(--icon-chip);
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .channel-icon :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+
+  .channel > div {
+    display: grid;
+    gap: var(--space-1);
+    justify-items: start;
+  }
+
+  .channel-label {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .channel-value {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+  }
+
+  .channel-note {
+    margin-bottom: var(--space-2);
+  }
+
+  .channel-text {
+    font-style: normal;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .channel-value:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .form-card {
+    min-width: 0;
+    padding: var(--space-8) var(--space-6);
+    background: var(--surface);
+    border: var(--border-width) solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-card h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .form-intro {
+    margin-bottom: var(--space-8);
+    color: var(--text-muted);
+  }
+
+  .contact-form {
+    gap: var(--space-6);
+  }
+
+  .form-success {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+
+  .form-success p {
+    color: var(--text-muted);
+  }
+
+  .success-icon {
+    display: grid;
+    place-items: center;
+    width: var(--floating-button-size);
+    height: var(--floating-button-size);
+    background: var(--accent);
+    border-radius: var(--radius-full);
+  }
+
+  .success-icon :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  .map-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .map-frame {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    background: var(--surface-dark);
+  }
+
+  .map-frame :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .map-placeholder {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-8);
+    text-align: center;
+  }
+
+  .map-placeholder address {
+    max-width: 36ch;
+    font-style: normal;
+    font-size: var(--text-lg);
+  }
+
+  .map-placeholder :global(.map-pin) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+    color: var(--accent);
+  }
+
+  .map-note {
+    max-width: 40ch;
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 47.99rem) {
+    .map-frame {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .map-frame {
+      aspect-ratio: 21 / 9;
+    }
+
+    .contact-grid {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-16);
+    }
+
+    .form-card {
+      padding: var(--space-10);
+    }
+  }
+</style>

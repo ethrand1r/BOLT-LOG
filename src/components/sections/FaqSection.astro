@@ -1,0 +1,149 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import { company } from '../../data/site';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+export interface FaqItem {
+  q: string;
+  a: string;
+  link?: { href: string; label: string };
+}
+
+interface Props {
+  lang: Lang;
+  title: string;
+  text?: string;
+  items: FaqItem[];
+  /** Unique per page, used for the exclusive-open accordion group. */
+  id?: string;
+  alt?: boolean;
+}
+
+const { lang, title, text, items, id = 'faq', alt = true } = Astro.props;
+const t = useTranslations(lang);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({
+    '@type': 'Question',
+    name: i.q,
+    acceptedAnswer: { '@type': 'Answer', text: i.a },
+  })),
+};
+---
+
+<section class:list={['section faq', { 'section--alt': alt }]} aria-labelledby={`${id}-title`}>
+  <div class="container faq-grid">
+    <div class="faq-intro">
+      <h2 id={`${id}-title`}>{title}</h2>
+      {text && <p>{text}</p>}
+      <Button href={company.whatsapp} variant="secondary" icon="ph:whatsapp-logo" target="_blank" rel="noopener">
+        {t('cta.whatsapp')}
+      </Button>
+    </div>
+
+    <div class="faq-list">
+      {
+        items.map((item, i) => (
+          <details name={id} open={i === 0}>
+            <summary>
+              <span>{item.q}</span>
+              <Icon name="ph:plus" class="faq-icon" aria-hidden="true" />
+            </summary>
+            <div class="faq-answer">
+              <p>{item.a}</p>
+              {item.link && (
+                <a class="arrow-link" href={item.link.href}>
+                  {item.link.label}
+                  <Icon name="ph:arrow-right" aria-hidden="true" />
+                </a>
+              )}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<style>
+  .faq-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  .faq-intro {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .faq-intro p {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .faq-list {
+    border-top: var(--border-width) solid var(--line-strong);
+  }
+
+  details {
+    border-bottom: var(--border-width) solid var(--line-strong);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--mobile-link-height);
+    padding-block: var(--space-5);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--radius-sm);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary :global(.faq-icon) {
+    flex-shrink: 0;
+    width: var(--icon-md);
+    height: var(--icon-md);
+    transition: transform var(--duration-menu) var(--ease-out);
+  }
+
+  details[open] summary :global(.faq-icon) {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    max-width: var(--measure);
+    padding-bottom: var(--space-6);
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 64rem) {
+    .faq-grid {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-16);
+    }
+
+    .faq-intro {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+  }
+</style>

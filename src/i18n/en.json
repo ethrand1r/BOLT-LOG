@@ -12,7 +12,8 @@
     "homeLink": "Bolt Logistics home",
     "switchLanguage": "Türkçeye geç",
     "footerNav": "Footer menu",
-    "opensInNewTab": "opens in a new tab"
+    "opensInNewTab": "opens in a new tab",
+    "breadcrumb": "Breadcrumb"
   },
   "nav": {
     "about": "About",
@@ -220,5 +221,30 @@
     "contactTitle": "Rather skip the form?",
     "contactText": "Reach us directly.",
     "emailSubject": "New quote request"
+  },
+  "common": {
+    "home": "Home"
+  },
+  "contactPage": {
+    "metaTitle": "Contact | Bolt Logistics",
+    "metaDescription": "Get in touch with Bolt Logistics. Reach our office in Bahçelievler, Istanbul by phone, WhatsApp or email, or send us a message through the contact form.",
+    "title": "Contact",
+    "lead": "Questions about your cargo, your route or our services? Write to us and we will get back to you during weekday business hours.",
+    "channelsTitle": "Reach us",
+    "whatsappText": "The quickest way for short questions.",
+    "formTitle": "Send a message",
+    "formTextBefore": "Looking for a price? Use the more detailed ",
+    "formTextLink": "quote form",
+    "formTextAfter": " instead.",
+    "submit": "Send Message",
+    "consentAfter": " and agree to my details being processed to respond to my message.",
+    "successTitle": "We have received your message.",
+    "successText": "Thank you. We will get back to you during business hours. If it is urgent, feel free to call us.",
+    "mapTitle": "Our office",
+    "mapNote": "Viewing the map lets Google place cookies in your browser.",
+    "mapButton": "Show map",
+    "mapFrameTitle": "Bolt Logistics office location on Google Maps",
+    "directions": "Get directions",
+    "emailSubject": "New contact message"
   }
 }

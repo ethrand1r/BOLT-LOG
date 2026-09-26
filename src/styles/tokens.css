@@ -101,6 +101,7 @@
   --aside-width: 22rem;
   --hero-min-height: min(calc(100dvh - var(--header-height)), 50rem);
   --quote-overlap: 4rem;
+  --page-head-image-height: 26rem;
   --card-min-height: 16rem;
   --bento-row: 17rem;
   --sector-min-height: 9rem;

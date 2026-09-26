@@ -1,0 +1,77 @@
+---
+import { company } from '../../data/site';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+export interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  lang: Lang;
+  /** Trail after "Home"; the last item is the current page. */
+  items: Crumb[];
+  onDark?: boolean;
+}
+
+const { lang, items, onDark = false } = Astro.props;
+const t = useTranslations(lang);
+const site = Astro.site ?? new URL(company.url);
+const trail: Crumb[] = [{ label: t('common.home'), href: path('home', lang) }, ...items];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    ...(c.href ? { item: new URL(c.href, site).href } : {}),
+  })),
+};
+---
+
+<nav class:list={['breadcrumb', { 'breadcrumb--dark': onDark }]} aria-label={t('a11y.breadcrumb')}>
+  <ol role="list">
+    {
+      trail.map((c, i) =>
+        i === trail.length - 1 || !c.href ? (
+          <li aria-current="page">{c.label}</li>
+        ) : (
+          <li>
+            <a href={c.href}>{c.label}</a>
+          </li>
+        ),
+      )
+    }
+  </ol>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</nav>
+
+<style>
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  li + li::before {
+    content: '/';
+    margin-inline-end: var(--space-2);
+  }
+
+  a {
+    color: var(--text);
+  }
+
+  .breadcrumb--dark ol {
+    color: var(--text-on-dark-muted);
+  }
+
+  .breadcrumb--dark a {
+    color: var(--text-on-dark);
+  }
+</style>

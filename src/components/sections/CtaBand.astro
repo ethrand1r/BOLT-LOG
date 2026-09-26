@@ -9,9 +9,11 @@ interface Props {
   lang: Lang;
   title: string;
   text: string;
+  /** Defaults to the quote page; service pages pass ?mode=... */
+  quoteHref?: string;
 }
 
-const { lang, title, text } = Astro.props;
+const { lang, title, text, quoteHref } = Astro.props;
 const t = useTranslations(lang);
 ---
 
@@ -23,7 +25,7 @@ const t = useTranslations(lang);
     </div>
     <div class="cta-actions">
       <div class="cta-buttons">
-        <Button href={path('quote', lang)} variant="dark" icon="ph:arrow-right">{t('cta.quote')}</Button>
+        <Button href={quoteHref ?? path('quote', lang)} variant="dark" icon="ph:arrow-right">{t('cta.quote')}</Button>
         <Button href={company.whatsapp} variant="secondary" icon="ph:whatsapp-logo" target="_blank" rel="noopener">
           {t('cta.whatsapp')}
         </Button>

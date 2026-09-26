@@ -12,7 +12,8 @@
     "homeLink": "Bolt Logistics ana sayfa",
     "switchLanguage": "Switch to English",
     "footerNav": "Alt menü",
-    "opensInNewTab": "yeni sekmede açılır"
+    "opensInNewTab": "yeni sekmede açılır",
+    "breadcrumb": "Sayfa konumu"
   },
   "nav": {
     "about": "Hakkımızda",
@@ -220,5 +221,30 @@
     "contactTitle": "Formla uğraşmak istemiyor musunuz?",
     "contactText": "Bize doğrudan ulaşın.",
     "emailSubject": "Yeni teklif talebi"
+  },
+  "common": {
+    "home": "Ana sayfa"
+  },
+  "contactPage": {
+    "metaTitle": "İletişim | Bolt Logistics",
+    "metaDescription": "Bolt Logistics ile iletişime geçin. Bahçelievler, İstanbul'daki ofisimize telefon, WhatsApp veya e-posta ile ulaşın ya da iletişim formunu doldurun.",
+    "title": "İletişim",
+    "lead": "Yükünüz, rotanız ya da hizmetlerimiz hakkında sorularınız için bize yazın. Hafta içi mesai saatlerinde size dönüş yapıyoruz.",
+    "channelsTitle": "Bize ulaşın",
+    "whatsappText": "Kısa sorularınız için en pratik yol.",
+    "formTitle": "Mesaj gönderin",
+    "formTextBefore": "Fiyat istiyorsanız daha ayrıntılı olan ",
+    "formTextLink": "teklif formunu",
+    "formTextAfter": " kullanabilirsiniz.",
+    "submit": "Mesajı Gönder",
+    "consentAfter": "'ni okudum, bilgilerimin mesajımın yanıtlanması için işlenmesini kabul ediyorum.",
+    "successTitle": "Mesajınız bize ulaştı.",
+    "successText": "Teşekkürler. Mesai saatleri içinde size dönüş yapacağız. Acil bir durum varsa bizi arayabilirsiniz.",
+    "mapTitle": "Ofisimiz",
+    "mapNote": "Haritayı görüntülediğinizde Google, tarayıcınıza çerez yerleştirebilir.",
+    "mapButton": "Haritayı göster",
+    "mapFrameTitle": "Bolt Logistics ofis konumu, Google Haritalar",
+    "directions": "Yol tarifi al",
+    "emailSubject": "Yeni iletişim mesajı"
   }
 }

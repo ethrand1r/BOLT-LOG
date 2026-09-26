@@ -2,6 +2,8 @@
 import { Icon } from 'astro-icon/components';
 import Button from '../ui/Button.astro';
 import FormField from '../forms/FormField.astro';
+import PageHead from '../ui/PageHead.astro';
+import ConsentField from '../forms/ConsentField.astro';
 import { serviceLinks } from '../../data/navigation';
 import { company } from '../../data/site';
 import { path } from '../../i18n/routes';
@@ -35,18 +37,7 @@ const redirectUrl = new URL(`${path('quote', lang)}?sent=1`, site).href;
 const today = new Date().toISOString().slice(0, 10);
 ---
 
-<section class="page-head">
-  <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <ol role="list">
-        <li><a href={path('home', lang)}>Bolt Logistics</a></li>
-        <li aria-current="page">{t('quote.title')}</li>
-      </ol>
-    </nav>
-    <h1>{t('quote.title')}</h1>
-    <p>{t('quote.text')}</p>
-  </div>
-</section>
+<PageHead lang={lang} title={t('quote.title')} lead={t('quote.text')} crumbs={[{ label: t('quote.title') }]} />
 
 <section class="section quote-body">
   <div class="container quote-grid">
@@ -147,24 +138,7 @@ const today = new Date().toISOString().slice(0, 10);
           <!-- File upload is hidden until a Web3Forms plan with attachments is chosen (CLAUDE.md section 8). -->
         </fieldset>
 
-        <div class="consent">
-          <input
-            id="f-consent"
-            type="checkbox"
-            name="consent"
-            required
-            aria-describedby="f-consent-error"
-            data-label="KVKK"
-          />
-          <label for="f-consent">
-            {t('quote.consentBefore')}<a href={path('kvkk', lang)} target="_blank" rel="noopener">{t('quote.consentLink')}</a>{t('quote.consentAfter')}
-            <span class="field-req" aria-hidden="true">*</span>
-          </label>
-          <p class="field-error" id="f-consent-error" hidden>
-            <Icon name="ph:warning-circle" aria-hidden="true" />
-            <span></span>
-          </p>
-        </div>
+        <ConsentField lang={lang} after={t('quote.consentAfter')} />
 
         <div class="form-alert" role="alert" tabindex="-1" data-form-failure hidden>
           <strong>{t('form.failureTitle')}</strong>
@@ -257,44 +231,6 @@ const today = new Date().toISOString().slice(0, 10);
 </script>
 
 <style>
-  .page-head {
-    padding-block: var(--space-12) var(--space-16);
-    background: var(--surface-alt);
-  }
-
-  .page-head .container {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .page-head h1 {
-    font-size: var(--text-display);
-    font-weight: var(--weight-black);
-  }
-
-  .page-head p {
-    max-width: 52ch;
-    color: var(--text-muted);
-    font-size: var(--text-lg);
-  }
-
-  .breadcrumb ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-  }
-
-  .breadcrumb li + li::before {
-    content: '/';
-    margin-inline-end: var(--space-2);
-  }
-
-  .breadcrumb a {
-    color: var(--text);
-  }
-
   .quote-body {
     padding-top: var(--space-12);
   }
