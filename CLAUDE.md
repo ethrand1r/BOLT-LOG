@@ -211,6 +211,7 @@ Do not display an icon for any social account without a link.
 
 - **Stack:** Static site built with **Astro** (decided 2026-09-26).
 - **Hosting:** GoDaddy cPanel web hosting (decided 2026-09-26). Upload the contents of `dist/` (or `bolt-log-site.zip`, extracted) to `public_html`; `public/.htaccess` handles HTTPS, clean URLs and the 404 page. The build is fully static (`npm run build` → `dist/`), with clean URLs (`build.format: 'file'`, no trailing slash), so any static host works.
+- **Preview:** https://bolt-log.vercel.app (Vercel, deploys automatically from `main` on https://github.com/ethrand1r/BOLT-LOG; `vercel.json` sets clean URLs and `noindex` on `*.vercel.app`). Temporary only: Vercel Hobby does not allow commercial production use.
 - **Domain:** bolt-log.com (existing, keep it)
 - **Forms:** **Web3Forms** (decided 2026-09-26). Access key received 2026-09-26, stored in `src/data/site.ts` (`company.web3formsKey`; public by design). The recipient inbox is tied to the key, not the code: the key must be created for `cargo@bolt-log.com` (current key replaced the first, Gmail-bound key on 2026-09-26). Spam protection: `botcheck` honeypot (hCaptcha is available for free if spam appears). Submissions pass through Web3Forms servers in the US, so the KVKK notice must mention this transfer. Free plan has no file attachments — the quote form's file upload is hidden/disabled until a paid plan or alternative is chosen.
 - **Responsive:** Mobile-first; every page must look flawless on phone, tablet and desktop.
