@@ -366,5 +366,69 @@
     "searchPlaceholder": "Örn. konşimento",
     "noResults": "Aramanızla eşleşen bir terim bulunamadı.",
     "lettersLabel": "Harfe göre"
+  },
+  "blogPage": {
+    "metaTitle": "Blog | Bolt Logistics",
+    "metaDescription": "Lojistik ve dış ticaret dünyasından haberler, rehberler ve Bolt Logistics duyuruları.",
+    "title": "Blog",
+    "lead": "Lojistik ve dış ticaret dünyasından haberler, rehberler ve duyurular.",
+    "emptyTitle": "İlk yazılarımız yolda.",
+    "emptyText": "Yakında burada lojistik dünyasından haberler ve pratik rehberler paylaşacağız. O zamana kadar Logipedia'daki kaynaklarımıza göz atabilirsiniz.",
+    "emptyLink": "Logipedia'ya git",
+    "readMore": "Devamını oku",
+    "backToBlog": "Blog'a dön",
+    "published": "Yayın tarihi"
+  },
+  "legal": {
+    "updated": "Son güncelleme",
+    "updatedDate": "26 Eylül 2026",
+    "controllerTitle": "Veri sorumlusu",
+    "controllerName": "Bolt Logistics"
+  },
+  "kvkkPage": {
+    "metaTitle": "KVKK Aydınlatma Metni | Bolt Logistics",
+    "metaDescription": "Bolt Logistics kişisel verilerin korunması hakkında aydınlatma metni.",
+    "title": "KVKK Aydınlatma Metni",
+    "lead": "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında bilgilendirme.",
+    "pendingTitle": "Bu metin hazırlanıyor.",
+    "pendingText": "Aydınlatma metnimiz hukuk danışmanımız tarafından hazırlanmaktadır ve en kısa sürede bu sayfada yayımlanacaktır. Kişisel verilerinizle ilgili her türlü soru ve talebiniz için bize e-posta ile ulaşabilirsiniz."
+  },
+  "cookiesPage": {
+    "metaTitle": "Çerez Politikası | Bolt Logistics",
+    "metaDescription": "bolt-log.com'da hangi çerezlerin ve benzeri teknolojilerin kullanıldığı ve tercihlerinizi nasıl yönetebileceğiniz.",
+    "title": "Çerez Politikası",
+    "lead": "Sitemizde hangi çerezlerin ve benzeri teknolojilerin kullanıldığını ve tercihlerinizi nasıl yönetebileceğinizi açıklıyoruz.",
+    "s1Title": "Çerez nedir?",
+    "s1": "Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınıza kaydedilen küçük metin dosyalarıdır. Benzer amaçla tarayıcının yerel depolama alanı (localStorage) da kullanılabilir.",
+    "s2Title": "Kullandığımız teknolojiler",
+    "s2Intro": "Sitemiz reklam ya da profil çıkarma amaçlı çerez kullanmaz. Kullandığımız teknolojiler şunlardır:",
+    "necessaryTitle": "Zorunlu",
+    "necessary": "Çerez tercihinizi hatırlamak için tarayıcınızın yerel depolama alanına \"bolt-consent\" adlı bir kayıt eklenir. Bu kayıt yalnızca sizin cihazınızda tutulur ve sunucularımıza gönderilmez.",
+    "thirdTitle": "Üçüncü taraf (isteğe bağlı)",
+    "third": "İletişim sayfamızdaki harita, siz \"Haritayı göster\" butonuna tıklamadıkça yüklenmez. Tıkladığınızda Google Haritalar yüklenir ve Google kendi çerezlerini kullanabilir.",
+    "analyticsTitle": "Analitik",
+    "analytics": "Sitemizde şu anda analitik aracı kullanılmamaktadır. İleride ziyaret istatistikleri için bir araç eklenirse, bu araç yalnızca çerez banner'ında onay vermeniz halinde çalışacaktır.",
+    "s3Title": "Tercihlerinizi nasıl yönetebilirsiniz?",
+    "s3": "Çerez tercihinizi istediğiniz zaman aşağıdaki butonla ya da sayfanın altındaki \"Çerez tercihleri\" bağlantısıyla değiştirebilirsiniz. Ayrıca tarayıcınızın ayarlarından çerezleri ve yerel depolama kayıtlarını silebilir ya da engelleyebilirsiniz.",
+    "manage": "Çerez tercihlerini değiştir",
+    "googleLink": "Google Gizlilik Politikası",
+    "contactText": "Sorularınız için bize e-posta ile ulaşabilirsiniz:"
+  },
+  "cookieBanner": {
+    "title": "Çerez tercihiniz",
+    "text": "Sitemizin çalışması için gerekli olanlar dışında çerez kullanmıyoruz. İleride ziyaret istatistikleri için analitik çerezler eklenirse, bunlar yalnızca onayınızla çalışır.",
+    "policy": "Çerez Politikası",
+    "accept": "Kabul Et",
+    "reject": "Reddet",
+    "settings": "Çerez tercihleri"
+  },
+  "notFound": {
+    "metaTitle": "Sayfa bulunamadı | Bolt Logistics",
+    "metaDescription": "Aradığınız sayfa bulunamadı.",
+    "title": "Bu sayfa rotadan çıkmış.",
+    "text": "Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir. Ana sayfadan ya da aşağıdaki bağlantılardan devam edebilirsiniz.",
+    "home": "Ana sayfaya dön",
+    "englishNote": "Page not found.",
+    "englishHome": "Go to the English home page"
   }
 }

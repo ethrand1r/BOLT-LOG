@@ -4,27 +4,31 @@ import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wght-
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import WhatsAppButton from '../components/layout/WhatsAppButton.astro';
+import CookieBanner from '../components/layout/CookieBanner.astro';
 import { company } from '../data/site';
 import { routes, type RouteKey } from '../i18n/routes';
 import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
-  routeKey: RouteKey;
+  /** Pages with a TR/EN twin pass their route key (canonical + hreflang). */
+  routeKey?: RouteKey;
+  /** Pages without a twin (blog posts, 404) pass their own path instead. */
+  pagePath?: string;
   title: string;
   description: string;
-  /** Absolute or root-relative OG image. Omitted until a real share image exists. */
+  /** Absolute or root-relative share image; defaults to the site-wide one. */
   image?: string;
   noindex?: boolean;
 }
 
-const { lang, routeKey, title, description, image, noindex = false } = Astro.props;
+const { lang, routeKey, pagePath, title, description, image = '/og-default.jpg', noindex = false } = Astro.props;
 const t = useTranslations(lang);
 const site = Astro.site ?? new URL(company.url);
 const abs = (p: string) => new URL(p, site).href;
 
-const canonical = abs(routes[routeKey][lang]);
-const alternates = { tr: abs(routes[routeKey].tr), en: abs(routes[routeKey].en) };
+const canonical = abs(routeKey ? routes[routeKey][lang] : (pagePath ?? Astro.url.pathname));
+const alternates = routeKey ? { tr: abs(routes[routeKey].tr), en: abs(routes[routeKey].en) } : null;
 const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
 
 const structuredData = {
@@ -62,10 +66,16 @@ const structuredData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="tr" href={alternates.tr} />
-    <link rel="alternate" hreflang="en" href={alternates.en} />
-    <link rel="alternate" hreflang="x-default" href={alternates.tr} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {
+      alternates && !noindex && (
+        <>
+          <link rel="alternate" hreflang="tr" href={alternates.tr} />
+          <link rel="alternate" hreflang="en" href={alternates.en} />
+          <link rel="alternate" hreflang="x-default" href={alternates.tr} />
+        </>
+      )
+    }
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#0f0f10" />
@@ -77,11 +87,13 @@ const structuredData = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {image && <meta property="og:image" content={abs(image)} />}
-    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={abs(image)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {image && <meta name="twitter:image" content={abs(image)} />}
+    <meta name="twitter:image" content={abs(image)} />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
@@ -93,6 +105,7 @@ const structuredData = {
     </main>
     <Footer lang={lang} />
     <WhatsAppButton lang={lang} />
+    <CookieBanner lang={lang} />
 
     <script is:inline>
       // Scroll reveal: marks [data-reveal] elements visible once they enter the viewport.

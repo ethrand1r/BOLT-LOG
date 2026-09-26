@@ -1,0 +1,135 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from 'astro:content';
+import PageHead from '../ui/PageHead.astro';
+import Button from '../ui/Button.astro';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { lang, posts } = Astro.props;
+const t = useTranslations(lang);
+const date = new Intl.DateTimeFormat(lang === 'tr' ? 'tr-TR' : 'en-GB', { dateStyle: 'long' });
+---
+
+<PageHead lang={lang} title={t('blogPage.title')} lead={t('blogPage.lead')} crumbs={[{ label: t('blogPage.title') }]} />
+
+<section class="section blog">
+  <div class="container">
+    {
+      posts.length === 0 ? (
+        <div class="empty">
+          <Icon name="ph:book-open-text" class="empty-icon" aria-hidden="true" />
+          <h2>{t('blogPage.emptyTitle')}</h2>
+          <p>{t('blogPage.emptyText')}</p>
+          <Button href={path('logipedia', lang)} variant="secondary" icon="ph:arrow-right">
+            {t('blogPage.emptyLink')}
+          </Button>
+        </div>
+      ) : (
+        <ul role="list" class="posts">
+          {posts.map((post) => (
+            <li>
+              <a class="post" href={`${path('blog', lang)}/${post.data.slug}`}>
+                <time class="post-date tabular" datetime={post.data.date.toISOString()}>
+                  {date.format(post.data.date)}
+                </time>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+                <span class="post-more">
+                  {t('blogPage.readMore')}
+                  <Icon name="ph:arrow-right" aria-hidden="true" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .empty {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    max-width: var(--measure);
+    padding: var(--space-10);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  .empty :global(.empty-icon) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  .empty p {
+    color: var(--text-muted);
+  }
+
+  .posts {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .post {
+    display: grid;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration-hover) ease;
+  }
+
+  .post h2 {
+    font-size: var(--text-xl);
+  }
+
+  .post p,
+  .post-date {
+    color: var(--text-muted);
+  }
+
+  .post-date {
+    font-size: var(--text-sm);
+  }
+
+  .post-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: var(--weight-semibold);
+  }
+
+  .post-more :global(svg) {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .post:hover {
+      border-color: var(--text);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .posts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .posts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -9,17 +9,18 @@ import { useTranslations, otherLang, type Lang } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
-  routeKey: RouteKey;
+  /** Without a route key the language switch points to the other home page. */
+  routeKey?: RouteKey;
 }
 
 const { lang, routeKey } = Astro.props;
 const t = useTranslations(lang);
 const alt = otherLang(lang);
-const altHref = path(routeKey, alt);
+const altHref = path(routeKey ?? 'home', alt);
 
 const groupIsActive = (group: NavGroup) =>
-  group.links.some((l) => l.route === routeKey) || group.overview?.route === routeKey;
-const current = (key: RouteKey) => (key === routeKey ? 'page' : undefined);
+  !!routeKey && (group.links.some((l) => l.route === routeKey) || group.overview?.route === routeKey);
+const current = (key: RouteKey) => (routeKey && key === routeKey ? 'page' : undefined);
 ---
 
 <header class="site-header on-dark">

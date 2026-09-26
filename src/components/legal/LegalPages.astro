@@ -1,0 +1,176 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import PageHead from '../ui/PageHead.astro';
+import { company } from '../../data/site';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  page: 'kvkk' | 'cookies';
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+const ns = page === 'kvkk' ? 'kvkkPage' : 'cookiesPage';
+const k = (key: string) => t(`${ns}.${key}` as UiKey);
+---
+
+<PageHead lang={lang} title={k('title')} lead={k('lead')} crumbs={[{ label: k('title') }]} />
+
+<section class="section legal">
+  <div class="container">
+    <div class="prose">
+    <p class="updated tabular">{t('legal.updated')}: {t('legal.updatedDate')}</p>
+
+    {
+      page === 'kvkk' && (
+        <>
+          <div class="pending" role="note">
+            <Icon name="ph:info" aria-hidden="true" />
+            <div>
+              <h2>{k('pendingTitle')}</h2>
+              <p>{k('pendingText')}</p>
+            </div>
+          </div>
+          <h2>{t('legal.controllerTitle')}</h2>
+          <address>
+            <strong>{t('legal.controllerName')}</strong>
+            <br />
+            {t('contact.address')}
+            <br />
+            <a href={`mailto:${company.email}`}>{company.email}</a>
+            <br />
+            <a href={company.phones[0].href} class="tabular">
+              {company.phones[0].display}
+            </a>
+          </address>
+        </>
+      )
+    }
+
+    {
+      page === 'cookies' && (
+        <>
+          <h2>{k('s1Title')}</h2>
+          <p>{k('s1')}</p>
+
+          <h2>{k('s2Title')}</h2>
+          <p>{k('s2Intro')}</p>
+          <dl class="cookie-types">
+            <div>
+              <dt>{k('necessaryTitle')}</dt>
+              <dd>{k('necessary')}</dd>
+            </div>
+            <div>
+              <dt>{k('thirdTitle')}</dt>
+              <dd>
+                {k('third')}{' '}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+                  {k('googleLink')}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt>{k('analyticsTitle')}</dt>
+              <dd>{k('analytics')}</dd>
+            </div>
+          </dl>
+
+          <h2>{k('s3Title')}</h2>
+          <p>{k('s3')}</p>
+          <Button type="button" variant="secondary" data-cookie-settings>
+            {k('manage')}
+          </Button>
+
+          <p class="contact-line">
+            {k('contactText')} <a href={`mailto:${company.email}`}>{company.email}</a>
+          </p>
+        </>
+      )
+    }
+    </div>
+  </div>
+</section>
+
+<style>
+  .prose {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    max-width: var(--measure);
+  }
+
+  .prose h2 {
+    margin-top: var(--space-6);
+    font-size: var(--text-xl);
+  }
+
+  .prose p,
+  .prose dd,
+  address {
+    max-width: var(--measure);
+    color: var(--text-muted);
+  }
+
+  address {
+    font-style: normal;
+    line-height: var(--leading-body);
+  }
+
+  address strong {
+    color: var(--text);
+  }
+
+  .updated {
+    font-size: var(--text-sm);
+  }
+
+  .pending {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  .pending :global(svg) {
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+  }
+
+  .pending h2 {
+    margin-top: 0;
+    margin-bottom: var(--space-2);
+    font-size: var(--text-lg);
+  }
+
+  .cookie-types {
+    display: grid;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: var(--measure);
+  }
+
+  .cookie-types > div {
+    padding: var(--space-5);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  dt {
+    margin-bottom: var(--space-1);
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .contact-line {
+    margin-top: var(--space-6);
+  }
+</style>

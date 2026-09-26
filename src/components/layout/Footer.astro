@@ -98,6 +98,7 @@ const companyLinks = [
     <ul role="list" class="footer-legal">
       <li><a href={path('kvkk', lang)}>{t('footer.kvkk')}</a></li>
       <li><a href={path('cookies', lang)}>{t('footer.cookies')}</a></li>
+      <li><button type="button" class="footer-link-button" data-cookie-settings>{t('cookieBanner.settings')}</button></li>
     </ul>
     </div>
   </div>
@@ -150,7 +151,8 @@ const companyLinks = [
   }
 
   .footer-col a,
-  .footer-legal a {
+  .footer-legal a,
+  .footer-link-button {
     display: inline-block;
     padding-block: var(--space-1);
     text-decoration: none;
@@ -219,6 +221,7 @@ const companyLinks = [
   @media (hover: hover) and (pointer: fine) {
     .footer-col a:hover,
     .footer-legal a:hover,
+    .footer-link-button:hover,
     .footer-social a:hover {
       color: var(--text-on-dark);
     }

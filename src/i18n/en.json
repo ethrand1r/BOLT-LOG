@@ -366,5 +366,69 @@
     "searchPlaceholder": "e.g. bill of lading",
     "noResults": "No terms match your search.",
     "lettersLabel": "By letter"
+  },
+  "blogPage": {
+    "metaTitle": "Blog | Bolt Logistics",
+    "metaDescription": "News, guides and announcements from the world of logistics and trade, by Bolt Logistics.",
+    "title": "Blog",
+    "lead": "News, guides and announcements from the world of logistics and trade.",
+    "emptyTitle": "Our first posts are on their way.",
+    "emptyText": "We will soon share logistics news and practical guides here. In the meantime, have a look at the resources in Logipedia.",
+    "emptyLink": "Go to Logipedia",
+    "readMore": "Read more",
+    "backToBlog": "Back to the blog",
+    "published": "Published"
+  },
+  "legal": {
+    "updated": "Last updated",
+    "updatedDate": "26 September 2026",
+    "controllerTitle": "Data controller",
+    "controllerName": "Bolt Logistics"
+  },
+  "kvkkPage": {
+    "metaTitle": "Privacy Notice (KVKK) | Bolt Logistics",
+    "metaDescription": "The Bolt Logistics privacy notice under the Turkish Personal Data Protection Law (KVKK).",
+    "title": "Privacy Notice (KVKK)",
+    "lead": "Information under Turkish Law No. 6698 on the Protection of Personal Data.",
+    "pendingTitle": "This notice is being prepared.",
+    "pendingText": "Our privacy notice is being prepared by our legal adviser and will be published on this page shortly. For any question or request about your personal data, please email us."
+  },
+  "cookiesPage": {
+    "metaTitle": "Cookie Policy | Bolt Logistics",
+    "metaDescription": "Which cookies and similar technologies bolt-log.com uses, and how you can manage your preferences.",
+    "title": "Cookie Policy",
+    "lead": "Which cookies and similar technologies our site uses, and how you can manage your preferences.",
+    "s1Title": "What are cookies?",
+    "s1": "Cookies are small text files saved in your browser when you visit a website. The browser’s local storage can be used for similar purposes.",
+    "s2Title": "What we use",
+    "s2Intro": "Our site does not use cookies for advertising or profiling. These are the technologies we use:",
+    "necessaryTitle": "Necessary",
+    "necessary": "To remember your cookie choice, an entry called \"bolt-consent\" is saved in your browser’s local storage. It stays on your device and is never sent to our servers.",
+    "thirdTitle": "Third party (optional)",
+    "third": "The map on our contact page does not load until you click \"Show map\". When you do, Google Maps loads and Google may use its own cookies.",
+    "analyticsTitle": "Analytics",
+    "analytics": "We do not currently use any analytics tool. If we add one for visitor statistics in the future, it will only run if you give consent in the cookie banner.",
+    "s3Title": "How to manage your preferences",
+    "s3": "You can change your cookie choice at any time with the button below or the \"Cookie preferences\" link at the bottom of every page. You can also delete or block cookies and local storage entries in your browser settings.",
+    "manage": "Change cookie preferences",
+    "googleLink": "Google Privacy Policy",
+    "contactText": "For any questions, email us at:"
+  },
+  "cookieBanner": {
+    "title": "Your cookie choice",
+    "text": "We only use what is necessary for the site to work. If we add analytics cookies for visitor statistics in the future, they will only run with your consent.",
+    "policy": "Cookie Policy",
+    "accept": "Accept",
+    "reject": "Reject",
+    "settings": "Cookie preferences"
+  },
+  "notFound": {
+    "metaTitle": "Page not found | Bolt Logistics",
+    "metaDescription": "The page you are looking for could not be found.",
+    "title": "This page went off route.",
+    "text": "The page you are looking for may have moved or never existed. Continue from the home page or the links below.",
+    "home": "Back to home page",
+    "englishNote": "Sayfa bulunamadı.",
+    "englishHome": "Türkçe ana sayfaya git"
   }
 }

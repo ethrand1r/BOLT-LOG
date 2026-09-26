@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPages from '../../components/legal/LegalPages.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<!-- noindex until the lawyer-approved notice replaces the placeholder (CLAUDE.md section 10). -->
+<BaseLayout lang={lang} routeKey="kvkk" title={t('kvkkPage.metaTitle')} description={t('kvkkPage.metaDescription')} noindex>
+  <LegalPages lang={lang} page="kvkk" />
+</BaseLayout>

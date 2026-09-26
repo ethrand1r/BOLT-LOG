@@ -119,7 +119,7 @@ Do **not** reuse any text, images, or logos from these sites. Take only structur
 
 ### URL structure
 - Turkish (default): `/`, `/hizmetler/havayolu-tasimaciligi`, `/teklif-al`, `/iletisim`
-- English: `/en/`, `/en/services/air-freight`, `/en/get-a-quote`, `/en/contact`
+- English: `/en`, `/en/services/air-freight`, `/en/get-a-quote`, `/en/contact`
 
 ---
 

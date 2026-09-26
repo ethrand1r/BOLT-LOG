@@ -2,7 +2,7 @@ import type { Lang } from './ui';
 
 /** Every page has one key; each key maps to its Turkish and English path. */
 export const routes = {
-  home: { tr: '/', en: '/en/' },
+  home: { tr: '/', en: '/en' },
 
   aboutUs: { tr: '/hakkimizda', en: '/en/about' },
   visionMission: { tr: '/hakkimizda/vizyon-misyon', en: '/en/about/vision-mission' },

@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { serviceLinks } from '../data/navigation';
+import { path } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+// Static hosts serve one 404 for both languages: Turkish first, with an English line.
+const lang = 'tr';
+const t = useTranslations(lang);
+const en = useTranslations('en');
+---
+
+<BaseLayout lang={lang} pagePath="/404" title={t('notFound.metaTitle')} description={t('notFound.metaDescription')} noindex>
+  <section class="section not-found">
+    <div class="container">
+      <p class="code tabular" aria-hidden="true">404</p>
+      <h1>{t('notFound.title')}</h1>
+      <p class="text">{t('notFound.text')}</p>
+      <div class="actions">
+        <Button href={path('home', lang)} icon="ph:arrow-right">{t('notFound.home')}</Button>
+        <Button href={path('quote', lang)} variant="secondary">{t('cta.quote')}</Button>
+      </div>
+      <ul role="list" class="links">
+        {
+          serviceLinks.map((s) => (
+            <li>
+              <a href={path(s.route, lang)}>{t(s.label)}</a>
+            </li>
+          ))
+        }
+        <li><a href={path('logipedia', lang)}>{t('nav.logipedia')}</a></li>
+        <li><a href={path('contact', lang)}>{t('nav.contact')}</a></li>
+      </ul>
+      <p class="english" lang="en">
+        {en('notFound.metaTitle').split(' | ')[0]}. <a href={path('home', 'en')}>{t('notFound.englishHome')}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found .container {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+
+  .code {
+    font-family: var(--font-heading);
+    font-size: var(--text-display);
+    font-weight: var(--weight-black);
+    line-height: 1;
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 0.12em;
+    text-underline-offset: 0.12em;
+  }
+
+  h1 {
+    max-width: 18ch;
+  }
+
+  .text {
+    max-width: 52ch;
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--line);
+  }
+
+  .english {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

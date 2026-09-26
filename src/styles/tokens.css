@@ -99,6 +99,7 @@
   --field-height: 3rem;
   --checkbox-size: 1.25rem;
   --aside-width: 22rem;
+  --cookie-width: 30rem;
   --hero-min-height: min(calc(100dvh - var(--header-height)), 50rem);
   --quote-overlap: 4rem;
   --page-head-image-height: 26rem;

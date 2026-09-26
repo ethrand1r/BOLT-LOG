@@ -1,0 +1,76 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import PageHead from '../ui/PageHead.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  post: CollectionEntry<'blog'>;
+}
+
+const { lang, post } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(post);
+const date = new Intl.DateTimeFormat(lang === 'tr' ? 'tr-TR' : 'en-GB', { dateStyle: 'long' });
+---
+
+<PageHead
+  lang={lang}
+  title={post.data.title}
+  lead={post.data.description}
+  crumbs={[{ label: t('blogPage.title'), href: path('blog', lang) }, { label: post.data.title }]}
+>
+  <p class="meta tabular">
+    {t('blogPage.published')}: <time datetime={post.data.date.toISOString()}>{date.format(post.data.date)}</time>
+  </p>
+</PageHead>
+
+<article class="section">
+  <div class="container">
+    <div class="post-body">
+      <Content />
+      <a class="arrow-link" href={path('blog', lang)}>
+        <Icon name="ph:arrow-left" aria-hidden="true" />
+        {t('blogPage.backToBlog')}
+      </a>
+    </div>
+  </div>
+</article>
+
+<CtaBand lang={lang} title={t('home.ctaBand.title')} text={t('home.ctaBand.text')} />
+
+<style>
+  .meta {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .post-body {
+    display: grid;
+    gap: var(--space-5);
+    max-width: var(--measure);
+  }
+
+  .post-body :global(h2) {
+    margin-top: var(--space-6);
+  }
+
+  .post-body :global(p),
+  .post-body :global(li) {
+    color: var(--text-muted);
+  }
+
+  .post-body :global(ul),
+  .post-body :global(ol) {
+    display: grid;
+    gap: var(--space-2);
+    padding-inline-start: var(--space-6);
+  }
+
+  .post-body :global(img) {
+    border-radius: var(--radius-md);
+  }
+</style>

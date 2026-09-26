@@ -1,0 +1,23 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPost from '../../../components/blog/BlogPost.astro';
+import { path } from '../../../i18n/routes';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => p.data.lang === 'en' && !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const lang = 'en';
+---
+
+<BaseLayout
+  lang={lang}
+  pagePath={`${path('blog', lang)}/${post.data.slug}`}
+  title={`${post.data.title} | Bolt Logistics`}
+  description={post.data.description}
+>
+  <BlogPost lang={lang} post={post} />
+</BaseLayout>

@@ -1,0 +1,167 @@
+---
+import Button from '../ui/Button.astro';
+import { path } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!--
+  KVKK-style consent: accept and reject carry equal weight on the first layer.
+  The choice lives in localStorage ("bolt-consent"). Analytics, if ever added,
+  must wait for window.boltConsent?.analytics === true or the "bolt:consent" event.
+-->
+<section class="cookie-banner on-dark" aria-labelledby="cookie-title" data-cookie-banner hidden>
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <h2 id="cookie-title">{t('cookieBanner.title')}</h2>
+      <p>
+        {t('cookieBanner.text')}
+        <a href={path('cookies', lang)}>{t('cookieBanner.policy')}</a>
+      </p>
+    </div>
+    <div class="cookie-actions">
+      <Button type="button" variant="secondary-on-dark" size="sm" data-consent="reject">{t('cookieBanner.reject')}</Button>
+      <Button type="button" size="sm" data-consent="accept">{t('cookieBanner.accept')}</Button>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var KEY = 'bolt-consent';
+    var banner = document.querySelector('[data-cookie-banner]');
+    if (!banner) return;
+
+    function read() {
+      try {
+        return JSON.parse(localStorage.getItem(KEY) || 'null');
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function save(analytics) {
+      var value = { analytics: analytics, date: new Date().toISOString(), v: 1 };
+      try {
+        localStorage.setItem(KEY, JSON.stringify(value));
+      } catch (e) {}
+      window.boltConsent = value;
+      document.dispatchEvent(new CustomEvent('bolt:consent', { detail: value }));
+      banner.hidden = true;
+    }
+
+    window.boltConsent = read();
+    if (!window.boltConsent) banner.hidden = false;
+
+    banner.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-consent]');
+      if (btn) save(btn.getAttribute('data-consent') === 'accept');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('[data-cookie-settings]')) return;
+      e.preventDefault();
+      banner.hidden = false;
+      var first = banner.querySelector('button');
+      if (first) first.focus();
+    });
+  })();
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: max(var(--space-4), env(safe-area-inset-bottom));
+    z-index: var(--z-cookie);
+    max-width: var(--cookie-width);
+    padding: var(--space-5);
+    background: var(--surface-dark-alt);
+    border: var(--border-width) solid var(--line-on-dark);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cookie-banner {
+      transition:
+        opacity var(--duration-menu) var(--ease-out),
+        transform var(--duration-menu) var(--ease-out);
+
+      @starting-style {
+        opacity: 0;
+        transform: translateY(var(--reveal-distance));
+      }
+    }
+  }
+
+  .cookie-inner {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cookie-text {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  h2 {
+    font-size: var(--text-lg);
+  }
+
+  p {
+    color: var(--text-on-dark-muted);
+    font-size: var(--text-sm);
+  }
+
+  p a {
+    color: var(--text-on-dark);
+    margin-inline-start: var(--space-1);
+  }
+
+  .cookie-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 48rem) {
+    .cookie-banner {
+      left: var(--space-8);
+      bottom: var(--space-8);
+      padding: var(--space-6);
+    }
+  }
+
+  /* Wide screens: a slim bar that stays clear of the hero CTAs and the WhatsApp button. */
+  @media (min-width: 64rem) {
+    .cookie-banner {
+      right: calc(var(--space-8) + var(--floating-button-size) + var(--space-4));
+      max-width: none;
+      padding: var(--space-4) var(--space-6);
+    }
+
+    .cookie-inner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--space-8);
+    }
+
+    .cookie-text {
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+
+    .cookie-actions {
+      grid-template-columns: auto auto;
+    }
+  }
+</style>

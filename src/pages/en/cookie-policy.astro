@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPages from '../../components/legal/LegalPages.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} routeKey="cookies" title={t('cookiesPage.metaTitle')} description={t('cookiesPage.metaDescription')}>
+  <LegalPages lang={lang} page="cookies" />
+</BaseLayout>
