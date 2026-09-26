@@ -1,0 +1,39 @@
+---
+import LogipediaLayout from './LogipediaLayout.astro';
+import IncotermsContent from './IncotermsContent.astro';
+import EquipmentGrid from './EquipmentGrid.astro';
+import GlossaryContent from './GlossaryContent.astro';
+import LoadingMetres from './LoadingMetres.astro';
+import { containers, trucks } from '../../content/logipedia/equipment';
+import type { RouteKey } from '../../i18n/routes';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
+
+export type Topic = 'incoterms' | 'containers' | 'trucks' | 'glossary';
+
+interface Props {
+  lang: Lang;
+  topic: Topic;
+}
+
+const { lang, topic } = Astro.props;
+const t = useTranslations(lang);
+const ns = `${topic}Page`;
+---
+
+<LogipediaLayout
+  lang={lang}
+  routeKey={topic as RouteKey}
+  title={t(`${ns}.title` as UiKey)}
+  lead={t(`${ns}.lead` as UiKey)}
+>
+  {topic === 'incoterms' && <IncotermsContent lang={lang} />}
+  {topic === 'containers' && <EquipmentGrid lang={lang} items={containers} />}
+  {
+    topic === 'trucks' && (
+      <EquipmentGrid lang={lang} items={trucks}>
+        <LoadingMetres lang={lang} />
+      </EquipmentGrid>
+    )
+  }
+  {topic === 'glossary' && <GlossaryContent lang={lang} />}
+</LogipediaLayout>

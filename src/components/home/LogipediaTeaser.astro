@@ -6,9 +6,11 @@ import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Hide the heading row (the Logipedia index page has its own page head). */
+  showHead?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, showHead = true } = Astro.props;
 const t = useTranslations(lang);
 
 const topics = logipediaLinks.map((l) => {
@@ -21,9 +23,9 @@ const topics = logipediaLinks.map((l) => {
 });
 ---
 
-<section class="section logipedia" aria-labelledby="logipedia-title">
+<section class="section logipedia" aria-labelledby={showHead ? 'logipedia-title' : undefined}>
   <div class="container">
-    <div class="logipedia-head">
+    {showHead && (<div class="logipedia-head">
       <div class="section-head">
         <h2 id="logipedia-title">{t('home.logipedia.title')}</h2>
         <p>{t('home.logipedia.text')}</p>
@@ -32,7 +34,7 @@ const topics = logipediaLinks.map((l) => {
         {t('home.logipedia.allTopics')}
         <Icon name="ph:arrow-right" aria-hidden="true" />
       </a>
-    </div>
+    </div>)}
 
     <ul role="list" class="topics">
       {

@@ -1,0 +1,98 @@
+---
+import { Icon } from 'astro-icon/components';
+import PageHead from '../ui/PageHead.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { logipediaLinks } from '../../data/navigation';
+import { path, type RouteKey } from '../../i18n/routes';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  routeKey: RouteKey;
+  title: string;
+  lead: string;
+}
+
+const { lang, routeKey, title, lead } = Astro.props;
+const t = useTranslations(lang);
+const others = logipediaLinks.filter((l) => l.route !== routeKey);
+---
+
+<PageHead
+  lang={lang}
+  title={title}
+  lead={lead}
+  crumbs={[{ label: t('logipediaPage.title'), href: path('logipedia', lang) }, { label: title }]}
+/>
+
+<slot />
+
+<nav class="section section--alt other-topics" aria-labelledby="other-topics-title">
+  <div class="container">
+    <h2 id="other-topics-title">{t('logipediaPage.otherTopics')}</h2>
+    <ul role="list">
+      {
+        others.map((o) => (
+          <li>
+            <a href={path(o.route, lang)}>
+              <span>{t(o.label)}</span>
+              <Icon name="ph:arrow-right" aria-hidden="true" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<CtaBand lang={lang} title={t('logipediaPage.ctaTitle')} text={t('logipediaPage.ctaText')} />
+
+<style>
+  .other-topics h2 {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-xl);
+  }
+
+  .other-topics ul {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .other-topics a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--mobile-link-height);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface);
+    border: var(--border-width) solid var(--line);
+    border-radius: var(--radius-md);
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    transition: border-color var(--duration-hover) ease;
+  }
+
+  .other-topics a :global(svg) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+    transition: transform var(--duration-hover) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .other-topics a:hover {
+      border-color: var(--text);
+    }
+
+    .other-topics a:hover :global(svg) {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .other-topics ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

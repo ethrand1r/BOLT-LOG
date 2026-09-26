@@ -295,5 +295,76 @@
     "vision": "Türkiye'den dünyaya uzanan ticarette, güvenilirliği ve hızıyla ilk akla gelen lojistik iş ortaklarından biri olmak.",
     "missionTitle": "Misyonumuz",
     "mission": "Her gönderiyi doğru taşıma türü, açık fiyat ve zamanında bilgiyle planlayarak müşterilerimizin lojistik süreçlerini sadeleştirmek ve rekabet güçlerine katkı sağlamak."
+  },
+  "logipediaPage": {
+    "metaTitle": "Logipedia: Lojistik Rehberi | Bolt Logistics",
+    "metaDescription": "Incoterms 2020, konteyner tipleri ve ölçüleri, tır ve dorse kapasiteleri ile lojistik terimler sözlüğü. Bolt Logistics bilgi merkezi.",
+    "title": "Logipedia",
+    "lead": "Teslim şekillerinden konteyner ölçülerine, lojistikte sık ihtiyaç duyulan bilgiler tek yerde.",
+    "otherTopics": "Diğer konular",
+    "approxNote": "Değerler yaklaşıktır. Hat, üretici ve ülke mevzuatına göre değişebilir. Kesin bilgi için bize danışın.",
+    "ctaTitle": "Yükünüz için doğru seçimi birlikte yapalım.",
+    "ctaText": "Konteyner mi tır mı, hangi teslim şekli? Bilgileri gönderin, size en uygun planı önerelim."
+  },
+  "incotermsPage": {
+    "metaTitle": "Incoterms 2020 Teslim Şekilleri | Logipedia | Bolt Logistics",
+    "metaDescription": "EXW, FCA, FOB, CIF, DAP, DDP ve diğer Incoterms 2020 kuralları: risk nerede geçer, navlunu kim öder, gümrük ve sigorta kimde? Kısa ve anlaşılır rehber.",
+    "title": "Incoterms 2020",
+    "lead": "Alıcı ile satıcı arasında maliyetin ve riskin nerede el değiştirdiğini belirleyen 11 teslim şekli.",
+    "spectrumTitle": "Sorumluluk dağılımı",
+    "spectrumBuyer": "Alıcının sorumluluğu en fazla",
+    "spectrumSeller": "Satıcının sorumluluğu en fazla",
+    "groupAny": "Tüm taşıma türleri için",
+    "groupSea": "Deniz ve iç su yolu taşımacılığı için",
+    "risk": "Risk geçişi",
+    "mainCarriage": "Ana taşıma",
+    "exportClearance": "İhracat gümrüğü",
+    "importClearance": "İthalat gümrüğü",
+    "insurance": "Sigorta",
+    "seller": "Satıcı",
+    "buyer": "Alıcı",
+    "insuranceMin": "Satıcı (asgari teminat)",
+    "insuranceAll": "Satıcı (geniş teminat)",
+    "insuranceNone": "Zorunlu değil",
+    "disclaimer": "Bu sayfa Incoterms 2020 kurallarının genel bir özetidir. Sözleşmelerinizde Uluslararası Ticaret Odası'nın (ICC) resmi metnini esas alın."
+  },
+  "containersPage": {
+    "metaTitle": "Konteyner Tipleri ve Ölçüleri | Logipedia | Bolt Logistics",
+    "metaDescription": "20' ve 40' standart, high cube, reefer, open top ve flat rack konteynerlerin iç ölçüleri, hacimleri, palet kapasiteleri ve azami yükleri.",
+    "title": "Konteyner tipleri ve ölçüleri",
+    "lead": "Denizyolu taşımacılığında en sık kullanılan konteyner tiplerinin iç ölçüleri, hacimleri ve taşıma kapasiteleri."
+  },
+  "trucksPage": {
+    "metaTitle": "Tır ve Dorse Ölçüleri | Logipedia | Bolt Logistics",
+    "metaDescription": "Standart tenteli tır, mega tır, frigorifik tır, jumbo ve kamyonun iç ölçüleri, hacimleri, palet kapasiteleri ve yükleme metresi (LDM) hesabı.",
+    "title": "Tır ve dorse ölçüleri",
+    "lead": "Karayolu taşımacılığında kullanılan başlıca araç tiplerinin iç ölçüleri ve kapasiteleri.",
+    "ldmTitle": "Yükleme metresi (LDM) nasıl hesaplanır?",
+    "ldm1": "Parsiyel karayolu taşımalarında ücret çoğu zaman yükün dorsede kapladığı uzunluğa, yani yükleme metresine göre belirlenir. Standart bir dorsenin genişliği yaklaşık 2,4 metre olduğundan hesap şu şekildedir:",
+    "ldmFormula": "LDM = (uzunluk x genişlik) / 2,4",
+    "ldm2": "Buna göre bir euro palet (1,2 x 0,8 m) yaklaşık 0,4 LDM, bir endüstriyel palet (1,2 x 1,0 m) yaklaşık 0,5 LDM yer kaplar. İstiflenebilen yüklerde bu değer düşer.",
+    "palletTitle": "Palet ölçüleri",
+    "euroPallet": "Euro palet",
+    "industrialPallet": "Endüstriyel palet"
+  },
+  "equipment": {
+    "inside": "İç ölçü (U x G x Y)",
+    "volume": "Hacim",
+    "payload": "Azami yük",
+    "door": "Kapı (G x Y)",
+    "euroPallets": "Euro palet",
+    "industrialPallets": "Endüstriyel palet",
+    "openPlatform": "Açık platform",
+    "approx": "yaklaşık"
+  },
+  "glossaryPage": {
+    "metaTitle": "Lojistik Terimleri Sözlüğü | Logipedia | Bolt Logistics",
+    "metaDescription": "Konşimento, CMR, ordino, demuraj, FCL, LCL, LDM ve daha fazlası. Lojistik ve dış ticarette sık kullanılan terimlerin kısa ve anlaşılır tanımları.",
+    "title": "Lojistik sözlüğü",
+    "lead": "Lojistik ve dış ticarette sık karşılaşılan terimlerin kısa ve anlaşılır tanımları.",
+    "searchLabel": "Terim ara",
+    "searchPlaceholder": "Örn. konşimento",
+    "noResults": "Aramanızla eşleşen bir terim bulunamadı.",
+    "lettersLabel": "Harfe göre"
   }
 }

@@ -1,0 +1,101 @@
+---
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = useTranslations(Astro.props.lang);
+---
+
+<div class="ldm">
+  <div class="ldm-text">
+    <h2>{t('trucksPage.ldmTitle')}</h2>
+    <p>{t('trucksPage.ldm1')}</p>
+    <p class="formula tabular">{t('trucksPage.ldmFormula')}</p>
+    <p>{t('trucksPage.ldm2')}</p>
+  </div>
+  <div class="pallets">
+    <h3>{t('trucksPage.palletTitle')}</h3>
+    <ul role="list">
+      <li>
+        <span class="pallet pallet--euro" aria-hidden="true"></span>
+        <span><strong>{t('trucksPage.euroPallet')}</strong><br /><span class="tabular">120 x 80 cm</span></span>
+      </li>
+      <li>
+        <span class="pallet pallet--industrial" aria-hidden="true"></span>
+        <span><strong>{t('trucksPage.industrialPallet')}</strong><br /><span class="tabular">120 x 100 cm</span></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .ldm {
+    display: grid;
+    gap: var(--space-10);
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: var(--border-width-strong) solid var(--text);
+  }
+
+  .ldm-text {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+  }
+
+  .ldm-text p {
+    color: var(--text-muted);
+  }
+
+  .formula {
+    justify-self: start;
+    padding: var(--space-3) var(--space-5);
+    background: var(--surface-dark);
+    color: var(--accent) !important;
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    border-radius: var(--radius-sm);
+  }
+
+  .pallets h3 {
+    margin-bottom: var(--space-5);
+  }
+
+  .pallets ul {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .pallets li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  /* Pallet footprints drawn to scale: 1 cm = 0.08rem. */
+  .pallet {
+    flex-shrink: 0;
+    width: 9.6rem;
+    background:
+      repeating-linear-gradient(90deg, var(--color-yellow-dark) 0 0.6rem, var(--accent) 0.6rem 1.6rem);
+    border-radius: 2px;
+  }
+
+  .pallet--euro {
+    height: 6.4rem;
+  }
+
+  .pallet--industrial {
+    height: 8rem;
+  }
+
+  @media (min-width: 64rem) {
+    .ldm {
+      grid-template-columns: 3fr 2fr;
+      gap: var(--space-16);
+    }
+  }
+</style>

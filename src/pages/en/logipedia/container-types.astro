@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LogipediaTopic from '../../../components/logipedia/LogipediaTopic.astro';
+import { useTranslations } from '../../../i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} routeKey="containers" title={t('containersPage.metaTitle')} description={t('containersPage.metaDescription')}>
+  <LogipediaTopic lang={lang} topic="containers" />
+</BaseLayout>

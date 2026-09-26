@@ -1,0 +1,144 @@
+---
+import type { Equipment } from '../../content/logipedia/equipment';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  items: Equipment[];
+}
+
+const { lang, items } = Astro.props;
+const t = useTranslations(lang);
+const locale = lang === 'tr' ? 'tr-TR' : 'en-GB';
+const m = new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const one = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 });
+const int = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
+---
+
+<section class="section equipment">
+  <div class="container">
+    <ul role="list" class="grid">
+      {
+        items.map((e, i) => (
+          <li class="card" data-reveal style={`--i: ${i % 3}`}>
+            <h2>{e.copy[lang].name}</h2>
+            <p class="text">{e.copy[lang].text}</p>
+            <dl class="specs tabular">
+              <div>
+                <dt>{t('equipment.inside')}</dt>
+                <dd>
+                  {m.format(e.length)} x {m.format(e.width)} x {m.format(e.height)} m
+                </dd>
+              </div>
+              <div>
+                <dt>{t('equipment.volume')}</dt>
+                <dd>{e.volume ? `${one.format(e.volume)} m³` : t('equipment.openPlatform')}</dd>
+              </div>
+              <div>
+                <dt>{t('equipment.payload')}</dt>
+                <dd>≈ {int.format(e.payload)} kg</dd>
+              </div>
+              {e.door && (
+                <div>
+                  <dt>{t('equipment.door')}</dt>
+                  <dd>
+                    {m.format(e.door.width)} x {m.format(e.door.height)} m
+                  </dd>
+                </div>
+              )}
+              {e.euroPallets && (
+                <div>
+                  <dt>{t('equipment.euroPallets')}</dt>
+                  <dd>{e.euroPallets}</dd>
+                </div>
+              )}
+              {e.industrialPallets && (
+                <div>
+                  <dt>{t('equipment.industrialPallets')}</dt>
+                  <dd>{e.industrialPallets}</dd>
+                </div>
+              )}
+            </dl>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="note">{t('logipediaPage.approxNote')}</p>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .card {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  .text {
+    color: var(--text-muted);
+  }
+
+  .specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-4);
+    margin-top: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: var(--border-width) solid var(--line);
+  }
+
+  .specs > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  dt {
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+  }
+
+  .specs > div:first-child dd {
+    font-size: var(--text-lg);
+  }
+
+  .note {
+    max-width: var(--measure);
+    margin-top: var(--space-8);
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-width) solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

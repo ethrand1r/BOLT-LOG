@@ -295,5 +295,76 @@
     "vision": "To be one of the first logistics partners that comes to mind for trade from Türkiye to the world, known for reliability and speed.",
     "missionTitle": "Our mission",
     "mission": "To simplify our customers’ logistics and strengthen their competitiveness by planning every shipment with the right mode, a clear price and timely information."
+  },
+  "logipediaPage": {
+    "metaTitle": "Logipedia: Logistics Guide | Bolt Logistics",
+    "metaDescription": "Incoterms 2020, container types and dimensions, truck and trailer capacities, and a logistics glossary. The Bolt Logistics knowledge base.",
+    "title": "Logipedia",
+    "lead": "From delivery terms to container sizes, the logistics reference you need in one place.",
+    "otherTopics": "Other topics",
+    "approxNote": "Values are approximate and vary by carrier, manufacturer and national rules. Ask us for exact figures.",
+    "ctaTitle": "Let’s make the right call for your cargo.",
+    "ctaText": "Container or truck, which delivery term? Send us the details and we will suggest the best plan."
+  },
+  "incotermsPage": {
+    "metaTitle": "Incoterms 2020 Explained | Logipedia | Bolt Logistics",
+    "metaDescription": "EXW, FCA, FOB, CIF, DAP, DDP and the other Incoterms 2020 rules: where risk passes, who pays the freight, who handles customs and insurance. A short, clear guide.",
+    "title": "Incoterms 2020",
+    "lead": "The 11 delivery terms that define where cost and risk pass from seller to buyer.",
+    "spectrumTitle": "Who carries what",
+    "spectrumBuyer": "Most responsibility on the buyer",
+    "spectrumSeller": "Most responsibility on the seller",
+    "groupAny": "For any mode of transport",
+    "groupSea": "For sea and inland waterway transport",
+    "risk": "Risk passes",
+    "mainCarriage": "Main carriage",
+    "exportClearance": "Export clearance",
+    "importClearance": "Import clearance",
+    "insurance": "Insurance",
+    "seller": "Seller",
+    "buyer": "Buyer",
+    "insuranceMin": "Seller (minimum cover)",
+    "insuranceAll": "Seller (all risks)",
+    "insuranceNone": "Not required",
+    "disclaimer": "This page is a general summary of the Incoterms 2020 rules. Always rely on the official text of the International Chamber of Commerce (ICC) in your contracts."
+  },
+  "containersPage": {
+    "metaTitle": "Container Types and Dimensions | Logipedia | Bolt Logistics",
+    "metaDescription": "20ft and 40ft standard, high cube, reefer, open top and flat rack containers: inside dimensions, volume, pallet capacity and maximum payload.",
+    "title": "Container types and dimensions",
+    "lead": "Inside dimensions, volumes and payloads of the container types most used in ocean freight."
+  },
+  "trucksPage": {
+    "metaTitle": "Truck and Trailer Dimensions | Logipedia | Bolt Logistics",
+    "metaDescription": "Inside dimensions, volumes and pallet capacity of curtainsiders, mega trailers, refrigerated trailers, jumbos and rigid trucks, plus how to calculate loading metres.",
+    "title": "Truck and trailer dimensions",
+    "lead": "Inside dimensions and capacities of the main vehicle types used in road freight.",
+    "ldmTitle": "How are loading metres (LDM) calculated?",
+    "ldm1": "For part loads, road freight is often priced by how much trailer length the cargo takes up: its loading metres. A standard trailer is about 2.4 metres wide, so the formula is:",
+    "ldmFormula": "LDM = (length x width) / 2.4",
+    "ldm2": "That makes one Euro pallet (1.2 x 0.8 m) about 0.4 LDM and one industrial pallet (1.2 x 1.0 m) about 0.5 LDM. Stackable cargo takes up less.",
+    "palletTitle": "Pallet sizes",
+    "euroPallet": "Euro pallet",
+    "industrialPallet": "Industrial pallet"
+  },
+  "equipment": {
+    "inside": "Inside (L x W x H)",
+    "volume": "Volume",
+    "payload": "Max payload",
+    "door": "Door (W x H)",
+    "euroPallets": "Euro pallets",
+    "industrialPallets": "Industrial pallets",
+    "openPlatform": "Open platform",
+    "approx": "approx."
+  },
+  "glossaryPage": {
+    "metaTitle": "Logistics Glossary | Logipedia | Bolt Logistics",
+    "metaDescription": "Bill of lading, CMR, delivery order, demurrage, FCL, LCL, LDM and more. Short, clear definitions of common logistics and trade terms.",
+    "title": "Logistics glossary",
+    "lead": "Short, clear definitions of the terms you meet most often in logistics and international trade.",
+    "searchLabel": "Search terms",
+    "searchPlaceholder": "e.g. bill of lading",
+    "noResults": "No terms match your search.",
+    "lettersLabel": "By letter"
   }
 }

@@ -1,0 +1,17 @@
+---
+import PageHead from '../ui/PageHead.astro';
+import LogipediaTeaser from '../home/LogipediaTeaser.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<PageHead lang={lang} title={t('logipediaPage.title')} lead={t('logipediaPage.lead')} crumbs={[{ label: t('logipediaPage.title') }]} />
+<LogipediaTeaser lang={lang} showHead={false} />
+<CtaBand lang={lang} title={t('logipediaPage.ctaTitle')} text={t('logipediaPage.ctaText')} />

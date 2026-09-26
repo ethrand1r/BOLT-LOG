@@ -1,0 +1,284 @@
+---
+import { incoterms, type Incoterm, type Party } from '../../content/logipedia/incoterms';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const party = (p: Party) => (p === 'seller' ? t('incotermsPage.seller') : t('incotermsPage.buyer'));
+const insurance = (i: Incoterm['insurance']) =>
+  i === 'seller-min' ? t('incotermsPage.insuranceMin') : i === 'seller-all' ? t('incotermsPage.insuranceAll') : t('incotermsPage.insuranceNone');
+
+const groups = [
+  { id: 'any', title: t('incotermsPage.groupAny'), terms: incoterms.filter((i) => i.group === 'any') },
+  { id: 'sea', title: t('incotermsPage.groupSea'), terms: incoterms.filter((i) => i.group === 'sea') },
+];
+---
+
+<section class="section spectrum-section" aria-labelledby="spectrum-title">
+  <div class="container">
+    <h2 id="spectrum-title" class="small-title">{t('incotermsPage.spectrumTitle')}</h2>
+    <div class="spectrum">
+      <ol role="list" class="spectrum-codes">
+        {
+          incoterms.map((i) => (
+            <li>
+              <a href={`#${i.code.toLowerCase()}`} class="code-pill" title={`${i.code}: ${i.copy[lang].name}`}>
+                {i.code}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="spectrum-scale" aria-hidden="true"></div>
+      <div class="spectrum-labels">
+        <span>{t('incotermsPage.spectrumBuyer')}</span>
+        <span>{t('incotermsPage.spectrumSeller')}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{
+  groups.map((g) => (
+    <section class="section term-group" aria-labelledby={`group-${g.id}`}>
+      <div class="container">
+        <h2 id={`group-${g.id}`}>{g.title}</h2>
+        <div class="terms">
+          {g.terms.map((term) => (
+            <article class="term" id={term.code.toLowerCase()} aria-labelledby={`${term.code}-title`}>
+              <header class="term-head">
+                <span class="term-code">{term.code}</span>
+                <div>
+                  <h3 id={`${term.code}-title`}>{term.copy[lang].name}</h3>
+                  {lang === 'tr' && <p class="term-english">{term.english}</p>}
+                </div>
+              </header>
+              <p class="term-summary">{term.copy[lang].summary}</p>
+              <dl class="term-facts">
+                <div class="fact fact--wide">
+                  <dt>{t('incotermsPage.risk')}</dt>
+                  <dd>{term.copy[lang].risk}</dd>
+                </div>
+                <div class="fact">
+                  <dt>{t('incotermsPage.mainCarriage')}</dt>
+                  <dd data-party={term.mainCarriage}>{party(term.mainCarriage)}</dd>
+                </div>
+                <div class="fact">
+                  <dt>{t('incotermsPage.insurance')}</dt>
+                  <dd data-party={term.insurance ? 'seller' : 'none'}>{insurance(term.insurance)}</dd>
+                </div>
+                <div class="fact">
+                  <dt>{t('incotermsPage.exportClearance')}</dt>
+                  <dd data-party={term.exportClearance}>{party(term.exportClearance)}</dd>
+                </div>
+                <div class="fact">
+                  <dt>{t('incotermsPage.importClearance')}</dt>
+                  <dd data-party={term.importClearance}>{party(term.importClearance)}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))
+}
+
+<div class="container disclaimer-wrap">
+  <p class="disclaimer">{t('incotermsPage.disclaimer')}</p>
+</div>
+
+<style>
+  .spectrum-section {
+    padding-bottom: 0;
+  }
+
+  .small-title {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-xl);
+  }
+
+  .spectrum {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .spectrum-codes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .code-pill {
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--tap-target);
+    min-height: var(--tap-target-sm);
+    padding-inline: var(--space-3);
+    border: var(--border-width) solid var(--line-strong);
+    border-radius: var(--radius-full);
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    transition:
+      background-color var(--duration-hover) ease,
+      border-color var(--duration-hover) ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .code-pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+  }
+
+  /* Direction of responsibility: buyer (left) to seller (right). */
+  .spectrum-scale {
+    height: var(--space-1);
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--line-strong), var(--accent));
+  }
+
+  .spectrum-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .term-group h2 {
+    margin-bottom: var(--space-8);
+  }
+
+  .term-group + .term-group {
+    padding-top: 0;
+  }
+
+  .terms {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .term {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  }
+
+  .term:target {
+    box-shadow: inset 0 0 0 var(--border-width-strong) var(--text);
+  }
+
+  .term-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .term-code {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    min-width: calc(var(--tap-target) * 1.5);
+    height: var(--tap-target);
+    padding-inline: var(--space-3);
+    background: var(--surface-dark);
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-black);
+    border-radius: var(--radius-sm);
+  }
+
+  .term h3 {
+    font-size: var(--text-lg);
+  }
+
+  .term-english {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .term-summary {
+    color: var(--text-muted);
+  }
+
+  .term-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-4);
+    padding-top: var(--space-4);
+    border-top: var(--border-width) solid var(--line);
+  }
+
+  .fact--wide {
+    grid-column: 1 / -1;
+  }
+
+  dt {
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  dd[data-party='seller']::before,
+  dd[data-party='buyer']::before {
+    content: '';
+    display: inline-block;
+    width: var(--space-2);
+    height: var(--space-2);
+    margin-inline-end: var(--space-2);
+    border-radius: var(--radius-full);
+    vertical-align: middle;
+  }
+
+  /* Semantic markers: yellow = seller, outlined = buyer. */
+  dd[data-party='seller']::before {
+    background: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--color-yellow-dark);
+  }
+
+  dd[data-party='buyer']::before {
+    box-shadow: inset 0 0 0 1.5px var(--text);
+  }
+
+  .disclaimer-wrap {
+    padding-bottom: var(--space-section);
+  }
+
+  .disclaimer {
+    max-width: var(--measure);
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-width) solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 48rem) {
+    .terms {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .terms {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

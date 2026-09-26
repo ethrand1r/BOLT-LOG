@@ -1,0 +1,251 @@
+---
+import { Icon } from 'astro-icon/components';
+import { glossary } from '../../content/logipedia/glossary';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const locale = lang === 'tr' ? 'tr' : 'en';
+
+const terms = glossary
+  .map((g) => ({ id: g.id, ...g.copy[lang] }))
+  .sort((a, b) => a.term.localeCompare(b.term, locale));
+
+const groups = new Map<string, typeof terms>();
+for (const term of terms) {
+  const letter = term.term.charAt(0).toLocaleUpperCase(locale);
+  groups.set(letter, [...(groups.get(letter) ?? []), term]);
+}
+const letters = [...groups.keys()];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: t('glossaryPage.title'),
+  hasDefinedTerm: terms.map((term) => ({ '@type': 'DefinedTerm', name: term.term, description: term.definition })),
+};
+---
+
+<section class="section glossary" data-glossary data-locale={locale}>
+  <div class="container glossary-grid">
+    <div class="tools">
+      <label class="field-label" for="glossary-search">{t('glossaryPage.searchLabel')}</label>
+      <div class="search">
+        <Icon name="ph:magnifying-glass" aria-hidden="true" />
+        <input
+          id="glossary-search"
+          class="field-control"
+          type="search"
+          autocomplete="off"
+          placeholder={t('glossaryPage.searchPlaceholder')}
+          data-glossary-search
+        />
+      </div>
+      <nav aria-label={t('glossaryPage.lettersLabel')}>
+        <ul role="list" class="letters">
+          {
+            letters.map((l) => (
+              <li>
+                <a href={`#letter-${l}`} data-letter-link={l}>
+                  {l}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div class="entries">
+      {
+        letters.map((l) => (
+          <section class="letter-group" id={`letter-${l}`} aria-labelledby={`letter-title-${l}`} data-letter-group={l}>
+            <h2 id={`letter-title-${l}`} class="letter-title">
+              {l}
+            </h2>
+            <dl>
+              {groups.get(l)!.map((term) => (
+                <div class="entry" id={term.id} data-entry>
+                  <dt>{term.term}</dt>
+                  <dd>{term.definition}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))
+      }
+      <p class="no-results" role="status" data-no-results hidden>{t('glossaryPage.noResults')}</p>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-glossary]');
+  const input = root?.querySelector<HTMLInputElement>('[data-glossary-search]');
+  const empty = root?.querySelector<HTMLElement>('[data-no-results]');
+
+  if (root && input && empty) {
+    const locale = root.dataset.locale ?? 'tr';
+    const norm = (s: string) => s.toLocaleLowerCase(locale);
+    const entries = Array.from(root.querySelectorAll<HTMLElement>('[data-entry]')).map((el) => ({
+      el,
+      text: norm(el.textContent ?? ''),
+    }));
+    const groupEls = Array.from(root.querySelectorAll<HTMLElement>('[data-letter-group]'));
+
+    input.addEventListener('input', () => {
+      const q = norm(input.value.trim());
+      let shown = 0;
+      for (const { el, text } of entries) {
+        const match = !q || text.includes(q);
+        el.hidden = !match;
+        if (match) shown++;
+      }
+      for (const g of groupEls) {
+        const visible = g.querySelector('[data-entry]:not([hidden])');
+        g.hidden = !visible;
+        root
+          .querySelector<HTMLElement>(`[data-letter-link="${g.dataset.letterGroup}"]`)
+          ?.toggleAttribute('aria-disabled', !visible);
+      }
+      empty.hidden = shown > 0;
+    });
+  }
+</script>
+
+<style>
+  .glossary-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  .tools {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+  }
+
+  .search {
+    position: relative;
+  }
+
+  .search :global(svg) {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    width: var(--icon-md);
+    height: var(--icon-md);
+    color: var(--text-muted);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .search input {
+    padding-inline-start: var(--space-12);
+  }
+
+  .letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+  }
+
+  .letters a {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target-sm);
+    height: var(--tap-target-sm);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    transition: background-color var(--duration-hover) ease;
+  }
+
+  .letters a[aria-disabled] {
+    color: var(--text-muted);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .letters a:hover {
+      background: var(--accent);
+    }
+  }
+
+  .letter-group {
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  }
+
+  .letter-group + .letter-group {
+    margin-top: var(--space-10);
+  }
+
+  .letter-title {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    margin-bottom: var(--space-4);
+    background: var(--surface-dark);
+    color: var(--accent);
+    font-size: var(--text-xl);
+    border-radius: var(--radius-sm);
+  }
+
+  dl {
+    display: grid;
+  }
+
+  .entry {
+    display: grid;
+    gap: var(--space-1);
+    padding-block: var(--space-4);
+    border-top: var(--border-width) solid var(--line);
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  }
+
+  dt {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+  }
+
+  dd {
+    margin: 0;
+    max-width: var(--measure);
+    color: var(--text-muted);
+  }
+
+  .no-results {
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+  }
+
+  @media (min-width: 48rem) {
+    .entry {
+      grid-template-columns: 16rem 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .glossary-grid {
+      grid-template-columns: 18rem 1fr;
+      gap: var(--space-16);
+    }
+
+    .tools {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+  }
+</style>
