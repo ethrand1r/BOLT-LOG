@@ -81,12 +81,11 @@
       "destinationPlaceholder": "e.g. Hamburg"
     },
     "intro": {
-      "statement": "Bolt Logistics was founded in Istanbul in 2021. We run air, road, sea and rail freight under one roof and plan every shipment around what it actually needs.",
+      "statement": "We run air, road, sea and rail freight under one roof and plan every shipment around what it actually needs.",
       "link": "Who We Are",
-      "factYear": "Founded",
-      "factCity": "Istanbul",
-      "factCityLabel": "Head office, Bahçelievler",
-      "factServicesLabel": "Transport and warehousing services"
+      "p1": "Getting a shipment moving is often the most critical moment in a deal. Your supplier is ready, your customer is waiting and the schedule is tight. We founded Bolt Logistics in 2021 to be the partner you can rely on in exactly those moments.",
+      "p2": "Every shipment starts with the same question: what is the right way to move this cargo? We compare air, road, sea and rail on cost, time and risk, then give you a clear plan and an upfront price. We don't make promises we can't keep, and if something changes, you hear it from us first.",
+      "p3": "Our team in Istanbul and our worldwide agent network follow your cargo from origin to delivery. What we're after is not a one-off job but a long-term partnership that gets easier with every shipment."
     },
     "services": {
       "title": "The right mode for every shipment",

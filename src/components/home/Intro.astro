@@ -1,9 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { serviceLinks } from '../../data/navigation';
-import { company } from '../../data/site';
 import { path } from '../../i18n/routes';
-import { useTranslations, type Lang } from '../../i18n/ui';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -12,89 +10,79 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Real, verifiable facts only (CLAUDE.md). Replace with counters once figures exist.
-const facts = [
-  { value: String(company.foundingYear), label: t('home.intro.factYear') },
-  { value: t('home.intro.factCity'), label: t('home.intro.factCityLabel') },
-  { value: String(serviceLinks.length), label: t('home.intro.factServicesLabel') },
-];
+const paragraphs = ['p1', 'p2', 'p3'].map((k) => t(`home.intro.${k}` as UiKey));
 ---
 
-<section class="section intro">
-  <div class="container">
-    <p class="statement" data-reveal>{t('home.intro.statement')}</p>
-    <a class="arrow-link" href={path('aboutUs', lang)} data-reveal>
-      {t('home.intro.link')}
-      <Icon name="ph:arrow-right" aria-hidden="true" />
-    </a>
+<section class="section intro" aria-labelledby="intro-title">
+  <div class="container intro-grid">
+    <div class="intro-lead">
+      <h2 id="intro-title" class="statement">{t('home.intro.statement')}</h2>
+      <a class="arrow-link" href={path('aboutUs', lang)}>
+        {t('home.intro.link')}
+        <Icon name="ph:arrow-right" aria-hidden="true" />
+      </a>
+    </div>
 
-    <dl class="facts">
+    <div class="article">
       {
-        facts.map((f, i) => (
-          <div class="fact" data-reveal style={`--i: ${i}`}>
-            <dt class="tabular">{f.value}</dt>
-            <dd>{f.label}</dd>
-          </div>
+        paragraphs.map((text, i) => (
+          <p data-reveal style={`--i: ${i}`}>
+            {text}
+          </p>
         ))
       }
-    </dl>
+    </div>
   </div>
 </section>
 
 <style>
-  .intro .container {
+  .intro-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  .intro-lead {
     display: grid;
     gap: var(--space-6);
+    align-content: start;
+    justify-items: start;
   }
 
   .statement {
     max-width: 30ch;
-    font-family: var(--font-heading);
     font-size: var(--text-2xl);
     font-weight: var(--weight-semibold);
     line-height: var(--leading-snug);
-    letter-spacing: var(--tracking-heading);
-    text-wrap: balance;
   }
 
-  .arrow-link {
-    justify-self: start;
-  }
-
-  .facts {
+  .article {
     display: grid;
-    gap: var(--space-6);
-    margin-top: var(--space-10);
-  }
-
-  .fact {
-    display: grid;
-    gap: var(--space-1);
-    padding-top: var(--space-5);
+    gap: var(--space-5);
+    max-width: var(--measure);
+    padding-top: var(--space-6);
     border-top: var(--border-width-strong) solid var(--text);
+    font-size: var(--text-md);
   }
 
-  dt {
-    font-family: var(--font-heading);
-    font-size: var(--text-3xl);
-    font-weight: var(--weight-black);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-display);
+  /* The opening paragraph sets the scene; the rest reads as supporting body text. */
+  .article p:first-child {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
   }
 
-  dd {
-    margin: 0;
+  .article p:not(:first-child) {
     color: var(--text-muted);
   }
 
-  @media (min-width: 48rem) {
-    .statement {
-      max-width: 34ch;
+  @media (min-width: 64rem) {
+    .intro-grid {
+      grid-template-columns: 5fr 6fr;
+      gap: var(--space-16);
     }
 
-    .facts {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
+    .intro-lead {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
     }
   }
 </style>

@@ -9,7 +9,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Sector list needs company confirmation (see CLAUDE.md materials checklist).
+// Sector list confirmed by the company (CLAUDE.md materials checklist, 2026-09-26).
 const sectors: { key: string; icon: string }[] = [
   { key: 'automotive', icon: 'ph:car' },
   { key: 'textile', icon: 'ph:t-shirt' },

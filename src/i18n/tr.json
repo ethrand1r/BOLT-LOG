@@ -81,12 +81,11 @@
       "destinationPlaceholder": "Örn. Hamburg"
     },
     "intro": {
-      "statement": "Bolt Logistics 2021'de İstanbul'da kuruldu. Hava, kara, deniz ve demiryolu taşımacılığını tek elden yönetiyor, her yükü kendi ihtiyacına göre planlıyoruz.",
+      "statement": "Hava, kara, deniz ve demiryolu taşımacılığını tek elden yönetiyor, her yükü kendi ihtiyacına göre planlıyoruz.",
       "link": "Biz Kimiz",
-      "factYear": "Kuruluş yılı",
-      "factCity": "İstanbul",
-      "factCityLabel": "Merkez ofis, Bahçelievler",
-      "factServicesLabel": "Taşıma ve depolama hizmeti"
+      "p1": "Bir yükü yola çıkarmak, çoğu zaman bir işin en kritik anıdır. Tedarikçiniz hazır, müşteriniz bekliyor ve takvim sıkışık. Bolt Logistics'i 2021'de, tam da bu anlarda güvenebileceğiniz bir iş ortağı olmak için kurduk.",
+      "p2": "Her gönderiye aynı soruyla başlıyoruz: bu yük için en doğru yol hangisi? Hava, kara, deniz ve demiryolu seçeneklerini maliyet, süre ve risk açısından karşılaştırıyor, size net bir plan ve açık bir fiyat sunuyoruz. Tutamayacağımız söz vermiyoruz. Bir şey değişirse ilk sizin haberiniz oluyor.",
+      "p3": "İstanbul'daki ekibimiz ve dünya genelindeki acente ağımız, yükünüzü çıkıştan teslimata kadar takip ediyor. Amacımız tek seferlik bir taşıma değil, her gönderide biraz daha kolay çalıştığınız uzun soluklu bir iş ortaklığı."
     },
     "services": {
       "title": "Her yük için doğru taşıma türü",

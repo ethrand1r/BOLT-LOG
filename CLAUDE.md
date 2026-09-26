@@ -253,8 +253,8 @@ Do not display an icon for any social account without a link.
 - [ ] Social media links
 - [ ] KVKK text
 - [ ] Final list of services (is customs clearance included?)
-- [ ] Confirm the sector list on the home page Industries section (`src/components/home/Industries.astro`, currently: automotive, textiles, machinery, retail/e-commerce, furniture/building materials, electronics)
-- [ ] Confirm "Why Bolt" point wording (agent network, team, transparency, technology claims) in `src/i18n/*.json` under `home.why`
+- [x] Sector list on the home page Industries section confirmed 2026-09-26 (`src/components/home/Industries.astro`: automotive, textiles, machinery, retail/e-commerce, furniture/building materials, electronics)
+- [x] "Why Bolt" point wording confirmed 2026-09-26 (`src/i18n/*.json`, `home.why`)
 - [x] Temporary royalty-free photos (Pexels, see `src/assets/images/CREDITS.md`); replace with company photos when available
 
 ---
