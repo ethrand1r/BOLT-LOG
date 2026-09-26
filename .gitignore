@@ -7,3 +7,6 @@ dist/
 npm-debug.log*
 .DS_Store
 Thumbs.db
+
+# Upload bundle for cPanel
+bolt-log-site.zip
